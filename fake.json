@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "courtName": "Mariposa Park",
+        "courtRating": 3,
+        "safetyRating": 1,
+        "courtCondition": [
+            {
+                "id": 1,
+                "condition": "poor surface"
+            },
+            {
+                "id": 2,
+                "condition": "cracks"
+            }
+        ],
+        "amneties": [
+            {
+                "id": 1,
+                "amenity": "Restroom"
+            },
+            {
+                "id": 2,
+                "condition": "No Fountains"
+            },
+            {
+                "id": 3,
+                "condition": "Outdoor Lights"
+            }
+        ],
+        "lat": 39,
+        "lon": -121,
+        "comments": [
+            {
+                "id": 1,
+                "userId": 1,
+                "userName": "Thao Vang",
+                "userProfileImg": "url",
+                "comment": "This court sucks."
+            },
+            {
+                "id": 2,
+                "userId": 2,
+                "userName": "Bronel Lazar",
+                "userProfileImg": "url",
+                "comment": "This park is ass. I tripped on a crack. The court is ugly."
+            },
+            {
+                "id": 1,
+                "userId": 3,
+                "userName": "Trey Cade",
+                "userProfileImg": "url",
+                "comment": "Not the safest park to play."
+            }
+        ]
+    }
+]
