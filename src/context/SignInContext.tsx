@@ -1,5 +1,6 @@
 'use client'
 
+
 import React, { createContext, useContext, useReducer } from "react";
 
 type ComponentName = 'Sign In' | 'Forgot Password' | 'Create Account' | 'Account Confirmation' | 'New Password'
@@ -8,8 +9,10 @@ interface State {
     activeComponent: ComponentName
 }
 
+type ActionType = "SET_COMPONENT"
+
 interface Action {
-    type: "SET_COMPONENT";
+    type: ActionType;
     payload: ComponentName
 }
 
@@ -44,7 +47,9 @@ export function SignInWrapper({children}: {children: React.ReactNode}){
 }
 
 export function useSignInContext() {
-    return useContext(SignInContext);
+    const context =  useContext(SignInContext);
+    if (!context) {
+        throw new Error("useSignInContext must be used within a SignInWrapper");
+    };
+    return context;
 }
-
-
