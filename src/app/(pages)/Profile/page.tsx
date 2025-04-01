@@ -1,5 +1,5 @@
-import NavbarComponent from '@/app/components/NavbarComponent'
-import ProfilePageComponent from '@/app/components/Profile/ProfilePageComponent'
+import NavbarComponent from '@/components/NavbarComponent'
+import ProfilePageComponent from '@/components/Profile/ProfilePageComponent'
 import React from 'react'
 
 const page = () => {
