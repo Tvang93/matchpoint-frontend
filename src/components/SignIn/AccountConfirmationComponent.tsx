@@ -1,3 +1,4 @@
+import { TSignInProp } from "@/utils/Interfaces";
 import React from "react";
 
 const AccountConfirmationComponent: React.FC<TSignInProp> = ({

@@ -1,6 +1,8 @@
 import { IUserData, IUserInfo } from "./Interfaces";
 
-const url = "https://matchpointbackend-c4btg3ekhea4gqcz.westus-01.azurewebsites.net/"
+// const url = "https://matchpointbackend-c4btg3ekhea4gqcz.westus-01.azurewebsites.net/"
+const url = ""
+
 
 // This Variable will be used in our getblog by user id fetch when we set them up
 let userData: IUserData;
