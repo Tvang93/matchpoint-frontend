@@ -5,11 +5,14 @@ import ForgotPasswordComponent from '@/components/SignIn/ForgotPasswordComponent
 import SignInComponent from '@/components/SignIn/SignInComponent'
 import { useSignInContext } from '@/context/SignInContext';
 import React, { JSX } from 'react'
+import AccountConfirmationComponent from './AccountConfirmationComponent';
+import NewPasswordComponent from './NewPasswordComponent';
 
 
 
 const RenderComponent = () => {
-    const {state, dispatch} = useSignInContext();
+
+    const { state, dispatch } = useSignInContext();
 
     const renderComponents = (): JSX.Element | null => {
         switch(state.activeComponent){
@@ -20,16 +23,16 @@ const RenderComponent = () => {
             case 'Create Account':
                 return <CreateAccountComponent switchComponent={(component) => dispatch({ type: "SET_COMPONENT", payload: component })} />;
             case 'Account Confirmation':
-                return <CreateAccountComponent switchComponent={(component) => dispatch({ type: "SET_COMPONENT", payload: component })} />;
+                return <AccountConfirmationComponent switchComponent={(component) => dispatch({ type: "SET_COMPONENT", payload: component })} />;
             case 'New Password':
-                return <CreateAccountComponent switchComponent={(component) => dispatch({ type: "SET_COMPONENT", payload: component })} />;
+                return <NewPasswordComponent switchComponent={(component) => dispatch({ type: "SET_COMPONENT", payload: component })} />;
             default:
                 return null
         }
     }
 
   return (
-        <div className='bg-white w-50 h-50'>
+        <div className='bg-[#3C434E] w-147 h-115 rounded-[20px] border-1 border-[#BABABA]'>
             {renderComponents()}
         </div>
   )
