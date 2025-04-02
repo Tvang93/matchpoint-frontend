@@ -17,11 +17,12 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
       password: password,
     }
     let token: IToken = await login(userData);
-
+    console.log(token)
+    console.log("before if", token.token)
     if(token != null){
       if(typeof window != null){
         localStorage.setItem("Token", token.token)
-        console.log(token.token)
+        console.log("after if", token.token)
       }
       alert('Login works.')
     }else{

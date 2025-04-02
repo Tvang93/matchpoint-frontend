@@ -49,8 +49,8 @@ export const login = async (user:ILoginInfo) => {
     }
 
     const data = await res.json();
-    console.log(data);
-    return data.token;
+    console.log(data.token);
+    return data;
 }
 
 
