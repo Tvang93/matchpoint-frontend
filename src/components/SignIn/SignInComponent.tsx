@@ -18,15 +18,14 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
     }
     let token: IToken = await login(userData);
     console.log(token)
-    console.log("before if", token.token)
     if(token != null){
       if(typeof window != null){
         localStorage.setItem("Token", token.token)
-        console.log("after if", token.token)
       }
       alert('Login works.')
+      push('/')
     }else{
-      alert("Login was no good. Wrong Password or Something.")
+      alert("Unable to Log In. Incorrect Username or Password.")
     }
   
   }

@@ -60,11 +60,8 @@ export const getLoggedInUserData = async (username:string) => {
         const message = data.message;
         console.log(message);
         return null
-
     }
-
     userData = await res.json();
-
     return userData;
 }
 
