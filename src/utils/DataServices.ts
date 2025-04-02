@@ -1,7 +1,7 @@
-import { IUserData, IUserInfo } from "./Interfaces";
+import { ILoginInfo, IUserData, IUserInfo } from "./Interfaces";
 
-// const url = "https://matchpointbackend-c4btg3ekhea4gqcz.westus-01.azurewebsites.net/"
-const url = ""
+// const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/"
+const url = "http://localhost:5141/"
 
 
 // This Variable will be used in our getblog by user id fetch when we set them up
@@ -31,7 +31,7 @@ export const createAccount = async (user:IUserInfo) => {
 
 // Login Fetch
 
-export const login = async (user:IUserInfo) => {
+export const login = async (user:ILoginInfo) => {
     const res = await fetch(url + "User/Login", {
         method: "POST",
         headers: {

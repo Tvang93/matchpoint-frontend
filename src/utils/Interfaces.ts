@@ -8,6 +8,10 @@ export interface IUserInfo{
   email: string
 }
 
+export interface ILoginInfo{
+  username: string
+  password: string
+}
 
 export interface IUserData {
   id: number

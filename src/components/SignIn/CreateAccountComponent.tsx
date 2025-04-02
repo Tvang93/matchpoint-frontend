@@ -1,9 +1,7 @@
 'use client'
 
-import { useSignInContext } from "@/context/SignInContext";
 import { createAccount, login } from "@/utils/DataServices";
 import { IToken, TSignInProp } from "@/utils/Interfaces";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const CreateAccountComponent = ({ switchComponent }: TSignInProp) => {
@@ -23,18 +21,10 @@ const CreateAccountComponent = ({ switchComponent }: TSignInProp) => {
         password: password,
         email: email
       }
-
-      
-
-        //Create Account logic here
-        let result = await createAccount(userData);
-
-        result ? [alert("Account Created!"), switchComponent('Account Confirmation')] : alert("Username Already Exists");
-
-
-        
-
-   
+      console.log(userData)
+      //Create Account logic here
+      let result = await createAccount(userData);
+      result ? switchComponent("Account Confirmation") : alert("Username Already Exists");
     }
 
 

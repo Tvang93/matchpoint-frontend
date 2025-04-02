@@ -1,9 +1,34 @@
-import { TSignInProp } from "@/utils/Interfaces";
-import { useRouter } from "next/navigation";
-import React from "react";
+'use client'
 
-const SignInComponent: React.FC<TSignInProp> = ({ switchComponent }) => {
+import { login } from "@/utils/DataServices";
+import { IToken, TSignInProp } from "@/utils/Interfaces";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+
+const SignInComponent = ({ switchComponent }: TSignInProp) => {
   const { push } = useRouter();
+  
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const handleSignIn = async () => {
+    let userData = {
+      username: username, 
+      password: password,
+    }
+    let token: IToken = await login(userData);
+
+    if(token != null){
+      if(typeof window != null){
+        localStorage.setItem("Token", token.token)
+        console.log(token.token)
+      }
+      alert('Login works.')
+    }else{
+      alert("Login was no good. Wrong Password or Something.")
+    }
+  
+  }
 
   return (
     <div className="flex flex-col items-center text-[#E1FF00] gap-9 py-12 px-28 w-full">
@@ -13,14 +38,19 @@ const SignInComponent: React.FC<TSignInProp> = ({ switchComponent }) => {
         id="usernameInputField"
         type="text"
         placeholder="Username"
+        onChange={(e)=>setUsername(e.target.value)}
       />
       <input
         className="border-1 border-[#E1FF00] bg-transparent ps-2 w-full hover:cursor-pointer focus:cursor-text rounded-sm"
         id="passwordInputField"
-        type="text"
+        type="password"
         placeholder="Password"
+        onChange={(e)=>setPassword(e.target.value)}
       />
-      <button className="bg-[#E1FF00] text-[#243451] rounded-[20px] w-full hover:cursor-pointer">
+      <button 
+      className="bg-[#E1FF00] text-[#243451] rounded-[20px] w-full hover:cursor-pointer"
+      onClick={handleSignIn}
+      >
         Login
       </button>
       <p

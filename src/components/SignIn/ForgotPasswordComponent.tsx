@@ -1,3 +1,5 @@
+'use client'
+
 import { TSignInProp } from "@/utils/Interfaces";
 import React from "react";
 
