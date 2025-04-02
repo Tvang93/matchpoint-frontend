@@ -1,7 +1,6 @@
 import { ILoginInfo, IUserData, IUserInfo } from "./Interfaces";
 
-// const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/"
-const url = "http://localhost:5141/"
+const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/"
 
 
 // This Variable will be used in our getblog by user id fetch when we set them up
@@ -54,20 +53,20 @@ export const login = async (user:ILoginInfo) => {
 }
 
 
-// export const getLoggedInUserData = async (username:string) => {
-//     const res = await fetch(url + `User/GetUserInfoByUsername/${username}`);
-//     if(!res.ok){
-//         const data = await res.json();
-//         const message = data.message;
-//         console.log(message);
-//         return null
+export const getLoggedInUserData = async (username:string) => {
+    const res = await fetch(url + `User/GetUserInfoByUsername/${username}`);
+    if(!res.ok){
+        const data = await res.json();
+        const message = data.message;
+        console.log(message);
+        return null
 
-//     }
+    }
 
-//     userData = await res.json();
+    userData = await res.json();
 
-//     return userData;
-// }
+    return userData;
+}
 
 
 
