@@ -87,3 +87,16 @@ export const checkToken = () => {
   
     return result;
 }
+
+export const EditPassword = async (user: ILoginInfo) => {
+    const res = await fetch(url + `User/EditPassword`, {
+        method: "PUT",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body:JSON.stringify(user)
+    })
+
+
+    return data
+}
