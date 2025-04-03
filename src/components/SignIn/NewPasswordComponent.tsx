@@ -1,6 +1,6 @@
 'use client'
 
-import { loggedInData } from "@/utils/DataServices";
+import { EditPassword, loggedInData } from "@/utils/DataServices";
 import { ILoginInfo, TSignInProp } from "@/utils/Interfaces";
 import React, { useState } from "react";
 
@@ -20,10 +20,12 @@ const NewPasswordComponent: React.FC<TSignInProp> = ({ switchComponent }) => {
         password: newPassword
       }
 
-      
+      const isChanged = await EditPassword(user)
 
-
-
+      if(!isChanged) alert("Password Change Unsuccessful");
+        
+      alert("Password Successfully Changed");
+        
       switchComponent("Sign In")
     }
 

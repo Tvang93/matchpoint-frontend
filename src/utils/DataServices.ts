@@ -96,7 +96,13 @@ export const EditPassword = async (user: ILoginInfo) => {
         },
         body:JSON.stringify(user)
     })
+    if(!res.ok){
+        const data = await res.json();
+        const message = data.message;
+        console.log(message);
+        return data.success;
+    }
 
-
-    return data
+    const data = await res.json();
+    return data.success;
 }
