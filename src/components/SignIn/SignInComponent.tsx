@@ -16,6 +16,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
       username: username, 
       password: password,
     }
+    console.log(userData)
     let token: IToken = await login(userData);
     console.log(token)
     if(token != null){
