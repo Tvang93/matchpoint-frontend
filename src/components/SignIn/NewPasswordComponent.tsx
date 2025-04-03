@@ -1,6 +1,6 @@
 'use client'
 
-import { EditPassword, loggedInData } from "@/utils/DataServices";
+import { ForgotPassword, loggedInData } from "@/utils/DataServices";
 import { ILoginInfo, TSignInProp } from "@/utils/Interfaces";
 import React, { useState } from "react";
 
@@ -20,7 +20,7 @@ const NewPasswordComponent: React.FC<TSignInProp> = ({ switchComponent }) => {
         password: newPassword
       }
 
-      const isChanged = await EditPassword(user)
+      const isChanged = await ForgotPassword(user)
 
       if(!isChanged) alert("Password Change Unsuccessful");
         
@@ -40,20 +40,20 @@ const NewPasswordComponent: React.FC<TSignInProp> = ({ switchComponent }) => {
       <input
         className="border-1 border-[#E1FF00] bg-transparent ps-2 w-full hover:cursor-pointer focus:cursor-text rounded-sm"
         id="newPasswordInputField"
-        type="text"
+        type="password"
         placeholder="New Password"
         onChange={(e)=>setNewPassword(e.target.value)}
       />
       <input
         className="border-1 border-[#E1FF00] bg-transparent ps-2 w-full hover:cursor-pointer focus:cursor-text rounded-sm"
         id="confirmNewPasswordInputField"
-        type="text"
+        type="password"
         placeholder="Confirm New Password"
         onChange={(e)=>setConfirmingPassword(e.target.value)}
       />
       <button
         className="bg-[#E1FF00] text-[#243451] rounded-[20px] w-full hover:cursor-pointer"
-        onClick={() => switchComponent("Sign In")}
+        onClick={handlePasswordReset}
       >
         Reset Password
       </button>

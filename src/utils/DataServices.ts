@@ -88,8 +88,8 @@ export const checkToken = () => {
     return result;
 }
 
-export const EditPassword = async (user: ILoginInfo) => {
-    const res = await fetch(url + `User/EditPassword`, {
+export const ForgotPassword = async (user: ILoginInfo) => {
+    const res = await fetch(url + `User/ForgotPassword`, {
         method: "PUT",
         headers: {
             "Content-Type" : "application/json"
