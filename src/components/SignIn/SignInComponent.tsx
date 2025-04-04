@@ -1,6 +1,6 @@
 'use client'
 
-import { login } from "@/utils/DataServices";
+import { getLoggedInUserDataWithUsername, login } from "@/utils/DataServices";
 import { IToken, TSignInProp } from "@/utils/Interfaces";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";

@@ -43,6 +43,9 @@ export const login = async (user:ILoginInfo) => {
 
     const data = await res.json();
     console.log(data.token);
+
+    await getLoggedInUserDataWithUsername(user.username);
+
     return data;
 }
 
@@ -103,6 +106,37 @@ export const ForgotPassword = async (user: ILoginInfo) => {
         return data.success;
     }
 
+    const data = await res.json();
+    return data.success;
+}
+
+export const editUsername = async (oldUsername: string, newUsername: string, token: string) => {
+    console.log(token)
+    const res = await fetch(url + "LoggedIn/EditUsername", {
+        method: "PUT", 
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body:JSON.stringify({username: oldUsername, newUsername: newUsername})
+    })
+    const data = await res.json();
+    return data.success;
+
+}
+
+export const editPassword = async (username: string, newPassword: string, token: string) => {
+    const res = await fetch(url + "LoggedIn/EditPassword", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            username,
+            password: newPassword,
+        })
+    })
     const data = await res.json();
     return data.success;
 }
