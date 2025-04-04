@@ -87,3 +87,22 @@ export const checkToken = () => {
   
     return result;
 }
+
+export const ForgotPassword = async (user: ILoginInfo) => {
+    const res = await fetch(url + `User/ForgotPassword`, {
+        method: "PUT",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body:JSON.stringify(user)
+    })
+    if(!res.ok){
+        const data = await res.json();
+        const message = data.message;
+        console.log(message);
+        return data.success;
+    }
+
+    const data = await res.json();
+    return data.success;
+}
