@@ -18,8 +18,8 @@ const NavDropComponent = ({ letter, imageUrl }: ProfilePictureProps) => {
   const handleSignOut = () => {
     if(typeof window !== "undefined"){
       localStorage.removeItem("Token");
+      window.dispatchEvent(new Event("storage"));
     }
-    router.refresh();
     router.push("/")
   }
 

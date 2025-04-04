@@ -2,13 +2,14 @@
 
 import { checkToken, loggedInData } from '@/utils/DataServices';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import NavDropComponent from './Nav/NavDropComponent';
 
 const NavbarComponent = () => {
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const {push} = useRouter();
+  const pathname = usePathname();
 
   const handleSignIn = () => {
     push('/SignIn')
@@ -16,18 +17,26 @@ const NavbarComponent = () => {
 
   
   useEffect(() => {
+    const checkLogin = () => {
+      if(!checkToken()) {
+        setSignedIn(false);
+      }else{
+        setSignedIn(true);
+      }
+    };
+    checkLogin();
 
-  
-    if(!checkToken()){
-      //Push to Login Page
-     setSignedIn(false);
-  
-    }else{
-      //Get User Data / Login Logic function
-      setSignedIn(true)
+    const handleStorageChange = () => {
+      checkLogin();
     }
-  
-  }, []);
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    }
+  }, [])
+
+
 
   
   return (
