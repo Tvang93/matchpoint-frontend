@@ -130,7 +130,7 @@ export const editPassword = async (username: string, newPassword: string, token:
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({
             username,
