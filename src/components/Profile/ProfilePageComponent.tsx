@@ -1,12 +1,19 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect } from 'react'
 import UsernameComponent from './UsernameComponent'
 import ProfilePictureComponent from './ProfilePictureComponent'
 import ProfileButtonsComponent from './ProfileButtonsComponent'
+import { loggedInData } from '@/utils/DataServices'
 
 const ProfilePageComponent = () => {
+
+  const loggedIn = loggedInData()
+
+
   return (
     <div className="flex flex-col items-center mt-16">
-    <UsernameComponent username="Tvang" />
+    <UsernameComponent username={loggedIn.username} />
     <ProfilePictureComponent letter="T" />
     <ProfileButtonsComponent />
   </div>
