@@ -9,11 +9,11 @@ import { loggedInData } from '@/utils/DataServices'
 const ProfilePageComponent = () => {
 
   const loggedIn = loggedInData()
-
+  
 
   return (
     <div className="flex flex-col items-center mt-16">
-    <UsernameComponent username={loggedIn.username} />
+    <UsernameComponent username={loggedIn != undefined ? loggedIn.username : null} />
     <ProfilePictureComponent letter="T" />
     <ProfileButtonsComponent />
   </div>

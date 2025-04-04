@@ -2,7 +2,7 @@ import React from 'react'
 
 
 interface UsernameProps {
-  username: string;
+  username: string | null;
 }
 
 const UsernameComponent = ({ username }: UsernameProps) => {
