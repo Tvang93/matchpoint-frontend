@@ -1,5 +1,9 @@
+'use client'
+
 import React from 'react'
 import { Dropdown, DropdownItem } from "flowbite-react";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface ProfilePictureProps {
     letter: string;
@@ -8,6 +12,17 @@ interface ProfilePictureProps {
   
 
 const NavDropComponent = ({ letter, imageUrl }: ProfilePictureProps) => {
+    
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    if(typeof window !== "undefined"){
+      localStorage.removeItem("Token");
+    }
+    router.refresh();
+    router.push("/")
+  }
+
   return (
     <Dropdown inline label={
         imageUrl ? (
@@ -22,9 +37,13 @@ const NavDropComponent = ({ letter, imageUrl }: ProfilePictureProps) => {
           </div>
         )
       }>
-        <DropdownItem>My Profile</DropdownItem>
+        <DropdownItem>
+            <Link href='./Profile'>
+            My Profile
+            </Link>
+            </DropdownItem>
         <DropdownItem>Add Court</DropdownItem>
-        <DropdownItem onClick={() => console.log("Signing out...")}>Sign out</DropdownItem>
+        <DropdownItem onClick={handleSignOut}>Sign out</DropdownItem>
       </Dropdown>
   )
 }

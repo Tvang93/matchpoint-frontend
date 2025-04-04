@@ -44,15 +44,7 @@ const NavbarComponent = () => {
           className="w-full px-4 py-2 rounded-full text-slate-700 bg-white"
         />
       </div>   
-        <button className="border border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#1e2c49] transition duration-300" onClick={handleSignIn}>
-          Sign In
-        </button>
-        {/* Temporary Buttons */}
-        <Link href="/Profile">
-         <button className="border border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#1e2c49] transition duration-300">
-          profile
-        </button>
-        </Link>
+
 
         <NavDropComponent letter='T'/>
         
