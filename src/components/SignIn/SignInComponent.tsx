@@ -39,6 +39,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
         id="usernameInputField"
         type="text"
         placeholder="Username"
+        maxLength={16}
         onChange={(e)=>setUsername(e.target.value)}
       />
       <input
