@@ -11,6 +11,8 @@ const ForgotPasswordComponent: React.FC<TSignInProp> = ({
 
   const handleEmail = async() => {
     console.log(email)
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    if(!emailRegex.test(email)) return alert("Invalid Email")
     const userData = await getLoggedInUserDataWithEmail(email);
     console.log(userData);
     if(userData != null){
@@ -28,7 +30,7 @@ const ForgotPasswordComponent: React.FC<TSignInProp> = ({
       <input
         className="border-1 border-[#E1FF00] bg-transparent ps-2 w-full hover:cursor-pointer focus:cursor-text rounded-sm"
         id="passwordRecoveryInputField"
-        type="text"
+        type="email"
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
       />

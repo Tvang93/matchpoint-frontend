@@ -4,7 +4,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className="bg-[#243451] min-h-screen">
+    <div className="flex flex-col bg-[#243451] min-h-screen">
       <NavbarComponent />
       <ProfilePageComponent />
     </div>

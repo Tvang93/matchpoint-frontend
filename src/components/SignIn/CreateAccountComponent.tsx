@@ -16,6 +16,11 @@ const CreateAccountComponent = ({ switchComponent }: TSignInProp) => {
   //This will handle the switch between our login and our create Account Logic
 
     const handleSubmit = async () => {
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+      if(!emailRegex.test(email)) return alert("Invalid Email")
+      if(username.trim() === "") return alert("Invalid Username")
+      if(password.trim() === "") return alert("Invalid Username")
+
       let userData = {
         username: username, 
         password: password,
@@ -46,6 +51,7 @@ const CreateAccountComponent = ({ switchComponent }: TSignInProp) => {
         id="createUsernameInputField"
         type="text"
         placeholder="Username"
+        maxLength={16}
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
