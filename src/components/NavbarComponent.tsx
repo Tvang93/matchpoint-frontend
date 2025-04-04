@@ -66,6 +66,7 @@ const NavbarComponent = () => {
     <div className={`w-full  p-4 flex justify-between items-center ${pathname !== "/" ? `bg-[#1F1F1F]` : `absolute z-10 bg-transparent`}`}>
     <Link href="/">
       <div className="flex items-center cursor-pointer">
+        <img className='h-12.5' src="/assets/mp-icon.png" alt="matchpoint icon" />
       </div>
     </Link>
     {
