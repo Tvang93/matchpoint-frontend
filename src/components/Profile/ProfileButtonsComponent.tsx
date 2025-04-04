@@ -97,9 +97,28 @@ const ProfileButtonsComponent = () => {
         </ModalFooter>
       </Modal>
       
-      <button className="bg-[#E1FF00] text-[#1e2c49] py-2 px-6 rounded-full hover:bg-opacity-80 transition duration-300 text-sm font-medium w-full max-w-xs">
+      <button className="bg-[#E1FF00] text-[#1e2c49] py-2 px-6 rounded-full hover:bg-opacity-80 transition duration-300 text-sm font-medium w-full max-w-xs" onClick={() => setOpenPasswordModal(true)}>
         Change Password
       </button>
+      <Modal show={openPasswordModal} onClose={() => setOpenPasswordModal(false)}>
+        <ModalHeader>Change Password</ModalHeader>
+        <ModalBody>
+          <div className="space-y-6">
+
+            <input type="password" className='bg-white rounded-2xl w-[500px] h-[40px] text-black p-2' placeholder='New password...' value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
+
+            <input type="password" className="bg-white rounded-2xl w-[500px] h-[40px] text-black p-2" placeholder="Confirm new password..." value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+            {message && <p className='text-[20px] text-red-500 mt-2'>{message}</p>}
+          </div>
+        </ModalBody>
+        <ModalFooter>
+        <Button color="red" onClick={() => setOpenPasswordModal(false)}>
+            Close
+          </Button>
+          <Button onClick={handlePasswordChange}>Change Password</Button>
+
+        </ModalFooter>
+      </Modal>
       
       <button className="bg-red-600 text-white py-2 px-6 rounded-full hover:bg-red-700 transition duration-300 text-sm font-medium w-full max-w-xs">
         Delete Account
