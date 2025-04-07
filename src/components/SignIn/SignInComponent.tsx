@@ -1,5 +1,6 @@
 'use client'
 
+import { useLoggedUsernameContext } from "@/context/UserInfoContext";
 import { getLoggedInUserDataWithUsername, login } from "@/utils/DataServices";
 import { IToken, TSignInProp } from "@/utils/Interfaces";
 import { useRouter } from "next/navigation";
@@ -10,6 +11,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
   
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const {setLoggedUsername} = useLoggedUsernameContext();
 
   const handleSignIn = async () => {
     let userData = {
@@ -24,6 +26,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
         localStorage.setItem("Token", token.token)
       }
       alert('Login works.')
+      setLoggedUsername(userData.username)
       push('/')
     }else{
       alert("Unable to Log In. Incorrect Username or Password.")

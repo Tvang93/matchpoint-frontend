@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
 import { useState } from "react";
 import { editUsername, editPassword, loggedInData,  } from '@/utils/DataServices';
+import { useLoggedUsernameContext } from '@/context/UserInfoContext';
 
 const ProfileButtonsComponent = () => {
 
@@ -15,6 +16,8 @@ const ProfileButtonsComponent = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [username, setUsername] = useState('');
+
+  const {setLoggedUsername} = useLoggedUsernameContext();
 
 
   useEffect(() => {
@@ -41,6 +44,7 @@ const ProfileButtonsComponent = () => {
 
     setUsername(newUsername);
     setMessage('Username Changed Successfully');
+    setLoggedUsername(newUsername);
     setOpenUsernameModal(false);
     setNewUsername('');
 

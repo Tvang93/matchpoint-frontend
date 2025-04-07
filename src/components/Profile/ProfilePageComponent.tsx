@@ -1,20 +1,18 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import UsernameComponent from './UsernameComponent'
 import ProfilePictureComponent from './ProfilePictureComponent'
 import ProfileButtonsComponent from './ProfileButtonsComponent'
-import { loggedInData } from '@/utils/DataServices'
+import { useLoggedUsernameContext } from '@/context/UserInfoContext'
+
 
 const ProfilePageComponent = () => {
-
-  const loggedIn = loggedInData()
-  
-
+  const {loggedUsername} = useLoggedUsernameContext()
   return (
     <div className="flex flex-col items-center mt-16">
-    <UsernameComponent username={loggedIn != undefined ? loggedIn.username : null} />
-    <ProfilePictureComponent letter="T" />
+    <UsernameComponent />
+    <ProfilePictureComponent letter={loggedUsername != '' ? loggedUsername[0].toUpperCase() : ''} />
     <ProfileButtonsComponent />
   </div>
   )

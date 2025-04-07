@@ -1,14 +1,16 @@
+'use client'
+
+import { useLoggedUsernameContext } from '@/context/UserInfoContext'
 import React from 'react'
 
 
-interface UsernameProps {
-  username: string | null;
-}
 
-const UsernameComponent = ({ username }: UsernameProps) => {
+
+const UsernameComponent = () => {
+  const {loggedUsername} = useLoggedUsernameContext();
   return (
     <div className="text-center mb-4">
-      <h1 className="text-[#E1FF00] text-[64px]">{username}</h1>
+      <h1 className="text-[#E1FF00] text-[64px]">{loggedUsername}</h1>
     </div>
   )
 }

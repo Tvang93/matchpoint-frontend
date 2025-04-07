@@ -4,6 +4,7 @@ import React from 'react'
 import { Dropdown, DropdownItem } from "flowbite-react";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useLoggedUsernameContext } from '@/context/UserInfoContext';
 
 interface ProfilePictureProps {
     letter: string;
@@ -14,12 +15,14 @@ interface ProfilePictureProps {
 const NavDropComponent = ({ letter, imageUrl }: ProfilePictureProps) => {
     
   const router = useRouter();
+  const {setLoggedUsername} = useLoggedUsernameContext()
 
   const handleSignOut = () => {
     if(typeof window !== "undefined"){
       localStorage.removeItem("Token");
       window.dispatchEvent(new Event("storage"));
     }
+    setLoggedUsername('')
     router.push("/")
   }
 
