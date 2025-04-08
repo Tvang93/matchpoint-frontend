@@ -12,6 +12,9 @@ export default function Home() {
           <input className="bg-white py-2 px-5 text-3xl border-1 rounded-4xl w-180 " type="text" placeholder="Search Location"/>
         </div>
       </div>
+      <div>
+      <iframe width='100%' height='800px' src="https://api.mapbox.com/styles/v1/tvang/cm98rdc1400dn01sxevgj93is.html?title=false&access_token=pk.eyJ1IjoidHZhbmciLCJhIjoiY205NzhjeDU4MDR2YjJsb2pvaGxuZnZ0eiJ9.nRf1lWYQP-I8W6cqHJjvww&zoomwheel=false#2/38/-34" title="Chicago Parks"></iframe>
+      </div>
     </div>
   );
 }
