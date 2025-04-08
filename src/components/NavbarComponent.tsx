@@ -1,6 +1,6 @@
 'use client'
 
-import { checkToken, loggedInData } from '@/utils/DataServices';
+import { checkToken } from '@/utils/DataServices';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'

@@ -15,7 +15,7 @@ const NewPasswordComponent: React.FC<TSignInProp> = ({ switchComponent }) => {
       alert("Passwords do not match.")
     }else{
       const loggedIn = loggedInData();
-      let user: ILoginInfo = {
+      const user: ILoginInfo = {
         username: loggedIn.username,
         password: newPassword
       }
