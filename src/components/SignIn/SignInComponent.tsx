@@ -35,7 +35,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
   }
 
   return (
-    <div className="flex flex-col items-center text-[#E1FF00] gap-9 py-12 px-28 w-full">
+    <div className="flex flex-col items-center text-[#E1FF00] gap-8 py-12 px-28 w-full">
       <h1 className="text-3xl">Sign In</h1>
       <input
         className="border-1 border-[#E1FF00] bg-transparent ps-2 w-full hover:cursor-pointer focus:cursor-text rounded-sm"
@@ -52,14 +52,23 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
         placeholder="Password"
         onChange={(e)=>setPassword(e.target.value)}
       />
-      <button 
-      className="bg-[#E1FF00] text-[#243451] rounded-[20px] w-full hover:cursor-pointer"
+      <div className="flex flex-col items-center gap-6 w-full">
+        <button 
+      className="bg-[#E1FF00] text-[#243451] rounded-[20px] w-full hover:cursor-pointer hover:bg-[rgb(225,255,0,0.8)]"
       onClick={handleSignIn}
       >
         Login
       </button>
+      <button 
+      className="bg-transparent border-1 border-[#E1FF00] text-[#E1FF00] rounded-[20px] w-full hover:cursor-pointer hover:bg-[rgb(225,255,0,0.1)]"
+      onClick={() => push('/')}
+      >
+        Back To Home
+      </button>
+      </div>
+      
       <p
-        className="text-[#4BB4F1] hover:cursor-pointer"
+        className="text-[#4BB4F1] hover:cursor-pointer hover:text-[rgb(127,203,247)]"
         onClick={() => switchComponent("Forgot Password")}
       >
         Forgot Password?
@@ -67,7 +76,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
       <div className="flex gap-2">
         <p>{`Don't Have An Account?`}</p>
         <p
-          className="text-[#4BB4F1] hover:cursor-pointer"
+          className="text-[#4BB4F1] hover:cursor-pointer hover:text-[rgb(127,203,247)]"
           onClick={() => switchComponent("Create Account")}
         >
           Sign Up Now
