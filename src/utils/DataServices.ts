@@ -121,7 +121,7 @@ export const editUsername = async (oldUsername: string, newUsername: string, tok
         body:JSON.stringify({username: oldUsername, newUsername: newUsername})
     })
     const data = await res.json();
-    return data.success;
+    return data;
 
 }
 
@@ -138,5 +138,5 @@ export const editPassword = async (username: string, newPassword: string, token:
         })
     })
     const data = await res.json();
-    return data.success;
+    return data;
 }
