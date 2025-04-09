@@ -14,7 +14,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-[#243451] min-h-screen">
       <NavbarComponent />
       <div className="w-full bg-[url(/assets/mp-hero-1.jpeg)] bg-cover bg-no-repeat bg-center min-h-180 flex justify-center items-end">
         <div className="relative flex justify-center items-end bottom-40">
