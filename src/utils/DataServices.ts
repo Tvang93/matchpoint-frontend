@@ -81,7 +81,7 @@ export const checkToken = () => {
     let result = false;
 
     if(typeof window != null){
-        const lsData = localStorage.getItem("Token");
+        const lsData = sessionStorage.getItem("Token");
 
         if(lsData != null){
             result = true;
@@ -139,4 +139,16 @@ export const editPassword = async (username: string, newPassword: string, token:
     })
     const data = await res.json();
     return data.success;
+}
+
+export const deleteUser = async (username: string, token: string) => {
+    const res = await fetch(url + "LoggedIn/DeleteProfile", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+    })
+    const data = await res.json();
+    return data.success ;
 }
