@@ -1,6 +1,7 @@
 'use client'
 
-import { getLoggedInUserDataWithUsername, login } from "@/utils/DataServices";
+import { useLoggedUsernameContext } from "@/context/UserInfoContext";
+import { login } from "@/utils/DataServices";
 import { IToken, TSignInProp } from "@/utils/Interfaces";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -10,20 +11,22 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
   
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const {setLoggedUsername} = useLoggedUsernameContext();
 
   const handleSignIn = async () => {
-    let userData = {
+    const userData = {
       username: username, 
       password: password,
     }
     console.log(userData)
-    let token: IToken = await login(userData);
+    const token: IToken = await login(userData);
     console.log(token)
     if(token != null){
       if(typeof window != null){
         sessionStorage.setItem("Token", token.token)
       }
       alert('Login works.')
+      setLoggedUsername(userData.username)
       push('/')
     }else{
       alert("Unable to Log In. Incorrect Username or Password.")
@@ -62,7 +65,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
         Forgot Password?
       </p>
       <div className="flex gap-2">
-        <p>Don't Have An Account?</p>
+        <p>{`Don't Have An Account?`}</p>
         <p
           className="text-[#4BB4F1] hover:cursor-pointer"
           onClick={() => switchComponent("Create Account")}

@@ -1,7 +1,7 @@
 'use client'
 
-import { createAccount, login } from "@/utils/DataServices";
-import { IToken, TSignInProp } from "@/utils/Interfaces";
+import { createAccount } from "@/utils/DataServices";
+import { TSignInProp } from "@/utils/Interfaces";
 import React, { useState } from "react";
 
 const CreateAccountComponent = ({ switchComponent }: TSignInProp) => {
@@ -21,15 +21,19 @@ const CreateAccountComponent = ({ switchComponent }: TSignInProp) => {
       if(username.trim() === "") return alert("Invalid Username")
       if(password.trim() === "") return alert("Invalid Username")
 
-      let userData = {
+      const userData = {
         username: username, 
         password: password,
         email: email
       }
       console.log(userData)
       //Create Account logic here
-      let result = await createAccount(userData);
-      result ? switchComponent("Account Confirmation") : alert("Username Already Exists");
+      const result = await createAccount(userData);
+      if(result){
+        switchComponent("Account Confirmation");
+      }else{
+        alert("Username Already Exists");
+      }
     }
 
 

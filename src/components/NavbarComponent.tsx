@@ -1,15 +1,17 @@
 'use client'
 
-import { checkToken, loggedInData } from '@/utils/DataServices';
+import { checkToken } from '@/utils/DataServices';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import NavDropComponent from './Nav/NavDropComponent';
+import { useLoggedUsernameContext } from '@/context/UserInfoContext';
 
 const NavbarComponent = () => {
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const {push} = useRouter();
   const pathname = usePathname();
+  const {loggedUsername} = useLoggedUsernameContext()
 
   const handleSignIn = () => {
     push('/SignIn')
@@ -59,7 +61,7 @@ const NavbarComponent = () => {
       }
 
 
-        <NavDropComponent letter='T'/>
+        <NavDropComponent letter={loggedUsername != '' ? loggedUsername[0].toUpperCase() : ''}/>
         
     </div>
     :
