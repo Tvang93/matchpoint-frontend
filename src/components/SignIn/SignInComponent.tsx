@@ -21,7 +21,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
     console.log(token)
     if(token != null){
       if(typeof window != null){
-        localStorage.setItem("Token", token.token)
+        sessionStorage.setItem("Token", token.token)
       }
       alert('Login works.')
       push('/')

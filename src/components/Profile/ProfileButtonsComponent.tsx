@@ -4,32 +4,35 @@ import React, { useEffect } from 'react'
 
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
 import { useState } from "react";
-import { editUsername, editPassword, loggedInData,  } from '@/utils/DataServices';
+import { editUsername, editPassword, loggedInData, deleteUser,  } from '@/utils/DataServices';
+import { useRouter } from 'next/navigation';
 
 const ProfileButtonsComponent = () => {
 
   const [openUsernameModal, setOpenUsernameModal] = useState(false);
   const [openPasswordModal, setOpenPasswordModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [username, setUsername] = useState('');
+  const {push} = useRouter();
 
 
   useEffect(() => {
     const fetchUsername = async () => {
-      const token = localStorage.getItem('Token');
+      const token = sessionStorage.getItem('Token');
       if(!token) return;
 
       const userData = loggedInData();
       if(userData) setUsername(userData.username);
     }
     fetchUsername();
-  }, [])
+  }, []);
 
   const handleUsernameChange = async () => {
-    const token = localStorage.getItem('Token');
+    const token = sessionStorage.getItem('Token');
     if(!token || !username) return;
 
     const success = await editUsername(username, newUsername, token);
@@ -52,7 +55,7 @@ const ProfileButtonsComponent = () => {
       setMessage('Passwords do not match');
       return;
     }
-    const token = localStorage.getItem('Token');
+    const token = sessionStorage.getItem('Token');
 
     if(!token || !username) return;
 
@@ -66,8 +69,18 @@ const ProfileButtonsComponent = () => {
       setNewPassword('');
       setConfirmPassword('');
 
+  }
 
- 
+  const handleAccountDelete = async () => {
+    const token = sessionStorage.getItem("Token");
+    if(!token || !username) return;
+
+    const result = await deleteUser(username, token);
+
+    sessionStorage.removeItem("Token");
+    setOpenDeleteModal(false);
+
+    push('/')
   }
 
   return (
@@ -120,9 +133,25 @@ const ProfileButtonsComponent = () => {
         </ModalFooter>
       </Modal>
       
-      <button className="bg-red-600 text-white py-2 px-6 rounded-full hover:bg-red-700 transition duration-300 text-sm font-medium w-full max-w-xs">
+      <button className="bg-red-600 text-white py-2 px-6 rounded-full hover:bg-red-700 transition duration-300 text-sm font-medium w-full max-w-xs" onClick={() => setOpenDeleteModal(true)}>
         Delete Account
       </button>
+      <Modal show={openDeleteModal} onClose={() => setOpenDeleteModal(false)}>
+        <ModalHeader>Delete Account</ModalHeader>
+        <ModalBody>
+          <div className="space-y-6">
+            <h2>Are you sure you want to delete your account?</h2>
+            {message && <p className='text-[20px] text-red-500 mt-2'>{message}</p>}
+          </div>
+        </ModalBody>
+        <ModalFooter>
+        <Button color="red" onClick={() => setOpenDeleteModal(false)}>
+            Close
+          </Button>
+          <Button onClick={handleAccountDelete}>Delete Account</Button>
+
+        </ModalFooter>
+      </Modal>
     </div>
   )
 }
