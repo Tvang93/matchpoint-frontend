@@ -1,6 +1,6 @@
 "use client";
 
-import CourtConditionModalComponent from "@/components/AddLocation/CourtConditionModalComponent";
+// import CourtConditionModalComponent from "@/components/AddLocation/CourtConditionModalComponent";
 import NavbarComponent from "@/components/NavbarComponent";
 import {
   Button,
@@ -9,11 +9,11 @@ import {
   ModalFooter,
   ModalHeader,
 } from "flowbite-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const AddLocationPage = () => {
-  const { push } = useRouter();
+  // const { push } = useRouter();
 
   const [isCourtModalActive, setIsCourtModalActive] = useState<boolean>(false);
   const [isAmenitiesModalActive, setIsAmenitiesModalActive] =
