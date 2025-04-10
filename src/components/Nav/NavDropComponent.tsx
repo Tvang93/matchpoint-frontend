@@ -45,7 +45,9 @@ const NavDropComponent = ({ letter, imageUrl }: ProfilePictureProps) => {
             My Profile
             </Link>
             </DropdownItem>
-        <DropdownItem>Add Court</DropdownItem>
+        <DropdownItem>
+          <Link href='./AddLocation'>Add Location</Link>
+          </DropdownItem>
         <DropdownItem onClick={handleSignOut}>Sign out</DropdownItem>
       </Dropdown>
   )
