@@ -19,7 +19,7 @@ const NavDropComponent = ({ letter, imageUrl }: ProfilePictureProps) => {
 
   const handleSignOut = () => {
     if(typeof window !== "undefined"){
-      localStorage.removeItem("Token");
+      sessionStorage.removeItem("Token");
       window.dispatchEvent(new Event("storage"));
     }
     setLoggedUsername('')
