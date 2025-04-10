@@ -43,10 +43,11 @@ const ProfileButtonsComponent = () => {
     if(!token || !username) return;
 
     const success = await editUsername(username, newUsername, token);
+    console.log(success)
 
-    if(!success.ok){
-        setMessage(success.message || 'Error changing username');
-      
+    if(!success.success){
+      setMessage(success.message);
+      return alert(message);
     }
 
     setUsername(newUsername);
@@ -69,8 +70,9 @@ const ProfileButtonsComponent = () => {
 
     const success = await editPassword(username, newPassword, token);
 
-    if(!success.ok) {
-      setMessage(success.message || 'Error changing password')
+    if(!success.success) {
+      setMessage(success.message);
+      return alert(message);
     }
       setMessage('Password changed successfully');
       setOpenPasswordModal(false);
@@ -106,7 +108,7 @@ const ProfileButtonsComponent = () => {
           <div className="space-y-6">
 
             <input type="text" className='bg-white rounded-2xl w-[500px] h-[40px] text-black p-2' placeholder='New username...' value={newUsername} onChange={(e) => setNewUsername(e.target.value)}/>
-            {message && <p className='text-[20px] text-red-500 mt-2'>{message}</p>}
+            {/* {message && <p className='text-[20px] text-red-500 mt-2'>{message}</p>} */}
           </div>
         </ModalBody>
         <ModalFooter>
@@ -129,7 +131,7 @@ const ProfileButtonsComponent = () => {
             <input type="password" className='bg-white rounded-2xl w-[500px] h-[40px] text-black p-2' placeholder='New password...' value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
 
             <input type="password" className="bg-white rounded-2xl w-[500px] h-[40px] text-black p-2" placeholder="Confirm new password..." value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
-            {message && <p className='text-[20px] text-red-500 mt-2'>{message}</p>}
+            {/* {message && <p className='text-[20px] text-red-500 mt-2'>{message}</p>} */}
           </div>
         </ModalBody>
         <ModalFooter>

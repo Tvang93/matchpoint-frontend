@@ -52,7 +52,7 @@ const NewPasswordComponent: React.FC<TSignInProp> = ({ switchComponent }) => {
         onChange={(e)=>setConfirmingPassword(e.target.value)}
       />
       <button
-        className="bg-[#E1FF00] text-[#243451] rounded-[20px] w-full hover:cursor-pointer"
+        className="bg-[#E1FF00] text-[#243451] rounded-[20px] w-full hover:cursor-pointer hover:bg-[rgb(225,255,0,0.8)]"
         onClick={handlePasswordReset}
       >
         Reset Password

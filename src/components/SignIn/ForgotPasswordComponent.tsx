@@ -35,13 +35,13 @@ const ForgotPasswordComponent: React.FC<TSignInProp> = ({
         onChange={(e) => setEmail(e.target.value)}
       />
       <button
-        className="bg-[#E1FF00] text-[#243451] rounded-[20px] w-full hover:cursor-pointer"
+        className="bg-[#E1FF00] text-[#243451] rounded-[20px] w-full hover:cursor-pointer hover:bg-[rgb(225,255,0,0.8)]"
         onClick={handleEmail}
       >
         Send Email
       </button>
       <button
-        className="bg-transparent border-1 border-[#E1FF00] text-[#E1FF00] rounded-[20px] w-full hover:cursor-pointer"
+        className="bg-transparent border-1 border-[#E1FF00] text-[#E1FF00] rounded-[20px] w-full hover:cursor-pointer hover:bg-[rgb(225,255,0,0.1)]"
         onClick={() => switchComponent("Sign In")}
       >
         Back to Sign In
