@@ -83,7 +83,12 @@ const ProfileButtonsComponent = () => {
     const token = sessionStorage.getItem("Token");
     if(!token || !username) return;
 
-    const result = await deleteUser(username, token);
+    const success = await deleteUser(username, token);
+
+    if (!success) {
+      alert(success.message || "Account deletion failed.");
+      return;
+    }
 
     sessionStorage.removeItem("Token");
     setOpenDeleteModal(false);

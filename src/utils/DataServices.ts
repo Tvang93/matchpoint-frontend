@@ -142,13 +142,13 @@ export const editPassword = async (username: string, newPassword: string, token:
 }
 
 export const deleteUser = async (username: string, token: string) => {
-    const res = await fetch(url + "LoggedIn/DeleteProfile", {
+    const res = await fetch(url + `LoggedIn/DeleteProfile?user=${username}`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
+        body: JSON.stringify(username)
     })
     const data = await res.json();
-    return data.success ;
+    return data.success;
 }
