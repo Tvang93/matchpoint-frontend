@@ -1,0 +1,167 @@
+[
+    {
+      "id": 1,
+      "courtName": "Mariposa Park",
+      "courtRating": 3,
+      "safetyRating": 1,
+      "courtCondition": [
+        {
+          "id": 1,
+          "condition": "poor surface"
+        },
+        {
+          "id": 2,
+          "condition": "cracks"
+        }
+      ],
+      "amenities": [
+        {
+          "id": 1,
+          "amenity": "Restroom"
+        },
+        {
+          "id": 2,
+          "amenity": "No Fountains"
+        },
+        {
+          "id": 3,
+          "amenity": "Outdoor Lights"
+        }
+      ],
+      "lat": 39,
+      "lon": -121,
+      "comments": [
+        {
+          "id": 1,
+          "userId": 1,
+          "username": "Thao Vang",
+          "profileImage": "url",
+          "comment": "This court sucks."
+        },
+        {
+          "id": 2,
+          "userId": 2,
+          "username": "Bronel Lazar",
+          "profileImage": "url",
+          "comment": "This park is ass. I tripped on a crack. The court is ugly."
+        },
+        {
+          "id": 3,
+          "userId": 3,
+          "username": "Trey Cade",
+          "profileImage": "url",
+          "comment": "Not the safest park to play."
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "courtName": "Mariposa Park",
+      "courtRating": 3,
+      "safetyRating": 1,
+      "courtCondition": [
+        {
+          "id": 1,
+          "condition": "poor surface"
+        },
+        {
+          "id": 2,
+          "condition": "cracks"
+        }
+      ],
+      "amenities": [
+        {
+          "id": 1,
+          "amenity": "Restroom"
+        },
+        {
+          "id": 2,
+          "amenity": "No Fountains"
+        },
+        {
+          "id": 3,
+          "amenity": "Outdoor Lights"
+        }
+      ],
+      "lat": 39,
+      "lon": -121,
+      "comments": [
+        {
+          "id": 1,
+          "userId": 1,
+          "username": "Thao Vang",
+          "profileImage": "url",
+          "comment": "This court sucks."
+        },
+        {
+          "id": 2,
+          "userId": 2,
+          "username": "Bronel Lazar",
+          "profileImage": "url",
+          "comment": "This park is ass. I tripped on a crack. The court is ugly."
+        },
+        {
+          "id": 3,
+          "userId": 3,
+          "username": "Trey Cade",
+          "profileImage": "url",
+          "comment": "Not the safest park to play."
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "courtName": "Mariposa Park",
+      "courtRating": 3,
+      "safetyRating": 1,
+      "courtCondition": [
+        {
+          "id": 1,
+          "condition": "poor surface"
+        },
+        {
+          "id": 2,
+          "condition": "cracks"
+        }
+      ],
+      "amenities": [
+        {
+          "id": 1,
+          "amenity": "Restroom"
+        },
+        {
+          "id": 2,
+          "amenity": "No Fountains"
+        },
+        {
+          "id": 3,
+          "amenity": "Outdoor Lights"
+        }
+      ],
+      "lat": 39,
+      "lon": -121,
+      "comments": [
+        {
+          "id": 1,
+          "userId": 1,
+          "username": "Thao Vang",
+          "profileImage": "url",
+          "comment": "This court sucks."
+        },
+        {
+          "id": 2,
+          "userId": 2,
+          "username": "Bronel Lazar",
+          "profileImage": "url",
+          "comment": "This park is ass. I tripped on a crack. The court is ugly."
+        },
+        {
+          "id": 3,
+          "userId": 3,
+          "username": "Trey Cade",
+          "profileImage": "url",
+          "comment": "Not the safest park to play."
+        }
+      ]
+    }
+  ]

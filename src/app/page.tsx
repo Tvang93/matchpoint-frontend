@@ -1,5 +1,6 @@
 'use client'
 
+import HomeCards from "@/components/HomePage/HomeCards";
 import NavbarComponent from "@/components/NavbarComponent";
 import { useRouter } from "next/navigation";
 import { KeyboardEvent } from "react";
@@ -25,6 +26,11 @@ export default function Home() {
           />
         </div>
       </div>
+      <div className="flex justify-center">
+        <HomeCards/>
+      </div>
+
+
     </div>
   );
 }
