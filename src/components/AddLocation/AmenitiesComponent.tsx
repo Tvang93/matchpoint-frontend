@@ -7,38 +7,23 @@ import {
   ModalFooter,
   ModalHeader,
 } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-const AmenitiesComponent = () => {
+interface CourtConditionComponentProps {
+  stringArr: string[];
+  setFunction: React.Dispatch<React.SetStateAction<string>>;
+  deleteFunction: (con: string) => void
+}
+
+const AmenitiesComponent: React.FC<CourtConditionComponentProps> = ({
+  stringArr,
+  setFunction,
+  deleteFunction
+}) => {
+  
   const [isAmenitiesModalActive, setIsAmenitiesModalActive] =
-    useState<boolean>(false);
-  const [amenities, setAmenities] = useState<string>("");
-  const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
-  const [amenitiesArr, setAmenitiesArr] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (amenities !== "") {
-      console.log(amenities);
-      handleAmenitiesArr();
-    }
-  }, [amenities]);
-
-  const handleAmenitiesArr = () => {
-    const arrToAdd = amenitiesArr;
-    arrToAdd.push(amenities);
-    console.log(arrToAdd);
-    setAmenitiesArr(arrToAdd);
-    console.log(amenitiesArr);
-  };
-
-  const handleDeleteAmenities = (amen: string) => {
-    const arrToAdd = amenitiesArr;
-    const idx = arrToAdd.indexOf(amen);
-    arrToAdd.splice(idx, 1);
-    console.log(arrToAdd);
-    setAmenitiesArr(arrToAdd);
-    console.log(amenitiesArr);
-  };
+      useState<boolean>(false);
+      const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
 
   return (
     <div>
@@ -69,7 +54,7 @@ const AmenitiesComponent = () => {
           </Button>
           <Button
             onClick={() => [
-              setAmenities(amenitiesToAdd),
+              setFunction(amenitiesToAdd),
               setIsAmenitiesModalActive(false),
             ]}
           >
@@ -78,7 +63,7 @@ const AmenitiesComponent = () => {
         </ModalFooter>
       </Modal>
       <ul className="flex pt-2">
-        {amenitiesArr.map((amenity: string, idx: number) => (
+        {stringArr.map((amenity: string, idx: number) => (
           <li
             key={idx}
             className="flex gap-2 bg-[#99a7bd] border-1 border-[#E1FF00] rounded-full me-2 px-3 my-1"
@@ -86,7 +71,7 @@ const AmenitiesComponent = () => {
             <div className="">{amenity}</div>
             <div
               className="bg-white"
-              onClick={() => handleDeleteAmenities(amenity)}
+              onClick={() => deleteFunction(amenity)}
             >
               X
             </div>

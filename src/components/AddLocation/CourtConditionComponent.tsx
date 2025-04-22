@@ -1,44 +1,28 @@
-'use client'
+"use client";
 
 import {
-    Button,
-    Modal,
-    ModalBody,
-    ModalFooter,
-    ModalHeader,
-  } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+  Button,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from "flowbite-react";
+import React, { useState } from "react";
 
-const CourtConditionComponent = () => {
+interface CourtConditionComponentProps {
+  stringArr: string[];
+  setFunction: React.Dispatch<React.SetStateAction<string>>;
+  deleteFunction: (con: string) => void
+}
 
+const CourtConditionComponent: React.FC<CourtConditionComponentProps> = ({
+  stringArr,
+  setFunction,
+  deleteFunction
+}) => {
   const [isCourtModalActive, setIsCourtModalActive] = useState<boolean>(false);
-  const [courtCondition, setCourtCondition] = useState<string>("");
+
   const [conditionToAdd, setConditionToAdd] = useState<string>("");
-  const [courtConditionArr, setCourtConditionArr] = useState<string[]>([]);
-
-  useEffect(() => {
-    if(courtCondition !== ""){
-      console.log(courtCondition);
-      handleCourtConditionArr();
-    }
-  }, [courtCondition]);
-
-  const handleCourtConditionArr = () => {
-    const arrToAdd = courtConditionArr;
-    arrToAdd.push(courtCondition);
-    console.log(arrToAdd);
-    setCourtConditionArr(arrToAdd);
-    console.log(courtConditionArr);
-  };
-  
-  const handleDeleteCourtCondition = (con: string) => {
-    const arrToAdd = courtConditionArr;
-    const idx = arrToAdd.indexOf(con)
-    arrToAdd.splice(idx, 1);
-    console.log(arrToAdd);
-    setCourtConditionArr(arrToAdd);
-    console.log(courtConditionArr);
-  }
 
   return (
     <div>
@@ -69,7 +53,7 @@ const CourtConditionComponent = () => {
           </Button>
           <Button
             onClick={() => [
-              setCourtCondition(conditionToAdd),
+              setFunction(conditionToAdd),
               setIsCourtModalActive(false),
             ]}
           >
@@ -78,7 +62,7 @@ const CourtConditionComponent = () => {
         </ModalFooter>
       </Modal>
       <ul className="flex pt-2">
-        {courtConditionArr.map((conditions: string, idx: number) => (
+        {stringArr.map((conditions: string, idx: number) => (
           <li
             key={idx}
             className="flex gap-2 bg-[#99a7bd] border-1 border-[#E1FF00] rounded-full me-2 px-3 my-1"
@@ -86,7 +70,7 @@ const CourtConditionComponent = () => {
             <div className="">{conditions}</div>
             <div
               className="bg-white"
-              onClick={() => handleDeleteCourtCondition(conditions)}
+              onClick={() => deleteFunction(conditions)}
             >
               X
             </div>
