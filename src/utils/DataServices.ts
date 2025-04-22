@@ -112,7 +112,7 @@ export const ForgotPassword = async (user: ILoginInfo) => {
 
 export const editUsername = async (oldUsername: string, newUsername: string, token: string) => {
     console.log(token)
-    const res = await fetch(url + "LoggedIn/EditUsername", {
+    const res = await fetch(url + "User/EditUsername", {
         method: "PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export const editUsername = async (oldUsername: string, newUsername: string, tok
 }
 
 export const editPassword = async (username: string, newPassword: string, token: string) => {
-    const res = await fetch(url + "LoggedIn/EditPassword", {
+    const res = await fetch(url + "User/EditPassword", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -142,7 +142,7 @@ export const editPassword = async (username: string, newPassword: string, token:
 }
 
 export const deleteUser = async (username: string, token: string) => {
-    const res = await fetch(url + `LoggedIn/DeleteProfile?user=${username}`, {
+    const res = await fetch(url + `User/DeleteProfile?user=${username}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`

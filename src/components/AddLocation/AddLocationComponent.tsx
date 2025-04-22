@@ -10,6 +10,7 @@ const AddLocationComponent = () => {
 
   const [courtConditionArr, setCourtConditionArr] = useState<string[]>([]);
   const [courtCondition, setCourtCondition] = useState<string>("");
+  const [conditionToAdd, setConditionToAdd] = useState<string>("");
 
   const handleCourtConditionArr = () => {
     const arrToAdd = courtConditionArr;
@@ -17,6 +18,7 @@ const AddLocationComponent = () => {
     console.log(arrToAdd);
     setCourtConditionArr(arrToAdd);
     console.log(courtConditionArr);
+    setCourtCondition("")
   };
 
   useEffect(() => {
@@ -33,10 +35,12 @@ const AddLocationComponent = () => {
     console.log(arrToAdd);
     setCourtConditionArr(arrToAdd);
     console.log(courtConditionArr);
+    setConditionToAdd("")
   };
 
   const [amenities, setAmenities] = useState<string>("");
   const [amenitiesArr, setAmenitiesArr] = useState<string[]>([]);
+  const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
 
   useEffect(() => {
     if (amenities !== "") {
@@ -51,6 +55,7 @@ const AddLocationComponent = () => {
     console.log(arrToAdd);
     setAmenitiesArr(arrToAdd);
     console.log(amenitiesArr);
+    setAmenities("")
   };
 
   const handleDeleteAmenities = (amen: string) => {
@@ -106,6 +111,8 @@ const AddLocationComponent = () => {
             deleteFunction={handleDeleteCourtCondition}
             setFunction={setCourtCondition}
             stringArr={courtConditionArr}
+            setToAddFunction={setConditionToAdd}
+            stringToAdd={conditionToAdd}
           />
         </div>
         <div className="h-80">
@@ -114,6 +121,8 @@ const AddLocationComponent = () => {
             deleteFunction={handleDeleteAmenities}
             setFunction={setAmenities}
             stringArr={amenitiesArr}
+            stringToAdd={amenitiesToAdd}
+            setToAddFunction={setAmenitiesToAdd}
           />
         </div>
       </div>

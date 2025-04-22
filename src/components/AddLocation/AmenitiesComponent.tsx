@@ -11,7 +11,9 @@ import React, { useState } from "react";
 
 interface CourtConditionComponentProps {
   stringArr: string[];
+  stringToAdd: string;
   setFunction: React.Dispatch<React.SetStateAction<string>>;
+  setToAddFunction: React.Dispatch<React.SetStateAction<string>>;
   deleteFunction: (con: string) => void;
 }
 
@@ -19,10 +21,12 @@ const AmenitiesComponent: React.FC<CourtConditionComponentProps> = ({
   stringArr,
   setFunction,
   deleteFunction,
+  stringToAdd,
+  setToAddFunction
 }) => {
   const [isAmenitiesModalActive, setIsAmenitiesModalActive] =
     useState<boolean>(false);
-  const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
+
 
   return (
     <div>
@@ -43,7 +47,7 @@ const AmenitiesComponent: React.FC<CourtConditionComponentProps> = ({
               type="text"
               className="bg-white rounded-2xl w-[500px] h-[40px] text-black p-2"
               placeholder="Add an Amenity. eg. bathrooms"
-              onChange={(e) => setAmenitiesToAdd(e.target.value)}
+              onChange={(e) => setToAddFunction(e.target.value)}
             />
           </div>
         </ModalBody>
@@ -53,7 +57,7 @@ const AmenitiesComponent: React.FC<CourtConditionComponentProps> = ({
           </Button>
           <Button
             onClick={() => [
-              setFunction(amenitiesToAdd),
+              setFunction(stringToAdd),
               setIsAmenitiesModalActive(false),
             ]}
           >

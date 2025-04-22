@@ -11,7 +11,9 @@ import React, { useState } from "react";
 
 interface CourtConditionComponentProps {
   stringArr: string[];
+  stringToAdd: string;
   setFunction: React.Dispatch<React.SetStateAction<string>>;
+  setToAddFunction: React.Dispatch<React.SetStateAction<string>>;
   deleteFunction: (con: string) => void;
 }
 
@@ -19,10 +21,12 @@ const CourtConditionComponent: React.FC<CourtConditionComponentProps> = ({
   stringArr,
   setFunction,
   deleteFunction,
+  stringToAdd,
+  setToAddFunction
 }) => {
   const [isCourtModalActive, setIsCourtModalActive] = useState<boolean>(false);
 
-  const [conditionToAdd, setConditionToAdd] = useState<string>("");
+
 
   return (
     <div>
@@ -43,7 +47,7 @@ const CourtConditionComponent: React.FC<CourtConditionComponentProps> = ({
               type="text"
               className="bg-white rounded-2xl w-[500px] h-[40px] text-black p-2"
               placeholder="Add a Condition. eg. Cracked Surface"
-              onChange={(e) => setConditionToAdd(e.target.value)}
+              onChange={(e) => setToAddFunction(e.target.value)}
             />
           </div>
         </ModalBody>
@@ -53,7 +57,7 @@ const CourtConditionComponent: React.FC<CourtConditionComponentProps> = ({
           </Button>
           <Button
             onClick={() => [
-              setFunction(conditionToAdd),
+              setFunction(stringToAdd),
               setIsCourtModalActive(false),
             ]}
           >
