@@ -35,7 +35,6 @@ const AddLocationComponent = () => {
     console.log(courtConditionArr);
   };
 
-
   const [amenities, setAmenities] = useState<string>("");
   const [amenitiesArr, setAmenitiesArr] = useState<string[]>([]);
 
@@ -62,8 +61,6 @@ const AddLocationComponent = () => {
     setAmenitiesArr(arrToAdd);
     console.log(amenitiesArr);
   };
-
-
 
   const handleBackToHome = () => {
     push("/");
@@ -105,19 +102,19 @@ const AddLocationComponent = () => {
       <div className="grid grid-cols-2">
         <div className="h-80">
           <h3 className="text-[#E1FF00] mb-3">Condition of Court:</h3>
-          <CourtConditionComponent 
-          deleteFunction={handleDeleteCourtCondition} 
-          setFunction={setCourtCondition} 
-          stringArr={courtConditionArr} 
+          <CourtConditionComponent
+            deleteFunction={handleDeleteCourtCondition}
+            setFunction={setCourtCondition}
+            stringArr={courtConditionArr}
           />
         </div>
         <div className="h-80">
           <h3 className="text-[#E1FF00] mb-3">Amenities:</h3>
           <AmenitiesComponent
-          deleteFunction={handleDeleteAmenities} 
-          setFunction={setAmenities} 
-          stringArr={amenitiesArr} 
-           />
+            deleteFunction={handleDeleteAmenities}
+            setFunction={setAmenities}
+            stringArr={amenitiesArr}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-4">

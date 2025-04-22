@@ -12,13 +12,13 @@ import React, { useState } from "react";
 interface CourtConditionComponentProps {
   stringArr: string[];
   setFunction: React.Dispatch<React.SetStateAction<string>>;
-  deleteFunction: (con: string) => void
+  deleteFunction: (con: string) => void;
 }
 
 const CourtConditionComponent: React.FC<CourtConditionComponentProps> = ({
   stringArr,
   setFunction,
-  deleteFunction
+  deleteFunction,
 }) => {
   const [isCourtModalActive, setIsCourtModalActive] = useState<boolean>(false);
 

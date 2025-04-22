@@ -12,18 +12,17 @@ import React, { useState } from "react";
 interface CourtConditionComponentProps {
   stringArr: string[];
   setFunction: React.Dispatch<React.SetStateAction<string>>;
-  deleteFunction: (con: string) => void
+  deleteFunction: (con: string) => void;
 }
 
 const AmenitiesComponent: React.FC<CourtConditionComponentProps> = ({
   stringArr,
   setFunction,
-  deleteFunction
+  deleteFunction,
 }) => {
-  
   const [isAmenitiesModalActive, setIsAmenitiesModalActive] =
-      useState<boolean>(false);
-      const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
+    useState<boolean>(false);
+  const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
 
   return (
     <div>
@@ -69,10 +68,7 @@ const AmenitiesComponent: React.FC<CourtConditionComponentProps> = ({
             className="flex gap-2 bg-[#99a7bd] border-1 border-[#E1FF00] rounded-full me-2 px-3 my-1"
           >
             <div className="">{amenity}</div>
-            <div
-              className="bg-white"
-              onClick={() => deleteFunction(amenity)}
-            >
+            <div className="bg-white" onClick={() => deleteFunction(amenity)}>
               X
             </div>
           </li>
