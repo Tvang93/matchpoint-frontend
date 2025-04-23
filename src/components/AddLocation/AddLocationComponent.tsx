@@ -5,25 +5,44 @@ import React, { useEffect, useState } from "react";
 import CourtConditionComponent from "./CourtConditionComponent";
 import AmenitiesComponent from "./AmenitiesComponent";
 
+interface IAddLocationDTO {
+  courtName: string;
+  latitude: number;
+  longitude: number;
+  conditions: string[];
+  amenities: string[];
+}
+
 const AddLocationComponent = () => {
   const { push } = useRouter();
+
+  const [courtName, setCourtName] = useState<string>("");
+  const [courtLatitude, setCourtLatitude] = useState<number | undefined>();
+  const [courtLongitude, setCourtLongitude] = useState<number | undefined>();
 
   const [courtConditionArr, setCourtConditionArr] = useState<string[]>([]);
   const [courtCondition, setCourtCondition] = useState<string>("");
   const [conditionToAdd, setConditionToAdd] = useState<string>("");
 
+  const [amenities, setAmenities] = useState<string>("");
+  const [amenitiesArr, setAmenitiesArr] = useState<string[]>([]);
+  const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
+
+  const [addLocationDTO, setAddLocationDTO] = useState<
+    IAddLocationDTO | undefined
+  >();
+
+  // -------------------- Court Conditions Logic -------------------------------------
+
   const handleCourtConditionArr = () => {
     const arrToAdd = courtConditionArr;
     arrToAdd.push(courtCondition);
-    console.log(arrToAdd);
     setCourtConditionArr(arrToAdd);
-    console.log(courtConditionArr);
-    setCourtCondition("")
+    setCourtCondition("");
   };
 
   useEffect(() => {
     if (courtCondition !== "") {
-      console.log(courtCondition);
       handleCourtConditionArr();
     }
   }, [courtCondition]);
@@ -32,19 +51,14 @@ const AddLocationComponent = () => {
     const arrToAdd = courtConditionArr;
     const idx = arrToAdd.indexOf(con);
     arrToAdd.splice(idx, 1);
-    console.log(arrToAdd);
     setCourtConditionArr(arrToAdd);
-    console.log(courtConditionArr);
-    setConditionToAdd("")
+    setConditionToAdd("");
   };
 
-  const [amenities, setAmenities] = useState<string>("");
-  const [amenitiesArr, setAmenitiesArr] = useState<string[]>([]);
-  const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
+  // -------------------- Amenities Logic -------------------------------------
 
   useEffect(() => {
     if (amenities !== "") {
-      console.log(amenities);
       handleAmenitiesArr();
     }
   }, [amenities]);
@@ -52,20 +66,75 @@ const AddLocationComponent = () => {
   const handleAmenitiesArr = () => {
     const arrToAdd = amenitiesArr;
     arrToAdd.push(amenities);
-    console.log(arrToAdd);
     setAmenitiesArr(arrToAdd);
-    console.log(amenitiesArr);
-    setAmenities("")
+    setAmenities("");
   };
 
   const handleDeleteAmenities = (amen: string) => {
     const arrToAdd = amenitiesArr;
     const idx = arrToAdd.indexOf(amen);
     arrToAdd.splice(idx, 1);
-    console.log(arrToAdd);
     setAmenitiesArr(arrToAdd);
-    console.log(amenitiesArr);
+    setAmenitiesToAdd("");
   };
+
+  // -------------------- Add Location Logic -------------------------------------
+
+  useEffect(() => {
+    let object: IAddLocationDTO | undefined;
+    if (addLocationDTO !== undefined) {
+      object = addLocationDTO;
+    } else {
+      object = {
+        courtName: "",
+        latitude: 0,
+        longitude: 0,
+        conditions: [""],
+        amenities: [""],
+      };
+    }
+
+    console.log("before change object", object);
+    console.log("before change addLocation", addLocationDTO);
+
+    if (object !== undefined) {
+      object.amenities = amenitiesArr;
+      object.conditions = courtConditionArr;
+      object.latitude = Number(courtLatitude);
+      object.longitude = Number(courtLongitude);
+      object.courtName = courtName;
+    }
+
+    setAddLocationDTO(object);
+    console.log("after change object", object);
+    console.log("after change addLocation", addLocationDTO);
+  }, [
+    amenitiesArr,
+    courtConditionArr,
+    courtLatitude,
+    courtLongitude,
+    courtName,
+  ]);
+
+  const handleAddNewLocation = async () => {
+    console.log("AddLocationDTO", addLocationDTO);
+  };
+
+  const checkAddLocationDTO = (obj: IAddLocationDTO) => {
+    if (
+      obj.courtName?.trim() == "" ||
+      obj.courtName == undefined ||
+      obj.latitude == 0 ||
+      obj.latitude == undefined ||
+      obj.longitude == 0 ||
+      obj.longitude == undefined
+    )
+      return false;
+
+    return true;
+  };
+  
+  // -------------------- Back To Home Logic -------------------------------------
 
   const handleBackToHome = () => {
     push("/");
@@ -79,17 +148,27 @@ const AddLocationComponent = () => {
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-3">
             <h2 className="text-[#E1FF00] text-xl">Coodinates:</h2>
-            <div className="flex gap-5">
-              <input
-                id="LatitudeField"
-                className="border-1 bg-white"
-                type="number"
-              />
-              <input
-                id="LongitudalField"
-                className="border-1 bg-white"
-                type="number"
-              />
+            <div className="flex gap-5 ">
+              <div className="flex flex-col">
+                <p className="text-[#E1FF00]">Latitude:</p>
+                <input
+                  id="LatitudeField"
+                  className="border-1 bg-white"
+                  type="number"
+                  maxLength={6}
+                  onChange={(e) => setCourtLatitude(Number(e.target.value))}
+                />
+              </div>
+              <div className="flex flex-col">
+                <p className="text-[#E1FF00]">Longitude:</p>
+                <input
+                  id="LongitudalField"
+                  className="border-1 bg-white"
+                  type="number"
+                  maxLength={6}
+                  onChange={(e) => setCourtLongitude(Number(e.target.value))}
+                />
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-3">
@@ -98,6 +177,8 @@ const AddLocationComponent = () => {
               id="LocationNameField"
               className="bg-white border-1"
               type="text"
+              maxLength={16}
+              onChange={(e) => setCourtName(e.target.value)}
             />
           </div>
         </div>
@@ -127,7 +208,10 @@ const AddLocationComponent = () => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <button className="bg-[#E1FF00] border-1 text-[#243451] rounded-[20px] hover:cursor-pointer hover:bg-[rgb(225,255,0,0.8)] w-100 self-center">
+        <button
+          className="bg-[#E1FF00] border-1 text-[#243451] rounded-[20px] hover:cursor-pointer hover:bg-[rgb(225,255,0,0.8)] w-100 self-center"
+          onClick={handleAddNewLocation}
+        >
           Add Location
         </button>
         <button

@@ -152,3 +152,9 @@ export const deleteUser = async (username: string, token: string) => {
     const data = await res.json();
     return data.success;
 }
+
+export const addNewLocation = async () => {
+    const res = await fetch(url + "Location/AddNewLocation", {
+        
+    }) 
+}
