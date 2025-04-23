@@ -1,4 +1,4 @@
-import { ILoginInfo, IUserData, IUserInfo } from "./Interfaces";
+import { IAddLocationDTO, ILoginInfo, IUserData, IUserInfo } from "./Interfaces";
 
 const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/"
 
@@ -153,8 +153,15 @@ export const deleteUser = async (username: string, token: string) => {
     return data.success;
 }
 
-export const addNewLocation = async () => {
+export const addNewLocation = async (location: IAddLocationDTO, token: string) => {
     const res = await fetch(url + "Location/AddNewLocation", {
-        
-    }) 
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body:JSON.stringify(location)
+    })
+    const data = await res.json();
+    return data;
 }

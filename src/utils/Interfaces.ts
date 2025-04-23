@@ -35,3 +35,11 @@ export interface IUserData {
 export interface IToken {
   token: string
 }
+
+export interface IAddLocationDTO {
+  courtName: string;
+  latitude: number;
+  longitude: number;
+  conditions: string[];
+  amenities: string[];
+}

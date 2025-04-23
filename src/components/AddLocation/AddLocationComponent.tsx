@@ -4,14 +4,9 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import CourtConditionComponent from "./CourtConditionComponent";
 import AmenitiesComponent from "./AmenitiesComponent";
+import { IAddLocationDTO } from "@/utils/Interfaces";
+import { addNewLocation } from "@/utils/DataServices";
 
-interface IAddLocationDTO {
-  courtName: string;
-  latitude: number;
-  longitude: number;
-  conditions: string[];
-  amenities: string[];
-}
 
 const AddLocationComponent = () => {
   const { push } = useRouter();
@@ -28,9 +23,7 @@ const AddLocationComponent = () => {
   const [amenitiesArr, setAmenitiesArr] = useState<string[]>([]);
   const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
 
-  const [addLocationDTO, setAddLocationDTO] = useState<
-    IAddLocationDTO | undefined
-  >();
+  const [addLocationDTO, setAddLocationDTO] = useState<IAddLocationDTO>();
 
   // -------------------- Court Conditions Logic -------------------------------------
 
@@ -117,7 +110,20 @@ const AddLocationComponent = () => {
   ]);
 
   const handleAddNewLocation = async () => {
+    const token = sessionStorage.getItem('Token');
+    if(!token) return console.log('no token');
+
     console.log("AddLocationDTO", addLocationDTO);
+    if(addLocationDTO !== undefined && checkAddLocationDTO(addLocationDTO)){
+      const success = await addNewLocation(addLocationDTO, token)
+
+      if(!success.success){
+      return alert(success.message);
+      }
+
+      alert("Location Added!")
+      push("/")
+    }
   };
 
   const checkAddLocationDTO = (obj: IAddLocationDTO) => {
