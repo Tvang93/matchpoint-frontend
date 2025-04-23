@@ -2,7 +2,8 @@ import { IAddLocationDTO, ILoginInfo, IUserData, IUserInfo } from "./Interfaces"
 
 const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/"
 
-export const mapbox = process.env.MapboxKey
+export const mapbox = process.env.NEXT_PUBLIC_MapboxKey
+console.log(mapbox)
 
 let userData: IUserData;
 

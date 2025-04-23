@@ -1,11 +1,12 @@
-import { mapbox } from '@/utils/DataServices'
+import MapBoxComponent from '@/components/MapBoxComponent'
 import React from 'react'
 
+
 const TestingMapbboxPage = () => {
+
   return (
     <div>
-        <p>Testing page</p>
-        <p>{mapbox}</p>
+        <MapBoxComponent />
     </div>
   )
 }
