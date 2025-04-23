@@ -2,6 +2,8 @@ import { IAddLocationDTO, ILoginInfo, IUserData, IUserInfo } from "./Interfaces"
 
 const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/"
 
+export const mapbox = process.env.MapboxKey
+
 let userData: IUserData;
 
 export const createAccount = async (user:IUserInfo) => {
