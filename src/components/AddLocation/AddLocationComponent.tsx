@@ -6,14 +6,15 @@ import CourtConditionComponent from "./CourtConditionComponent";
 import AmenitiesComponent from "./AmenitiesComponent";
 import { IAddLocationDTO } from "@/utils/Interfaces";
 import { addNewLocation } from "@/utils/DataServices";
+import MapBoxALComponent from "./MapboxALComponent";
 
 
 const AddLocationComponent = () => {
   const { push } = useRouter();
 
   const [courtName, setCourtName] = useState<string>("");
-  const [courtLatitude, setCourtLatitude] = useState<number | undefined>();
-  const [courtLongitude, setCourtLongitude] = useState<number | undefined>();
+  const [courtLatitude, setCourtLatitude] = useState<number>(0);
+  const [courtLongitude, setCourtLongitude] = useState<number>(0);
 
   const [courtConditionArr, setCourtConditionArr] = useState<string[]>([]);
   const [courtCondition, setCourtCondition] = useState<string>("");
@@ -150,7 +151,9 @@ const AddLocationComponent = () => {
     <div className="flex flex-col py-15 px-20 ">
       <h1 className="self-center text-[#E1FF00] text-4xl mb-3">Add Location</h1>
       <div className="flex w-full justify-between">
-        <div className="text-[#E1FF00]">placeholder</div>
+        <div>
+          <MapBoxALComponent setLat={setCourtLatitude} setLng={setCourtLongitude} />
+        </div>
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-3">
             <h2 className="text-[#E1FF00] text-xl">Coodinates:</h2>
@@ -159,20 +162,20 @@ const AddLocationComponent = () => {
                 <p className="text-[#E1FF00]">Latitude:</p>
                 <input
                   id="LatitudeField"
-                  className="border-1 bg-white"
+                  className="border-1 bg-white ps-2"
                   type="number"
-                  maxLength={6}
-                  onChange={(e) => setCourtLatitude(Number(e.target.value))}
+                  value={courtLatitude}
+                  readOnly
                 />
               </div>
               <div className="flex flex-col">
                 <p className="text-[#E1FF00]">Longitude:</p>
                 <input
                   id="LongitudalField"
-                  className="border-1 bg-white"
+                  className="border-1 bg-white ps-2"
                   type="number"
-                  maxLength={6}
-                  onChange={(e) => setCourtLongitude(Number(e.target.value))}
+                  value={courtLongitude}
+                  readOnly
                 />
               </div>
             </div>
