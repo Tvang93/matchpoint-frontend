@@ -44,6 +44,7 @@ const CourtConditionComponent: React.FC<CourtConditionComponentProps> = ({
         <ModalBody>
           <div className="space-y-6">
             <input
+              id="addCourtConditionInputField"
               type="text"
               className="bg-white rounded-2xl w-[500px] h-[40px] text-black p-2"
               placeholder="Add a Condition. eg. Cracked Surface"
