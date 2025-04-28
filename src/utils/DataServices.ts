@@ -1,6 +1,9 @@
-import { ICourtCard, ILoginInfo, IUserData, IUserInfo } from "./Interfaces";
+import { IAddLocationDTO, ILoginInfo, IUserData, IUserInfo,  ICourtCard } from "./Interfaces";
 
 const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/"
+
+export const mapbox = process.env.NEXT_PUBLIC_MapboxKey
+console.log(mapbox)
 
 let userData: IUserData;
 
@@ -112,7 +115,7 @@ export const ForgotPassword = async (user: ILoginInfo) => {
 
 export const editUsername = async (oldUsername: string, newUsername: string, token: string) => {
     console.log(token)
-    const res = await fetch(url + "LoggedIn/EditUsername", {
+    const res = await fetch(url + "User/EditUsername", {
         method: "PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -126,7 +129,7 @@ export const editUsername = async (oldUsername: string, newUsername: string, tok
 }
 
 export const editPassword = async (username: string, newPassword: string, token: string) => {
-    const res = await fetch(url + "LoggedIn/EditPassword", {
+    const res = await fetch(url + "User/EditPassword", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -142,7 +145,7 @@ export const editPassword = async (username: string, newPassword: string, token:
 }
 
 export const deleteUser = async (username: string, token: string) => {
-    const res = await fetch(url + `LoggedIn/DeleteProfile?user=${username}`, {
+    const res = await fetch(url + `User/DeleteProfile?user=${username}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`
@@ -153,16 +156,29 @@ export const deleteUser = async (username: string, token: string) => {
     return data.success;
 }
 
+export const addNewLocation = async (location: IAddLocationDTO, token: string) => {
+    const res = await fetch(url + "Location/AddNewLocation", {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body:JSON.stringify(location)
+    })
+    const data = await res.json();
+    return data;
+}
+
 export const getAllLocations = async (): Promise<ICourtCard[] | null> => {
 
-        const res = await fetch(`${url}Location/GetAllLocations`);
-        
-        if (!res.ok) {
-            const data = await res.json();
-            console.error("Error getting locations:", data.message);
-            return null;
-        }
-        
-        return await res.json();
+    const res = await fetch(`${url}Location/GetAllLocations`);
+    
+    if (!res.ok) {
+        const data = await res.json();
+        console.error("Error getting locations:", data.message);
+        return null;
+    }
+    
+    return await res.json();
 
 };

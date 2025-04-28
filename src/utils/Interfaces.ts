@@ -36,10 +36,10 @@ export interface IToken {
   token: string
 }
 
-export interface AddLocations {
+export interface IAddLocationDTO {
   courtName: string;
   latitude: number;
   longitude: number;
-  conditions: Array<{condition: string}>;
-  amenities: Array<{amenity: string}>;
+  conditions: string[];
+  amenities: string[];
 }

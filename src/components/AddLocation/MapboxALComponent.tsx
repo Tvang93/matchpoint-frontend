@@ -9,12 +9,14 @@ const INITIAL_CENTER = [
   40.6941
 ]
 
-const MapBoxComponent = () => {
+interface IMapboxALProps {
+    setLat: React.Dispatch<React.SetStateAction<number>>;
+    setLng: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
     const mapRef = useRef<mapboxgl.Map | null>(null)
     const mapContainerRef = useRef<HTMLDivElement | null>(null)
-
-    const [latitude, setLatitude] = useState(INITIAL_CENTER[1])
-    const [longitude, setLongitude] = useState(INITIAL_CENTER[0])
 
 
     useEffect(() => {
@@ -32,8 +34,8 @@ const MapBoxComponent = () => {
           const mapCenter = mapRef.current.getCenter()
   
           // update state
-          setLatitude(mapCenter.lat)
-          setLongitude(mapCenter.lng)
+          setLat(Number(mapCenter.lat.toFixed(4)))
+          setLng(Number(mapCenter.lng.toFixed(4)))
       }})
 
       return () => {
@@ -45,12 +47,8 @@ const MapBoxComponent = () => {
 
   return (
     <div>
-        <p>Testing page</p>
-        <div className="sidebar">
-        Longitude: {longitude.toFixed(4)} | Latitude: {latitude.toFixed(4)}
-      </div>
-        <div id='map-container' className='relative h-150 w-100' ref={mapContainerRef}>
-          <div className='absolute top-[280px] left-[180px]'>
+        <div id='map-container' className='relative h-100 w-100' ref={mapContainerRef}>
+          <div className='absolute top-[180px] left-[180px]'>
             <img className='h-10 w-10' src="/assets/tennisIcon.png" alt="" />
           </div>
         </div>
@@ -58,4 +56,4 @@ const MapBoxComponent = () => {
   )
 }
 
-export default MapBoxComponent
+export default MapBoxALComponent
