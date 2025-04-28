@@ -1,4 +1,4 @@
-import { ILoginInfo, IUserData, IUserInfo } from "./Interfaces";
+import { ICourtCard, ILoginInfo, IUserData, IUserInfo } from "./Interfaces";
 
 const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/"
 
@@ -152,3 +152,17 @@ export const deleteUser = async (username: string, token: string) => {
     const data = await res.json();
     return data.success;
 }
+
+export const getAllLocations = async (): Promise<ICourtCard[] | null> => {
+
+        const res = await fetch(`${url}Location/GetAllLocations`);
+        
+        if (!res.ok) {
+            const data = await res.json();
+            console.error("Error getting locations:", data.message);
+            return null;
+        }
+        
+        return await res.json();
+
+};
