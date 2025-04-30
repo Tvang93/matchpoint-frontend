@@ -10,12 +10,12 @@ const INITIAL_CENTER = [
   40.6941
 ]
 
-interface EarthquakeFeature {
-  id: string;
-  geometry: {
-    coordinates: [number, number];
-  };
-}
+// interface EarthquakeFeature {
+//   id: string;
+//   geometry: {
+//     coordinates: [number, number];
+//   };
+// }
 
 const MapBoxComponent = () => {
     const mapRef = useRef<mapboxgl.Map | null>(null)
@@ -23,7 +23,7 @@ const MapBoxComponent = () => {
 
     const [latitude, setLatitude] = useState(INITIAL_CENTER[1])
     const [longitude, setLongitude] = useState(INITIAL_CENTER[0])
-    const [isRefreshed, setIsRefreshed] = useState<boolean>(false)
+    // const [isRefreshed, setIsRefreshed] = useState<boolean>(false)
 
 
     const [earthquakeData, setEarthquakeData] = useState<FeatureCollection | null>(null)
