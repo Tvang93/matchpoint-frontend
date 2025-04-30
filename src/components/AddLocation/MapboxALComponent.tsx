@@ -1,7 +1,7 @@
 'use client'
 
 import { mapbox } from '@/utils/DataServices'
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 import mapboxgl from 'mapbox-gl'
 
 const INITIAL_CENTER = [
@@ -24,7 +24,7 @@ const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
       if(!mapContainerRef.current) return
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
-        center: [-74.0242, 40.6941],
+        center: [INITIAL_CENTER[0], INITIAL_CENTER[1]],
         zoom: 12
       });
 
