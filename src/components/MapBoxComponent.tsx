@@ -3,8 +3,7 @@
 import { mapbox } from '@/utils/DataServices'
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import mapboxgl, { LngLatBounds } from 'mapbox-gl'
-import { FeatureCollection, Geometry } from 'geojson';
-import Marker from '@/Marker'
+import { FeatureCollection } from 'geojson';
 
 const INITIAL_CENTER = [
   -74.0242,
@@ -16,10 +15,6 @@ interface EarthquakeFeature {
   geometry: {
     coordinates: [number, number];
   };
-}
-
-interface EarthquakeData {
-  features: EarthquakeFeature[];
 }
 
 const MapBoxComponent = () => {
@@ -84,7 +79,7 @@ const MapBoxComponent = () => {
       if(!mapContainerRef.current) return
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
-        center: [116.14815, -1.99628],
+        center: [longitude, latitude],
         minZoom: 5.5,
         zoom: 5.5
       });
@@ -97,7 +92,11 @@ const MapBoxComponent = () => {
 
     mapRef.current.on('moveend', async () => {
         await getBboxAndFetch()
-
+        if(mapRef.current){
+          const mapCenter = mapRef.current.getCenter()
+          setLatitude(mapCenter.lat);
+          setLongitude(mapCenter.lng)
+        }
     })
 
 
