@@ -152,7 +152,7 @@ const AddLocationComponent = () => {
       <h1 className="self-center text-[#E1FF00] text-4xl mb-3">Add Location</h1>
       <div className="flex w-full justify-between">
         <div>
-          <MapBoxALComponent setLat={setCourtLatitude} setLng={setCourtLongitude} />
+          <MapBoxALComponent setLat={setCourtLatitude} setLng={setCourtLongitude}/>
         </div>
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-3">
