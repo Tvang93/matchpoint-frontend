@@ -38,8 +38,8 @@ export interface IToken {
 
 export interface IAddLocationDTO {
   courtName: string;
-  latitude: number;
-  longitude: number;
+  latitude: string;
+  longitude: string;
   conditions: string[];
   amenities: string[];
 }

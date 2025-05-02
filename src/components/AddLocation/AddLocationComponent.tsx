@@ -13,8 +13,8 @@ const AddLocationComponent = () => {
   const { push } = useRouter();
 
   const [courtName, setCourtName] = useState<string>("");
-  const [courtLatitude, setCourtLatitude] = useState<number>(0);
-  const [courtLongitude, setCourtLongitude] = useState<number>(0);
+  const [courtLatitude, setCourtLatitude] = useState<string>("");
+  const [courtLongitude, setCourtLongitude] = useState<string>("");
 
   const [courtConditionArr, setCourtConditionArr] = useState<string[]>([]);
   const [courtCondition, setCourtCondition] = useState<string>("");
@@ -81,8 +81,8 @@ const AddLocationComponent = () => {
     } else {
       object = {
         courtName: "",
-        latitude: 0,
-        longitude: 0,
+        latitude: "",
+        longitude: "",
         conditions: [""],
         amenities: [""],
       };
@@ -94,8 +94,8 @@ const AddLocationComponent = () => {
     if (object !== undefined) {
       object.amenities = amenitiesArr;
       object.conditions = courtConditionArr;
-      object.latitude = Number(courtLatitude);
-      object.longitude = Number(courtLongitude);
+      object.latitude = courtLatitude;
+      object.longitude = courtLongitude;
       object.courtName = courtName;
     }
 
@@ -115,11 +115,16 @@ const AddLocationComponent = () => {
     if(!token) return console.log('no token');
 
     console.log("AddLocationDTO", addLocationDTO);
+    console.log("AddLocationDTO Lat", typeof addLocationDTO?.latitude, addLocationDTO?.latitude);
+
+
     if(addLocationDTO !== undefined && checkAddLocationDTO(addLocationDTO)){
       const success = await addNewLocation(addLocationDTO, token)
+      console.log("success", success)
 
       if(!success.success){
-      return alert(success.message);
+        console.log("debug working")
+      return alert(success.Message);
       }
 
       alert("Location Added!")
@@ -131,9 +136,9 @@ const AddLocationComponent = () => {
     if (
       obj.courtName?.trim() == "" ||
       obj.courtName == undefined ||
-      obj.latitude == 0 ||
+      obj.latitude == "" ||
       obj.latitude == undefined ||
-      obj.longitude == 0 ||
+      obj.longitude == "" ||
       obj.longitude == undefined
     )
       return false;
@@ -166,6 +171,7 @@ const AddLocationComponent = () => {
                   type="number"
                   value={courtLatitude}
                   readOnly
+                  // onChange={((e)=>setCourtLatitude(e.target.value))}
                 />
               </div>
               <div className="flex flex-col">
@@ -176,6 +182,7 @@ const AddLocationComponent = () => {
                   type="number"
                   value={courtLongitude}
                   readOnly
+                  // onChange={((e)=>setCourtLongitude(e.target.value))}
                 />
               </div>
             </div>

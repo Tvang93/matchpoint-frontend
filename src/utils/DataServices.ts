@@ -157,6 +157,7 @@ export const deleteUser = async (username: string, token: string) => {
 }
 
 export const addNewLocation = async (location: IAddLocationDTO, token: string) => {
+    console.log("debugging", location)
     const res = await fetch(url + "Location/AddNewLocation", {
         method: "POST",
         headers: {
@@ -166,6 +167,7 @@ export const addNewLocation = async (location: IAddLocationDTO, token: string) =
         body:JSON.stringify(location)
     })
     const data = await res.json();
+    console.log("fetch data", data)
     return data;
 }
 
@@ -182,3 +184,15 @@ export const getAllLocations = async (): Promise<ICourtCard[] | null> => {
     return await res.json();
 
 };
+
+export const getLocationsByCoords = async (latitude: number, longitude: number) => {
+    const res = await fetch(url + "Location/GetLocationInfoByCoords", {
+        method: "GET", 
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body:JSON.stringify({Lat: latitude, Lng: longitude})
+    })
+    const data = await res.json();
+    return data;
+}

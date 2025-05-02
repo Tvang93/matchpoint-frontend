@@ -10,8 +10,8 @@ const INITIAL_CENTER = [
 ]
 
 interface IMapboxALProps {
-    setLat: React.Dispatch<React.SetStateAction<number>>;
-    setLng: React.Dispatch<React.SetStateAction<number>>;
+    setLat: React.Dispatch<React.SetStateAction<string>>;
+    setLng: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
@@ -28,14 +28,17 @@ const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
         zoom: 12
       });
 
+      setLat(INITIAL_CENTER[1].toString())
+      setLng(INITIAL_CENTER[0].toString())
+
       mapRef.current.on('move', () => {
         if(mapRef.current){
         // get the current center coordinates and zoom level from the map
           const mapCenter = mapRef.current.getCenter()
   
           // update state
-          setLat(Number(mapCenter.lat.toFixed(4)))
-          setLng(Number(mapCenter.lng.toFixed(4)))
+          setLat(mapCenter.lat.toFixed(4))
+          setLng(mapCenter.lng.toFixed(4))
       }})
 
       return () => {
