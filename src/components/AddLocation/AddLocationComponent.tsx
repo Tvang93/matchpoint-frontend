@@ -152,10 +152,10 @@ const AddLocationComponent = () => {
     <div className="flex flex-col py-15 px-20 ">
       <h1 className="self-center text-[#E1FF00] text-4xl mb-3">Add Location</h1>
       <div className="flex w-full justify-between">
-        <div>
+        <div className="self-start pb-20">
           <MapBoxALComponent setLat={setCourtLatitude} setLng={setCourtLongitude}/>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="self-center flex flex-col gap-3">
           <div className="flex flex-col gap-3">
             <h2 className="text-[#E1FF00] text-xl">Coodinates:</h2>
             <div className="flex gap-5 ">
@@ -189,12 +189,12 @@ const AddLocationComponent = () => {
               id="LocationNameField"
               className="bg-white border-1"
               type="text"
-              maxLength={16}
+              maxLength={32}
               onChange={(e) => setCourtName(e.target.value)}
             />
           </div>
         </div>
-        <div className="text-[#E1FF00]">placeholder</div>
+        <div className="w-100 text-[#E1FF00]">placeholder</div>
       </div>
       <h2 className="text-[#E1FF00] my-3 text-xl">Add Tags:</h2>
       <div className="grid grid-cols-2">
