@@ -4,7 +4,6 @@ import { getLocationsByCoords, mapbox } from '@/utils/DataServices'
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import mapboxgl, { LngLatBounds } from 'mapbox-gl'
 import { FeatureCollection, Feature, GeoJsonProperties, Geometry } from 'geojson';
-import { IFeatures } from '@/utils/Interfaces';
 
 const INITIAL_CENTER = [
   -74.0242,
@@ -24,27 +23,27 @@ const geoJson: FeatureCollection = {
   features: []
 }
 
-const INITIAL_FEATURES: Feature<Geometry, GeoJsonProperties>[] = [{
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [125.6, 10.1]
-  },
-  "properties": {
-    "name": "Dinagat Islands"
-  }
-},
-{
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [125.6, 10.1]
-  },
-  "properties": {
-    "name": "Dinagat Islands"
-  }
-}
-]
+// const INITIAL_FEATURES: Feature<Geometry, GeoJsonProperties>[] = [{
+//   "type": "Feature",
+//   "geometry": {
+//     "type": "Point",
+//     "coordinates": [125.6, 10.1]
+//   },
+//   "properties": {
+//     "name": "Dinagat Islands"
+//   }
+// },
+// {
+//   "type": "Feature",
+//   "geometry": {
+//     "type": "Point",
+//     "coordinates": [125.6, 10.1]
+//   },
+//   "properties": {
+//     "name": "Dinagat Islands"
+//   }
+// }
+// ]
 
 const MapBoxComponent = () => {
     const mapRef = useRef<mapboxgl.Map | null>(null)

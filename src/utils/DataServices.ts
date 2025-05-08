@@ -184,11 +184,7 @@ export const getAllLocations = async (): Promise<ICourtCard[] | null> => {
 };
 
 export const getLocationsByCoords = async (lat: string, lng: string) => {
-    // console.log("debug", lat, lng)
-    // console.log("url", url + "Location/GetLocationInfoByCoords/" + lat + "/" + lng)
     const res = await fetch(url + "Location/GetLocationInfoByCoords/" + lat + "/" + lng)
-    // console.log("debugging", res)
     const data = await res.json();
-    // console.log("dbug", data)
     return data;
 }
