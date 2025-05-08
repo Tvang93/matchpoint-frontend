@@ -38,8 +38,29 @@ export interface IToken {
 
 export interface IAddLocationDTO {
   courtName: string;
-  latitude: string;
-  longitude: string;
+  coordinates: number[];
   conditions: string[];
   amenities: string[];
+}
+
+export interface IFeatures {
+  id: number;
+  collectionId: number;
+  type: string;
+  properties: {
+    id: number;
+    locationId: number;
+    courtName: string;
+    courtRating: number | null;
+    safetyRating: number| null;
+    conditions: string[] | null;
+    amenities: string[] | null;
+    comments: string[] | null
+  }
+  geometry: {
+    id: number;
+    locationId: number;
+    coordinates: number[];
+    type: string
+  }
 }

@@ -81,8 +81,7 @@ const AddLocationComponent = () => {
     } else {
       object = {
         courtName: "",
-        latitude: "",
-        longitude: "",
+        coordinates: [0, 0],
         conditions: [""],
         amenities: [""],
       };
@@ -94,8 +93,7 @@ const AddLocationComponent = () => {
     if (object !== undefined) {
       object.amenities = amenitiesArr;
       object.conditions = courtConditionArr;
-      object.latitude = courtLatitude;
-      object.longitude = courtLongitude;
+      object.coordinates = [Number(courtLongitude), Number(courtLatitude)];
       object.courtName = courtName;
     }
 
@@ -115,15 +113,11 @@ const AddLocationComponent = () => {
     if(!token) return console.log('no token');
 
     console.log("AddLocationDTO", addLocationDTO);
-    console.log("AddLocationDTO Lat", typeof addLocationDTO?.latitude, addLocationDTO?.latitude);
-
 
     if(addLocationDTO !== undefined && checkAddLocationDTO(addLocationDTO)){
       const success = await addNewLocation(addLocationDTO, token)
-      console.log("success", success)
 
       if(!success.success){
-        console.log("debug working")
       return alert(success.Message);
       }
 
@@ -136,10 +130,12 @@ const AddLocationComponent = () => {
     if (
       obj.courtName?.trim() == "" ||
       obj.courtName == undefined ||
-      obj.latitude == "" ||
-      obj.latitude == undefined ||
-      obj.longitude == "" ||
-      obj.longitude == undefined
+      // obj.lat == "" ||
+      // obj.lat == undefined ||
+      // obj.lng == "" ||
+      // obj.lng == undefined
+      obj.coordinates[0] == undefined ||
+      obj.coordinates[1] == undefined
     )
       return false;
 

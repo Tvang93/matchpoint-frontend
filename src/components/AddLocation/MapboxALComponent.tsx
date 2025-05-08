@@ -5,8 +5,8 @@ import React, { useRef, useEffect } from 'react'
 import mapboxgl from 'mapbox-gl'
 
 const INITIAL_CENTER = [
-  -74.0242,
-  40.6941
+  -121.275604,
+  37.961632
 ]
 
 interface IMapboxALProps {
