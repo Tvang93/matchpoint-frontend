@@ -7,7 +7,7 @@ import SearchCards from '@/components/SearchPage/SearchCards';
 import NavbarComponent from "@/components/NavbarComponent";
 
 const SearchPage = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery] = useState<string>('');
   const [locations, setLocations] = useState<ICourtCard[]>([]);
   const [error, setError] = useState<string | null>(null);
 
