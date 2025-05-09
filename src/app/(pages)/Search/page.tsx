@@ -1,7 +1,5 @@
 'use client'
 
-
-import MapBoxComponent from "@/components/MapBoxComponent";
 import { useState, useEffect } from 'react';
 import { getAllLocations } from '@/utils/DataServices';
 import { ICourtCard } from '@/utils/Interfaces';
