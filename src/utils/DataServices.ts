@@ -2,8 +2,7 @@ import { IAddLocationDTO, ILoginInfo, IUserData, IUserInfo,  ICourtCard } from "
 
 const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/"
 
-export const mapbox = process.env.NEXT_PUBLIC_MapboxKey
-console.log(mapbox)
+export const mapbox = 'pk.eyJ1IjoidHZhbmciLCJhIjoiY205NzhjeDU4MDR2YjJsb2pvaGxuZnZ0eiJ9.nRf1lWYQP-I8W6cqHJjvww'
 
 let userData: IUserData;
 
