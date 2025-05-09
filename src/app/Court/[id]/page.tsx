@@ -1,15 +1,14 @@
-
 "use client";
 
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import NavbarComponent from '@/components/NavbarComponent';
 import { ICourtCard } from '@/utils/Interfaces';
 import { useParams } from 'next/navigation';
 
 
-const page = () => {
+
+const CourtPage = () => {
 
   const params = useParams();
   const id  = params?.id;  
@@ -148,4 +147,4 @@ const page = () => {
   )
 }
 
-export default page
+export default CourtPage
