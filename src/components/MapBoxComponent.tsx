@@ -35,10 +35,10 @@ const MapBoxComponent = () => {
       console.log("does this work?")
       if (!mapRef.current || !courtLoactionData?.features?.length) return;
 
-      if (mapRef.current.getSource('earthquakes')) {
-        mapRef.current.removeLayer('earthquake-layer');
+      if (mapRef.current.getSource('courtLocations')) {
+        mapRef.current.removeLayer('places');
         mapRef.current.removeImage('mapIcon')
-        mapRef.current.removeSource('earthquakes');
+        mapRef.current.removeSource('courtLocations');
         
       }
     
