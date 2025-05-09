@@ -5,6 +5,7 @@ import { getAllLocations } from '@/utils/DataServices';
 import { ICourtCard } from '@/utils/Interfaces';
 import SearchCards from '@/components/SearchPage/SearchCards';
 import NavbarComponent from "@/components/NavbarComponent";
+import MapboxSPComponent from '@/components/SearchPage/MapboxSPComponent';
 
 const SearchPage = () => {
   const [searchQuery] = useState<string>('');
@@ -42,7 +43,7 @@ const SearchPage = () => {
           <div className="h-full w-full flex items-center justify-center text-gray-400">
 
             <div className="text-center">
-              <p className="text-xl">Map Placeholder</p>
+              <MapboxSPComponent />
             </div>
           </div>
         </div>
