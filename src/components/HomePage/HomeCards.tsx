@@ -1,24 +1,33 @@
 import { Card } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import { ICourtCard } from '@/utils/Interfaces'
-import { getAllLocations } from '@/utils/DataServices'
+import { get5miLocationsByCoords } from '@/utils/DataServices'
 import Link from 'next/link'
 
+interface Props {
+    lat?: number,
+    lng?: number
+}
 
-const HomeCards = () => {
+const HomeCards = (Props: Props) => {
+    const {lat, lng} = Props
     const [locations, setLocations] = useState<ICourtCard[]>([]);
     const [error, setError] = useState<string | null>(null);
     
     useEffect(() => {
+        console.log("lat", lat)
+        console.log("lng", lng)
         const fetchLocations = async () => {
             try {
-                const data = await getAllLocations();
+                if(lat && lng){
+                const data = await get5miLocationsByCoords(lat.toString(), lng.toString());
                 console.log(data)
                 if (data) {
                     setLocations(data);
                 } else {
                     setError("Failed to load locations");
                 }
+            }
             } catch (err) {
                 setError("An error occurred while fetching locations");
                 console.error(err);
@@ -27,7 +36,7 @@ const HomeCards = () => {
     }
         
         fetchLocations();
-    }, []);
+    }, [lat, lng]);
     
     
     if (error) {

@@ -187,3 +187,9 @@ export const getLocationsByCoords = async (lat: string, lng: string) => {
     const data = await res.json();
     return data;
 }
+
+export const get5miLocationsByCoords = async (lat: string, lng: string) => {
+    const res = await fetch(url + "Location/Get5miLocationInfoByCoords/" + lat + "/" + lng)
+    const data = await res.json();
+    return data;
+}

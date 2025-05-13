@@ -3,12 +3,32 @@
 import HomeCards from "@/components/HomePage/HomeCards";
 import NavbarComponent from "@/components/NavbarComponent";
 import { useRouter } from "next/navigation";
-import { KeyboardEvent } from "react";
+import { KeyboardEvent, useEffect, useState } from "react";
 
 
 export default function Home() {
   const {push} = useRouter();
+  
+  const [userLocation, setUserLocation] = useState<{latitude: number, longitude: number} | null>()
 
+  useEffect(()=>{
+    if("geolocation" in navigator){
+      navigator.geolocation.getCurrentPosition(
+        ({coords}) => {
+          setUserLocation({latitude: coords.latitude, longitude: coords.longitude})
+        },
+        (error) => {
+          console.error("Error Getting Your Location", error)
+        }
+      )
+    }else{
+      console.error("Geolocation not supported on this browser.")
+    }
+  }, [])
+
+  useEffect(()=>{
+    console.log(userLocation)
+  }, [userLocation])
 
   const handleSearchEnter = (event: KeyboardEvent<HTMLInputElement>) => {
     if(event.key === "Enter") push(`/Search`)
@@ -27,7 +47,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex justify-center">
-        <HomeCards/>
+        <HomeCards lat={userLocation?.latitude} lng={userLocation?.longitude} />
       </div>
 
 
