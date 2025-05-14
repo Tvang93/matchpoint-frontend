@@ -51,9 +51,7 @@ const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
   return (
     <div>
         <div id='map-container' className='relative h-100 w-100 text-white' ref={mapContainerRef}>
-          <div className='absolute top-[180px] left-[180px]'>
-            <img className='h-10 w-10' src="/assets/tennisIcon.png" alt="" />
-          </div>
+          <div className='absolute top-[198px] left-[198px] bg-red-600 rounded-2xl w-2 h-2 z-1' />
         </div>
     </div>
   )
