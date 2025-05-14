@@ -1,28 +1,32 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { getAllLocations } from '@/utils/DataServices';
+import { get5miLocationsByCoords, getAllLocations } from '@/utils/DataServices';
 import { ICourtCard } from '@/utils/Interfaces';
 import SearchCards from '@/components/SearchPage/SearchCards';
 import NavbarComponent from "@/components/NavbarComponent";
 import MapboxSPComponent from '@/components/SearchPage/MapboxSPComponent';
+import { useLocationCoordinatesContext } from '@/context/UserInfoContext';
 
 const SearchPage = () => {
   const [searchQuery] = useState<string>('');
   const [locations, setLocations] = useState<ICourtCard[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  const {locationCoordinates} = useLocationCoordinatesContext()
+
 
   useEffect(() => {
     const fetchLocations = async () => {
-
-        const data = await getAllLocations();
-        if (data) {
-          setLocations(data);
-        } else {
-          setError('Failed to load locations');
+      if(locationCoordinates)
+        if(locationCoordinates.latitude && locationCoordinates.longitude){
+          const data = await get5miLocationsByCoords(locationCoordinates?.latitude.toString(), locationCoordinates?.longitude.toString());
+          if (data) {
+            setLocations(data);
+          } else {
+            setError('Failed to load locations');
+          }
         }
-
     };
 
     fetchLocations();
