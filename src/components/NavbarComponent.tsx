@@ -3,7 +3,7 @@
 import { checkToken } from '@/utils/DataServices';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, KeyboardEvent } from 'react'
 import NavDropComponent from './Nav/NavDropComponent';
 import { useLoggedUsernameContext } from '@/context/UserInfoContext';
 
@@ -37,7 +37,11 @@ const NavbarComponent = () => {
       window.removeEventListener('storage', handleStorageChange);
     }
   }, [])
-
+  
+  const handleSearchEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+    console.log("doing something?")
+    if(event.key === "Enter") push(`/Search`)
+  }
 
 
   
@@ -56,6 +60,7 @@ const NavbarComponent = () => {
             type="text"
             placeholder="Search Location"
             className="w-full px-4 py-2 rounded-full text-slate-700 bg-white"
+            onKeyDown={(e)=>handleSearchEnter(e)}
           />
         </div>   
       }
@@ -78,6 +83,7 @@ const NavbarComponent = () => {
             type="text"
             placeholder="Search Location"
             className="w-full px-4 py-2 rounded-full text-slate-700 bg-white"
+            onKeyDown={(e)=>handleSearchEnter(e)}
           />
         </div>   
       } 
