@@ -3,6 +3,7 @@
 import { mapbox } from '@/utils/DataServices'
 import React, { useRef, useEffect } from 'react'
 import mapboxgl from 'mapbox-gl'
+import { useLocationCoordinatesContext } from '@/context/UserInfoContext'
 
 const INITIAL_CENTER = [
   -121.275604,
@@ -17,6 +18,8 @@ interface IMapboxALProps {
 const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
     const mapRef = useRef<mapboxgl.Map | null>(null)
     const mapContainerRef = useRef<HTMLDivElement | null>(null)
+
+    const {locationCoordinates} = useLocationCoordinatesContext();
 
 
     useEffect(() => {

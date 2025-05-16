@@ -7,10 +7,12 @@ import AmenitiesComponent from "./AmenitiesComponent";
 import { IAddLocationDTO } from "@/utils/Interfaces";
 import { addNewLocation } from "@/utils/DataServices";
 import MapBoxALComponent from "./MapboxALComponent";
+import { useLocationCoordinatesContext } from "@/context/UserInfoContext";
 
 
 const AddLocationComponent = () => {
   const { push } = useRouter();
+  const {locationCoordinates} = useLocationCoordinatesContext();
 
   const [courtName, setCourtName] = useState<string>("");
   const [courtLatitude, setCourtLatitude] = useState<string>("");

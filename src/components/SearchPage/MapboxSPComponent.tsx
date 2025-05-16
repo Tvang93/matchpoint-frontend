@@ -6,6 +6,7 @@ import mapboxgl, { GeoJSONFeature } from 'mapbox-gl'
 import { FeatureCollection, Feature } from 'geojson';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { useLocationCoordinatesContext } from '@/context/UserInfoContext';
 
 const INITIAL_CENTER = [
   -121.275604,
@@ -22,6 +23,7 @@ const geoJson: FeatureCollection = {
 const MapboxSPComponent = () => {
     const mapRef = useRef<mapboxgl.Map | null>(null)
     const mapContainerRef = useRef<HTMLDivElement | null>(null)
+    const {locationCoordinates} = useLocationCoordinatesContext();
 
     const [latitude, setLatitude] = useState(INITIAL_CENTER[1])
     const [longitude, setLongitude] = useState(INITIAL_CENTER[0])
