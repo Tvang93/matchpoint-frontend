@@ -104,9 +104,6 @@ const MapboxSPComponent = () => {
 
     }})
 
-      
-
-
     }, [courtLocationData, features]);
 
     useEffect(() => {

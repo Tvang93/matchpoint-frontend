@@ -87,8 +87,8 @@ const AddLocationComponent = () => {
       };
     }
 
-    console.log("before change object", object);
-    console.log("before change addLocation", addLocationDTO);
+    // console.log("before change object", object);
+    // console.log("before change addLocation", addLocationDTO);
 
     if (object !== undefined) {
       object.amenities = amenitiesArr;
@@ -98,8 +98,8 @@ const AddLocationComponent = () => {
     }
 
     setAddLocationDTO(object);
-    console.log("after change object", object);
-    console.log("after change addLocation", addLocationDTO);
+    // console.log("after change object", object);
+    // console.log("after change addLocation", addLocationDTO);
   }, [
     amenitiesArr,
     courtConditionArr,
@@ -112,7 +112,7 @@ const AddLocationComponent = () => {
     const token = sessionStorage.getItem('Token');
     if(!token) return console.log('no token');
 
-    console.log("AddLocationDTO", addLocationDTO);
+    // console.log("AddLocationDTO", addLocationDTO);
 
     if(addLocationDTO !== undefined && checkAddLocationDTO(addLocationDTO)){
       const success = await addNewLocation(addLocationDTO, token)

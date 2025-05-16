@@ -46,7 +46,7 @@ const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
       setLng(INITIAL_CENTER[0].toString())
     }
 
-      mapRef.current.on('move', () => {
+      mapRef.current.on('moveend', () => {
         if(mapRef.current){
         // get the current center coordinates and zoom level from the map
           const mapCenter = mapRef.current.getCenter()
