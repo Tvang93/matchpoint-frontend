@@ -1,7 +1,7 @@
 'use client'
 
 import { getLocationsByCoords, mapbox } from '@/utils/DataServices'
-import React, { useRef, useEffect, useState, use } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import mapboxgl, { GeoJSONFeature } from 'mapbox-gl'
 import { FeatureCollection, Feature } from 'geojson';
 

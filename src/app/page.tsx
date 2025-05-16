@@ -2,10 +2,10 @@
 
 import HomeCards from "@/components/HomePage/HomeCards";
 import NavbarComponent from "@/components/NavbarComponent";
-import { SearchBoxComponent } from "@/components/SearchBoxComponent";
+// import { SearchBoxComponent } from "@/components/SearchBoxComponent";
 import { useLocationCoordinatesContext } from "@/context/UserInfoContext";
 import { useRouter } from "next/navigation";
-import { KeyboardEvent, useEffect, useState } from "react";
+import { KeyboardEvent, useEffect } from "react";
 
 
 export default function Home() {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { get5miLocationsByCoords, getAllLocations } from '@/utils/DataServices';
+import { get5miLocationsByCoords } from '@/utils/DataServices';
 import { ICourtCard } from '@/utils/Interfaces';
 import SearchCards from '@/components/SearchPage/SearchCards';
 import NavbarComponent from "@/components/NavbarComponent";
