@@ -16,6 +16,7 @@ interface IMapboxALProps {
 }
 
 const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
+
     const mapRef = useRef<mapboxgl.Map | null>(null)
     const mapContainerRef = useRef<HTMLDivElement | null>(null)
 
@@ -25,7 +26,17 @@ const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
     useEffect(() => {
       mapboxgl.accessToken = mapbox
       if(!mapContainerRef.current) return
+      if(locationCoordinates && locationCoordinates.latitude && locationCoordinates.longitude){
       mapRef.current = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        center: [locationCoordinates.longitude, locationCoordinates.latitude],
+        zoom: 12
+      });
+
+      setLat(locationCoordinates.latitude.toString())
+      setLng(locationCoordinates.longitude.toString())
+    }else{
+            mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
         center: [INITIAL_CENTER[0], INITIAL_CENTER[1]],
         zoom: 12
@@ -33,6 +44,7 @@ const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
 
       setLat(INITIAL_CENTER[1].toString())
       setLng(INITIAL_CENTER[0].toString())
+    }
 
       mapRef.current.on('move', () => {
         if(mapRef.current){
