@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState, KeyboardEvent } from 'react'
 import NavDropComponent from './Nav/NavDropComponent';
 import { useLoggedUsernameContext } from '@/context/UserInfoContext';
+import DynamicSearchBoxComponent from './DynamicSearchBoxComponent';
 
 const NavbarComponent = () => {
   const [signedIn, setSignedIn] = useState<boolean>(false);
@@ -55,13 +56,14 @@ const NavbarComponent = () => {
       </Link>
       {
         pathname !== "/" &&
-        <div className="flex-grow max-w-[1198px] mx-4">
-          <input
+        <div className="relative flex-grow max-w-[1198px]">
+          <DynamicSearchBoxComponent />
+          {/* <input
             type="text"
             placeholder="Search Location"
             className="w-full px-4 py-2 rounded-full text-slate-700 bg-white"
             onKeyDown={(e)=>handleSearchEnter(e)}
-          />
+          /> */}
         </div>   
       }
 
@@ -78,13 +80,14 @@ const NavbarComponent = () => {
     </Link>
     {
         pathname !== "/" &&
-        <div className="flex-grow max-w-[1198px] mx-4">
-          <input
+        <div className="relative flex-grow max-w-[1198px]">
+          <DynamicSearchBoxComponent />
+          {/* <input
             type="text"
             placeholder="Search Location"
             className="w-full px-4 py-2 rounded-full text-slate-700 bg-white"
             onKeyDown={(e)=>handleSearchEnter(e)}
-          />
+          /> */}
         </div>   
       } 
       <button className="border border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#1e2c49] transition duration-300" onClick={handleSignIn}>

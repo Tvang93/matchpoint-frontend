@@ -2,14 +2,13 @@
 
 import HomeCards from "@/components/HomePage/HomeCards";
 import NavbarComponent from "@/components/NavbarComponent";
-// import { SearchBoxComponent } from "@/components/SearchBoxComponent";
+import DynamicSearchBoxComponent from "@/components/DynamicSearchBoxComponent";
 import { useLocationCoordinatesContext } from "@/context/UserInfoContext";
-import { useRouter } from "next/navigation";
-import { KeyboardEvent, useEffect } from "react";
+import { useEffect } from "react";
 
 
 export default function Home() {
-  const {push} = useRouter();
+  // const {push} = useRouter();
   
   const {locationCoordinates, setLocationCoordinates} = useLocationCoordinatesContext()
 
@@ -32,21 +31,24 @@ export default function Home() {
     console.log(locationCoordinates)
   }, [locationCoordinates])
 
-  const handleSearchEnter = (event: KeyboardEvent<HTMLInputElement>) => {
-    if(event.key === "Enter") push(`/Search`)
-  }
+  // const handleSearchEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+  //   if(event.key === "Enter") push(`/Search`)
+  // }
 
   return (
     <div className="flex flex-col bg-[#243451] min-h-screen">
       <NavbarComponent />
       <div className="w-full bg-[url(/assets/mp-hero-1.jpeg)] bg-cover bg-no-repeat bg-center min-h-180 flex justify-center items-end">
         <div className="relative flex justify-center items-end bottom-40">
-          {/* <SearchBoxComponent /> */}
-          <input className="bg-white py-2 px-5 text-3xl border-1 rounded-4xl w-180 " 
+          <div className="relative w-180">
+            <p className="ps-5 text-white text-shadow-lg font-bold text-2xl">Search a Location to Find Courts Nearby</p>
+            <DynamicSearchBoxComponent />
+          </div>
+          {/* <input className="bg-white py-2 px-5 text-3xl border-1 rounded-4xl w-180 " 
           type="text" 
           placeholder="Search Location" 
           onKeyDown={(e)=>handleSearchEnter(e)}
-          />
+          /> */}
         </div>
       </div>
       <div className="flex justify-center">

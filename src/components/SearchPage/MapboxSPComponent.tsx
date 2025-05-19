@@ -32,7 +32,7 @@ const MapboxSPComponent = () => {
     
 
     useEffect(() => {
-      console.log("does this work?")
+      // console.log("does this work?")
       if (!mapRef.current || !courtLocationData?.features?.length) return;
 
       if (mapRef.current.getSource('courtLocations')) {
@@ -174,8 +174,8 @@ const MapboxSPComponent = () => {
 
 
   return (
-    <div>
-        <div id='map-container' className='h-150 w-100' ref={mapContainerRef} />
+    <div className=''>
+        <div id='map-container' className='h-400 w-400 max-h-[100%] max-w-[100%]' ref={mapContainerRef} />
     </div>
   )
 }
