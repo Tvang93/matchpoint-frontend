@@ -186,7 +186,7 @@ export function SearchBoxComponent() {
                   <div 
                   key={idx} 
                   className="flex flex-row gap-2 hover:bg-green-200 hover:cursoor-pointer overflow-x-auto"
-                  onClick={()=>{setInputValue(suggestions.name), setSelectedSuggestion(true)}}
+                  onClick={()=>[setInputValue(suggestions.name), setSelectedSuggestion(true)]}
                   >
                     <p className="text-lg font-bold inline max-w-[50%] overflow-x-auto text-black">{suggestions.name}</p>
                     <p className="self-end text-black">{suggestions.place_formatted}</p>

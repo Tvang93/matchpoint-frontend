@@ -1,9 +1,9 @@
 'use client'
 
-import { checkToken } from '@/utils/DataServices';
+import { checkToken, mapbox } from '@/utils/DataServices';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useEffect, useState, KeyboardEvent } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavDropComponent from './Nav/NavDropComponent';
 import { useLoggedUsernameContext } from '@/context/UserInfoContext';
 import DynamicSearchBoxComponent from './DynamicSearchBoxComponent';
@@ -39,10 +39,10 @@ const NavbarComponent = () => {
     }
   }, [])
   
-  const handleSearchEnter = (event: KeyboardEvent<HTMLInputElement>) => {
-    console.log("doing something?")
-    if(event.key === "Enter") push(`/Search`)
-  }
+  // const handleSearchEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+  //   console.log("doing something?")
+  //   if(event.key === "Enter") push(`/Search`)
+  // }
 
 
   
@@ -57,7 +57,7 @@ const NavbarComponent = () => {
       {
         pathname !== "/" &&
         <div className="relative flex-grow max-w-[1198px]">
-          <DynamicSearchBoxComponent />
+          <DynamicSearchBoxComponent accessToken={mapbox} />
           {/* <input
             type="text"
             placeholder="Search Location"
@@ -81,7 +81,7 @@ const NavbarComponent = () => {
     {
         pathname !== "/" &&
         <div className="relative flex-grow max-w-[1198px]">
-          <DynamicSearchBoxComponent />
+          <DynamicSearchBoxComponent accessToken={mapbox} />
           {/* <input
             type="text"
             placeholder="Search Location"

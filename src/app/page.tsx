@@ -5,6 +5,7 @@ import NavbarComponent from "@/components/NavbarComponent";
 import DynamicSearchBoxComponent from "@/components/DynamicSearchBoxComponent";
 import { useLocationCoordinatesContext } from "@/context/UserInfoContext";
 import { useEffect } from "react";
+import { mapbox } from "@/utils/DataServices";
 
 
 export default function Home() {
@@ -42,7 +43,7 @@ export default function Home() {
         <div className="relative flex justify-center items-end bottom-40">
           <div className="relative w-180">
             <p className="ps-5 text-white text-shadow-lg font-bold text-2xl">Search a Location to Find Courts Nearby</p>
-            <DynamicSearchBoxComponent />
+            <DynamicSearchBoxComponent accessToken={mapbox}/>
           </div>
           {/* <input className="bg-white py-2 px-5 text-3xl border-1 rounded-4xl w-180 " 
           type="text" 

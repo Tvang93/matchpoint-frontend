@@ -1,6 +1,6 @@
 'use client'
 
-import { getLocationsByCoords, mapbox } from '@/utils/DataServices'
+import { get5miLocationsByCoords, mapbox } from '@/utils/DataServices'
 import React, { useRef, useEffect, useState } from 'react'
 import mapboxgl, { GeoJSONFeature } from 'mapbox-gl'
 import { FeatureCollection, Feature } from 'geojson';
@@ -167,7 +167,7 @@ const MapboxSPComponent = () => {
     }, [features])
 
     const fetchLocationsByCoords = async(lat: number, lng:number) => {
-      const data = await getLocationsByCoords(lat.toString(), lng.toString());
+      const data = await get5miLocationsByCoords(lat.toString(), lng.toString());
       setFeatures(data)
 
     }
