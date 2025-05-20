@@ -21,7 +21,7 @@ const INITIAL_CENTER = [
 const MapboxSPComponent = () => {
     const mapRef = useRef<mapboxgl.Map | null>(null)
     const mapContainerRef = useRef<HTMLDivElement | null>(null)
-    const {locationCoordinates} = useLocationCoordinatesContext();
+    const {locationCoordinates, searchCoordinates} = useLocationCoordinatesContext();
 
     const [latitude, setLatitude] = useState(locationCoordinates?.latitude)
     const [longitude, setLongitude] = useState(locationCoordinates?.longitude)
@@ -30,6 +30,13 @@ const MapboxSPComponent = () => {
 
     const [courtLocationData, setCourtLocationData] = useState<FeatureCollection | null>(null)
     
+    useEffect(()=>{
+      if(searchCoordinates && searchCoordinates !== locationCoordinates){
+        setLatitude(searchCoordinates.latitude);
+        setLongitude(searchCoordinates.longitude)
+      }
+    }, [searchCoordinates])
+
 
     useEffect(() => {
       // console.log("does this work?")
@@ -107,6 +114,7 @@ const MapboxSPComponent = () => {
     }, [courtLocationData, features]);
 
     useEffect(() => {
+      console.log("lat", latitude, "lng", longitude)
       mapboxgl.accessToken = mapbox
       if(!mapContainerRef.current) return
       if(latitude && longitude){
@@ -151,7 +159,7 @@ const MapboxSPComponent = () => {
           mapRef.current.remove()
         }
       }
-    }, [])
+    }, [latitude, longitude])
 
     console.log("after", courtLocationData)
 
@@ -175,7 +183,7 @@ const MapboxSPComponent = () => {
 
   return (
     <div className=''>
-        <div id='map-container' className='h-400 w-400 max-h-[100%] max-w-[100%]' ref={mapContainerRef} />
+        <div id='map-container' className='h-400 w-400 max-h-[100%] max-w-[100%] z-0' ref={mapContainerRef} />
     </div>
   )
 }

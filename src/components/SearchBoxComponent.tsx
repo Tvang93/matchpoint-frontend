@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 
 export function SearchBoxComponent() {
   const { push } = useRouter();
-  const { setLocationCoordinates } = useLocationCoordinatesContext()
+  const { setSearchCoordinates } = useLocationCoordinatesContext()
   const [inputValue, setInputValue] = useState<string>("");
   // const [searchValue, setSearchValue] = useState<string>("");
   const [isMounted, setIsMounted] = useState(false);
@@ -84,7 +84,7 @@ export function SearchBoxComponent() {
   useEffect(()=>{
     if(retrievedData){
       if (retrievedData.features[0].geometry && retrievedData.features[0].geometry.type === "Point")
-      setLocationCoordinates({latitude: retrievedData.features[0].geometry.coordinates[1], longitude: retrievedData.features[0].geometry.coordinates[0]})
+      setSearchCoordinates({latitude: retrievedData.features[0].geometry.coordinates[1], longitude: retrievedData.features[0].geometry.coordinates[0]})
       push(`/Search`)
     }
   }, [retrievedData])
@@ -138,6 +138,10 @@ export function SearchBoxComponent() {
   //   if(searchValue.trim() == ""){
   //     setHasSuggestions(false)
   //   }
+
+    if(inputValue.trim() == ""){
+      setHasSuggestions(false)
+    }
   }, [inputValue]);
 
   useEffect(() => {
@@ -169,7 +173,7 @@ export function SearchBoxComponent() {
 
 
   return (
-        <div className="relative w-full">
+        <div className="relative w-full z-9999">
           <input
             id="SearchBar"
             className="bg-white py-2 px-5 text-3xl border-1 rounded-4xl w-full placeholder:text-[rgb(0,0,0,0.7)] text-black"
