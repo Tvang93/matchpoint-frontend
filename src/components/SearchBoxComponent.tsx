@@ -142,6 +142,10 @@ export function SearchBoxComponent() {
     if(inputValue.trim() == ""){
       setHasSuggestions(false)
     }
+
+    if(selectedSuggestion){
+      setSelectedSuggestion(false)
+    }
   }, [inputValue]);
 
   useEffect(() => {
