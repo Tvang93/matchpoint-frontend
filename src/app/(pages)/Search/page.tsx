@@ -13,7 +13,7 @@ const SearchPage = () => {
   const [locations, setLocations] = useState<ICourtCard[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const {locationCoordinates} = useLocationCoordinatesContext()
+  const {locationCoordinates, searchCoordinates} = useLocationCoordinatesContext()
 
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const SearchPage = () => {
     };
 
     fetchLocations();
-  }, []);
+  }, [searchCoordinates]);
 
 
   const filteredLocations = locations.filter(location => 
@@ -46,7 +46,7 @@ const SearchPage = () => {
         <div className="w-1/2 bg-gray-800 border border-gray-700 overflow-hidden">
           <div className="h-full w-full flex items-center justify-center text-gray-400">
 
-            <div className="text-center">
+            <div className="text-center z-0">
               <MapboxSPComponent />
             </div>
           </div>

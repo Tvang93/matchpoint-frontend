@@ -21,15 +21,23 @@ const INITIAL_CENTER = [
 const MapboxSPComponent = () => {
     const mapRef = useRef<mapboxgl.Map | null>(null)
     const mapContainerRef = useRef<HTMLDivElement | null>(null)
-    const {locationCoordinates} = useLocationCoordinatesContext();
+    const {locationCoordinates, searchCoordinates} = useLocationCoordinatesContext();
 
     const [latitude, setLatitude] = useState(locationCoordinates?.latitude)
     const [longitude, setLongitude] = useState(locationCoordinates?.longitude)
     const [features, setFeatures] = useState<Feature[] | null>(null)
+    const [mapboxZoom, setMapboxZoom] = useState<number>(11.5)
 
 
     const [courtLocationData, setCourtLocationData] = useState<FeatureCollection | null>(null)
     
+    useEffect(()=>{
+      if(searchCoordinates && searchCoordinates !== locationCoordinates){
+        setLatitude(searchCoordinates.latitude);
+        setLongitude(searchCoordinates.longitude)
+      }
+    }, [searchCoordinates])
+
 
     useEffect(() => {
       // console.log("does this work?")
@@ -107,14 +115,14 @@ const MapboxSPComponent = () => {
     }, [courtLocationData, features]);
 
     useEffect(() => {
+      console.log("lat", latitude, "lng", longitude)
       mapboxgl.accessToken = mapbox
       if(!mapContainerRef.current) return
       if(latitude && longitude){
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
         center: [longitude, latitude],
-        minZoom: 13,
-        zoom: 13
+        zoom: mapboxZoom
       });
 
       mapRef.current.on('load', async () => {
@@ -125,8 +133,7 @@ const MapboxSPComponent = () => {
         mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
         center: [INITIAL_CENTER[0], INITIAL_CENTER[1]],
-        minZoom: 13,
-        zoom: 13
+        zoom: mapboxZoom
       });
 
       mapRef.current.on('load', async () => {
@@ -138,8 +145,10 @@ const MapboxSPComponent = () => {
     mapRef.current.on('moveend', async () => {
         if(mapRef.current){
           const mapCenter = mapRef.current.getCenter()
+          const mapZoom = mapRef.current.getZoom()
           setLatitude(mapCenter.lat);
           setLongitude(mapCenter.lng)
+          setMapboxZoom(mapZoom)
           await fetchLocationsByCoords(mapCenter.lat, mapCenter.lng)
         }
         
@@ -151,7 +160,7 @@ const MapboxSPComponent = () => {
           mapRef.current.remove()
         }
       }
-    }, [])
+    }, [latitude, longitude])
 
     console.log("after", courtLocationData)
 
@@ -175,7 +184,9 @@ const MapboxSPComponent = () => {
 
   return (
     <div className=''>
-        <div id='map-container' className='h-400 w-400 max-h-[100%] max-w-[100%]' ref={mapContainerRef} />
+        <div id='map-container' className='relative h-400 w-400 max-h-[100%] max-w-[100%] z-0' ref={mapContainerRef}>
+          <div className='absolute top-[50%] left-[50%] bg-red-600 rounded-2xl w-2 h-2 z-1' />
+        </div>
     </div>
   )
 }
