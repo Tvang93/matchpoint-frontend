@@ -11,7 +11,7 @@ export interface ICourtCard {
   amenities: Array<{id: number, amenity: string}>
   lat: number
   lon: number
-  comments: Array<{id: number, userId: number, username: string, profileImage: string, comment: string}>
+  comments: IComment[];
 }
 
 export interface IUserInfo{
@@ -63,4 +63,12 @@ export interface IFeatures {
     coordinates: number[];
     type: string
   }
+}
+
+export interface IComment {
+    id: number;
+    userId: number;
+    username: string;
+    profileImage: string;
+    comment: string;
 }

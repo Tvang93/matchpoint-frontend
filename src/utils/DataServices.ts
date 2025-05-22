@@ -193,3 +193,34 @@ export const get5miLocationsByCoords = async (lat: string, lng: string) => {
     const data = await res.json();
     return data;
 }
+
+export const getCommentsByLocationId = async (locationId: number) => {
+    const res = await fetch(`${url}Comments/GetCommentsByLocationId/${locationId}`);
+
+    if (!res.ok) {
+        const data = await res.json();
+        console.error("Error getting comments:", data.message);
+        return null;
+    }
+
+    const data = await res.json();
+    return data;
+};
+
+export const postComment = async (locationId: number, userId: number, comment: string, token: string) => {
+    const res = await fetch(`${url}Comments/AddComment`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            locationId,
+            userId,
+            comment
+        })
+    });
+
+    const data = await res.json();
+    return data;
+};

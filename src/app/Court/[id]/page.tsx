@@ -5,6 +5,8 @@ import Image from 'next/image';
 import NavbarComponent from '@/components/NavbarComponent';
 import { ICourtCard } from '@/utils/Interfaces';
 import { useParams } from 'next/navigation';
+import CommentsSection from '@/components/CourtPage/CommentSectionComponent';
+import { loggedInData } from "@/utils/DataServices"; 
 
 
 
@@ -14,6 +16,8 @@ const CourtPage = () => {
   const id  = params?.id;  
   const [locationData, setLocationData] = useState<ICourtCard | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [userId, setUserId] = useState<number | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
 
   const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/";
@@ -38,6 +42,26 @@ const CourtPage = () => {
     };
 
     fetchLocationData();
+
+  const fetchData = async () => {
+    const res = await fetch(`${url}Location/GetLocationInfoById/${id}`);
+    if (!res.ok) {
+      const errorData = await res.json();
+      setError(errorData.message || "Failed to load location data");
+      return;
+    }
+    const data = await res.json();
+    setLocationData(data);
+
+    const user = loggedInData();
+    const sessionToken = sessionStorage.getItem("Token");
+    if (user?.id && sessionToken) {
+      setUserId(user.id);
+      setToken(sessionToken);
+    }
+  };
+
+  fetchData();
   }, [id]);
 
   const handleGetDirections = () => {
@@ -66,7 +90,7 @@ const CourtPage = () => {
           <div className="w-full h-full bg-gray-700 relative">
             <Image 
               src="/assets/mp-hero-1.jpeg"
-              alt={locationData.courtName}
+              alt={locationData.courtName || "Location Name"}
               fill
             />
           </div>
@@ -138,6 +162,13 @@ const CourtPage = () => {
 
             <div>
               <h2 className="text-lg font-semibold text-gray-300 mb-2">Comments:</h2>
+              {userId !== null && token !== null && (
+                <CommentsSection
+                  courtId={locationData.id}
+                  userId={userId}
+                  token={token}
+                   />
+              )}
 
             </div>
           </div>
