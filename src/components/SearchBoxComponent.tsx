@@ -1,15 +1,13 @@
 "use client";
 
 // import { useRouter } from "next/navigation";
-import { useState, KeyboardEvent, useEffect} from "react";
+import { useState, KeyboardEvent, useEffect } from "react";
 import { mapbox } from "@/utils/DataServices";
 import { useSearchBoxCore, useSearchSession } from "@mapbox/search-js-react";
-import { FeatureCollection } from'geojson'
+import { FeatureCollection } from "geojson";
 import { SearchBoxSuggestion } from "@mapbox/search-js-core";
 import { useLocationCoordinatesContext } from "@/context/UserInfoContext";
 import { useRouter } from "next/navigation";
-
-
 
 // type LocationSuggestion = {
 //   mapbox_id: string;
@@ -18,10 +16,9 @@ import { useRouter } from "next/navigation";
 //   maki?: string;
 // };
 
-
 export function SearchBoxComponent() {
   const { push } = useRouter();
-  const { setSearchCoordinates } = useLocationCoordinatesContext()
+  const { setSearchCoordinates } = useLocationCoordinatesContext();
   const [inputValue, setInputValue] = useState<string>("");
   // const [searchValue, setSearchValue] = useState<string>("");
   const [isMounted, setIsMounted] = useState(false);
@@ -33,10 +30,10 @@ export function SearchBoxComponent() {
   const [hasSuggestions, setHasSuggestions] = useState<boolean>(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<boolean>(false);
 
-  // const [mapboxId, setMapboxId] = useState<string>("");
+  const [mapboxId, setMapboxId] = useState<string>("");
   // const [hasMapboxId, setHasMapboxId] = useState<boolean>(false);
 
-  const[retrievedData, setRetrievedData] = useState<FeatureCollection>()
+  const [retrievedData, setRetrievedData] = useState<FeatureCollection>();
 
   // const newUUIDToken = crypto.randomUUID();
 
@@ -45,165 +42,141 @@ export function SearchBoxComponent() {
     // setSessionToken(newUUIDToken)
   }, []);
 
-  useEffect(()=>{
-    console.log(isMounted)
-  }, [isMounted])
+  useEffect(() => {
+    console.log(isMounted);
+  }, [isMounted]);
 
-    const search = useSearchBoxCore({accessToken: mapbox})
-    const session = useSearchSession(search)
+  const search = useSearchBoxCore({
+    accessToken: mapbox,
+    poi_category: "place",
+  });
+  const session = useSearchSession(search);
 
-
-
-
-
-
-  const handleSearchEnter = async (event: KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
+  const handleSearchEnter = async (
+    event: KeyboardEvent<HTMLInputElement | HTMLDivElement>
+  ) => {
     if (event.key === "Enter" && inputValue.trim() != "") {
-      retrieveFunc()
+      retrieveFunc();
     }
   };
 
   const retrieveFunc = () => {
-    const suggestion = searchSuggestions[0];
-    if (session.canRetrieve(suggestion)) {
-      session.retrieve(suggestion);
-      session.addEventListener('retrieve', (res) => {
-        setRetrievedData(res);
-        console.log("retieve:", res)
-      });
-    } else if (session.canSuggest(suggestion)) {
-    // .. go through suggest flow again ..
-    session.suggest(suggestion.toString());
-  }
-  }
+    if (mapboxId && searchSuggestions) {
+      const specificSuggestion: SearchBoxSuggestion[] =
+        searchSuggestions.filter((searches) => searches.mapbox_id == mapboxId);
 
-  useEffect(()=>{
-    if(selectedSuggestion && inputValue.trim() != "") retrieveFunc()
-  }, [selectedSuggestion])
-
-  useEffect(()=>{
-    if(retrievedData){
-      if (retrievedData.features[0].geometry && retrievedData.features[0].geometry.type === "Point")
-      setSearchCoordinates({latitude: retrievedData.features[0].geometry.coordinates[1], longitude: retrievedData.features[0].geometry.coordinates[0]})
-      push(`/Search`)
+      if (specificSuggestion) {
+        const suggestion = specificSuggestion[0];
+        if (session.canRetrieve(suggestion)) {
+          session.retrieve(suggestion);
+          session.addEventListener("retrieve", (res) => {
+            setRetrievedData(res);
+            console.log("retieve:", res);
+          });
+        } else if (session.canSuggest(suggestion)) {
+          // .. go through suggest flow again ..
+          session.suggest(suggestion.toString());
+        }
+      }
     }
-  }, [retrievedData])
+
+    if (searchSuggestions) {
+      const suggestion = searchSuggestions[0];
+      if (session.canRetrieve(suggestion)) {
+        session.retrieve(suggestion);
+        session.addEventListener("retrieve", (res) => {
+          setRetrievedData(res);
+          console.log("retieve:", res);
+        });
+      } else if (session.canSuggest(suggestion)) {
+        // .. go through suggest flow again ..
+        session.suggest(suggestion.toString());
+      }
+    }
+  };
 
   useEffect(() => {
-    if(inputValue.trim() != ""){
-    session.suggest(inputValue);
+    if (selectedSuggestion && inputValue.trim() != "") retrieveFunc();
+  }, [selectedSuggestion]);
 
-    session.addEventListener('suggest', (res) => {
-      setSearchSuggestions(res.suggestions);
-      console.log("suggest:", res)
-    });
+  useEffect(() => {
+    if (retrievedData) {
+      if (
+        retrievedData.features[0].geometry &&
+        retrievedData.features[0].geometry.type === "Point"
+      )
+        setSearchCoordinates({
+          latitude: retrievedData.features[0].geometry.coordinates[1],
+          longitude: retrievedData.features[0].geometry.coordinates[0],
+        });
+      push(`/Search`);
+      setInputValue("");
+    }
+  }, [retrievedData]);
+
+  useEffect(() => {
+    if (inputValue.trim() != "") {
+      session.suggest(inputValue);
+
+      session.addEventListener("suggest", (res) => {
+        setSearchSuggestions(res.suggestions);
+        console.log("suggest:", res);
+      });
     }
 
-// session.addEventListener('retrieve', (res) => {
-//   setRetrievedData(res);
-//   console.log("retieve:", res)
-// });
-
-// document.querySelector('button').addEventListener('click', (event) => {
-//   const suggestions = session.suggestions?.suggestions;
-//   if (!suggestions || !suggestions.length) {
-//     return;
-//   }
-
-
-// });
-
-
-
-  //   console.log(searchValue)
-  //   console.log(sessionToken)
-  //   console.log(isMounted)
-  //   if (isMounted && sessionToken && inputValue.trim() != "") {
-  //     const suggestFetch = async () => {
-  //       try {
-  //         const res = await fetch(
-  //           `https://api.mapbox.com/search/searchbox/v1/suggest?q=${inputValue}&access_token=${mapbox}&session_token=${sessionToken}&language=en&country=US&limit=5&proximity=-121.2756,37.9616`
-  //         );
-  //         const data = await res.json();
-  //         console.log(data)
-  //         setSearchSuggestions(data.suggestions);
-  //       } catch (err) {
-  //         console.error("Geocoding Error:", err);
-  //         setSearchSuggestions([]);
-  //       }
-  //     };
-  //     // suggestFetch();
-  // }
-
-  //   if(searchValue.trim() == ""){
-  //     setHasSuggestions(false)
-  //   }
-
-    if(inputValue.trim() == ""){
-      setHasSuggestions(false)
+    if (inputValue.trim() == "") {
+      setHasSuggestions(false);
     }
 
-    if(selectedSuggestion){
-      setSelectedSuggestion(false)
+    if (selectedSuggestion) {
+      setSelectedSuggestion(false);
     }
   }, [inputValue]);
 
   useEffect(() => {
     console.log(searchSuggestions);
-    console.log("fetch works?")
-    if(searchSuggestions.length > 0){
-    console.log(searchSuggestions[0].name)
-    setHasSuggestions(true)
+    console.log("fetch works?");
+    if (searchSuggestions.length > 0) {
+      console.log(searchSuggestions[0].name);
+      setHasSuggestions(true);
     }
   }, [searchSuggestions]);
 
-  // // const handleSelectSuggestion = async () => {
-  // //   set
-  // // }
-
-  // useEffect(()=>{
-  //   // if(mapboxId.trim() !== ""){
-  //   //   const retrieveMapbox = async () => {
-  //   //   const res = await fetch(`https://api.mapbox.com/search/searchbox/v1/retrieve/${mapboxId}&access_token=${mapbox}&session_token=${sessionToken}`)
-  //   //   const data = await res.json()
-  //   //   console.log(data)
-  //   //   }
-  //   //   retrieveMapbox();
-  //   // }
-  //   setHasMapboxId(true)
-  //   console.log(mapboxId)
-  // }, [mapboxId])
-
-
-
   return (
-        <div className="relative w-full z-9999">
-          <input
-            id="SearchBar"
-            className="bg-white py-2 px-5 text-3xl border-1 rounded-4xl w-full placeholder:text-[rgb(0,0,0,0.7)] text-black"
-            placeholder="Search Location..."
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={(e) => handleSearchEnter(e)}
-            autoComplete="off"
-          />
-            { hasSuggestions &&
-          <div className="absolute bg-white px-2 py-1 mx-5 border-1 border-black">
-              {searchSuggestions.map((suggestions,idx)=>{
-                return(
-                  <div 
-                  key={idx} 
-                  className="flex flex-row gap-2 hover:bg-green-200 hover:cursoor-pointer overflow-x-auto"
-                  onClick={()=>[setInputValue(suggestions.name), setSelectedSuggestion(true)]}
-                  >
-                    <p className="text-lg font-bold inline max-w-[50%] overflow-x-auto text-black">{suggestions.name}</p>
-                    <p className="self-end text-black">{suggestions.place_formatted}</p>
-                  </div>
-                )
-              })
-            }
-          </div>
-            }
+    <div className="relative w-full">
+      <input
+        id="SearchBar"
+        className="bg-white py-2 px-5 text-3xl border-1 rounded-4xl w-full placeholder:text-[rgb(0,0,0,0.7)] text-black"
+        placeholder="Search Location..."
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={(e) => handleSearchEnter(e)}
+        autoComplete="off"
+      />
+      {hasSuggestions && (
+        <div className="absolute bg-white px-2 py-1 mx-5 border-1 border-black w-[94%]">
+          {searchSuggestions.map((suggestions, idx) => {
+            return (
+              <div
+                key={idx}
+                className="flex flex-row gap-2 hover:bg-green-200 hover:cursoor-pointer overflow-x-auto"
+                onClick={() => [
+                  setInputValue(suggestions.name),
+                  setSelectedSuggestion(true),
+                  setMapboxId(suggestions.mapbox_id),
+                ]}
+              >
+                <p className="text-lg font-bold inline max-w-[50%] overflow-x-auto text-black">
+                  {suggestions.name}
+                </p>
+                <p className="self-end text-black">
+                  {suggestions.place_formatted}
+                </p>
+              </div>
+            );
+          })}
         </div>
+      )}
+    </div>
   );
 }
