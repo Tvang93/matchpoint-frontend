@@ -193,6 +193,7 @@ const AddLocationComponent = () => {
               onChange={(e) => setCourtName(e.target.value)}
             />
           </div>
+          {/* Add court Surface Dropdown */}
         </div>
         <div className="w-100 text-[#E1FF00]">placeholder</div>
       </div>
