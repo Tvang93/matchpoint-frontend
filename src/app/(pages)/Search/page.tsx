@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { get5miLocationsByCoords } from '@/utils/DataServices';
-import { ICourtCard } from '@/utils/Interfaces';
+import { ICourtCard, IFeatures } from '@/utils/Interfaces';
 import SearchCards from '@/components/SearchPage/SearchCards';
 import NavbarComponent from "@/components/NavbarComponent";
 import MapboxSPComponent from '@/components/SearchPage/MapboxSPComponent';
@@ -10,7 +10,7 @@ import { useLocationCoordinatesContext } from '@/context/UserInfoContext';
 
 const SearchPage = () => {
   const [searchQuery] = useState<string>('');
-  const [locations, setLocations] = useState<ICourtCard[]>([]);
+  const [locations, setLocations] = useState<IFeatures[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const {locationCoordinates, searchCoordinates} = useLocationCoordinatesContext()
@@ -34,7 +34,7 @@ const SearchPage = () => {
 
 
   const filteredLocations = locations.filter(location => 
-    searchQuery ? location.courtName.toLowerCase().includes(searchQuery.toLowerCase()) : true
+    searchQuery ? location.properties.courtName.toLowerCase().includes(searchQuery.toLowerCase()) : true
   );
 
   return (

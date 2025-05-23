@@ -1,9 +1,9 @@
 import React from 'react';
-import { ICourtCard } from '@/utils/Interfaces';
+import { ICourtCard, IFeatures, IProperties } from '@/utils/Interfaces';
 
 
 interface SearchCardsProps {
-  locations: ICourtCard[];
+  locations: IFeatures[];
 }
 
 const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
@@ -11,27 +11,28 @@ const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
   const getConditionTag = (condition: string) => {
 
     
-    if (condition.toLowerCase().includes('good surface')) {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-green-500 text-white`}>Good Surface</span>;
-    } else if (condition.toLowerCase().includes('no cracks')) {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-yellow-500 text-white`}>No Cracks</span>;
-    } else if (condition.toLowerCase().includes('uneven surface')) {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-yellow-500 text-white`}>Uneven Surface</span>;
-    } else if (condition.toLowerCase().includes('restroom')) {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-blue-500 text-white`}>Restroom</span>;
-    } else if (condition.toLowerCase().includes('outdoor lights')) {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-purple-500 text-white`}>Outdoor Lights</span>;
-    } else if (condition.toLowerCase().includes('no outdoor lights')) {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-red-500 text-white`}>No Outdoor Lights</span>;
-    } else if (condition.toLowerCase().includes('no fountains')) {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-red-500 text-white`}>No Fountains</span>;
-    } else if (condition.toLowerCase().includes('fountains')) {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-green-500 text-white`}>Fountains</span>;
-    } else if (condition.toLowerCase().includes('no restrooms')) {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-red-500 text-white`}>No Restrooms</span>;
-    } else {
-      return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-gray-500 text-white`}>{condition}</span>;
-    }
+  //   if (condition.toLowerCase().includes('good surface')) {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-green-500 text-white`}>Good Surface</span>;
+  //   } else if (condition.toLowerCase().includes('no cracks')) {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-yellow-500 text-white`}>No Cracks</span>;
+  //   } else if (condition.toLowerCase().includes('uneven surface')) {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-yellow-500 text-white`}>Uneven Surface</span>;
+  //   } else if (condition.toLowerCase().includes('restroom')) {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-blue-500 text-white`}>Restroom</span>;
+  //   } else if (condition.toLowerCase().includes('outdoor lights')) {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-purple-500 text-white`}>Outdoor Lights</span>;
+  //   } else if (condition.toLowerCase().includes('no outdoor lights')) {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-red-500 text-white`}>No Outdoor Lights</span>;
+  //   } else if (condition.toLowerCase().includes('no fountains')) {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-red-500 text-white`}>No Fountains</span>;
+  //   } else if (condition.toLowerCase().includes('fountains')) {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-green-500 text-white`}>Fountains</span>;
+  //   } else if (condition.toLowerCase().includes('no restrooms')) {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-red-500 text-white`}>No Restrooms</span>;
+  //   } else {
+  //     return <span key={condition} className={`text-sm px-4 py-1 rounded-full mr-2 mb-2 border border-gray-500 text-white`}>{condition}</span>;
+  //   }
+
   };
 
   return (
@@ -49,10 +50,10 @@ const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
 
               <div className="flex flex-wrap mb-2">
 
-                {location.courtCondition?.filter(item => 
-                  item.condition.toLowerCase().includes('restroom') || 
-                  item.condition.toLowerCase().includes('lights') || 
-                  item.condition.toLowerCase().includes('fountain')
+                {location.conditions.filter(condition => 
+                  condition.toLowerCase().includes('restroom') || 
+                  condition.toLowerCase().includes('lights') || 
+                  condition.toLowerCase().includes('fountain')
                 ).map((item) => (
                   getConditionTag(item.condition)
                 ))}

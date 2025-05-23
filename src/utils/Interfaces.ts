@@ -48,22 +48,8 @@ export interface IFeatures {
   id: number;
   collectionId: number;
   type: string;
-  properties: {
-    id: number;
-    locationId: number;
-    courtName: string;
-    courtRating: number | null;
-    safetyRating: number| null;
-    conditions: string[] | null;
-    amenities: string[] | null;
-    comments: string[] | null
-  }
-  geometry: {
-    id: number;
-    locationId: number;
-    coordinates: number[];
-    type: string
-  }
+  properties: IProperties;
+  geometry: IGeometry;
 }
 
 export interface IComment {
@@ -72,4 +58,22 @@ export interface IComment {
     username: string;
     profileImage: string;
     comment: string;
+}
+
+export interface IProperties {
+    id: number;
+    locationId: number;
+    courtName: string;
+    courtRating: number | null;
+    safetyRating: number| null;
+    conditions: string[] | null;
+    amenities: string[] | null;
+    comments: string[] | null
+}
+
+export interface IGeometry {
+  id: number;
+  locationId: number;
+  coordinates: number[];
+  type: string
 }
