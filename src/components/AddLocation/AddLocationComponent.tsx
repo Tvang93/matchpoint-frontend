@@ -7,7 +7,7 @@ import AmenitiesComponent from "./AmenitiesComponent";
 import { IAddLocationDTO } from "@/utils/Interfaces";
 import { addNewLocation } from "@/utils/DataServices";
 import MapBoxALComponent from "./MapboxALComponent";
-import { Dropdown, DropdownItem, Label, Select } from "flowbite-react";
+import { Label, Select } from "flowbite-react";
 
 
 const AddLocationComponent = () => {
