@@ -7,6 +7,7 @@ import AmenitiesComponent from "./AmenitiesComponent";
 import { IAddLocationDTO } from "@/utils/Interfaces";
 import { addNewLocation } from "@/utils/DataServices";
 import MapBoxALComponent from "./MapboxALComponent";
+import { Dropdown, DropdownItem, Label, Select } from "flowbite-react";
 
 
 const AddLocationComponent = () => {
@@ -23,6 +24,8 @@ const AddLocationComponent = () => {
   const [amenities, setAmenities] = useState<string>("");
   const [amenitiesArr, setAmenitiesArr] = useState<string[]>([]);
   const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
+
+  const [courtSurface, setCourtSurface] = useState<string>("");
 
   const [addLocationDTO, setAddLocationDTO] = useState<IAddLocationDTO>();
 
@@ -84,6 +87,7 @@ const AddLocationComponent = () => {
         coordinates: [0, 0],
         conditions: [""],
         amenities: [""],
+        surface: ""
       };
     }
 
@@ -95,10 +99,11 @@ const AddLocationComponent = () => {
       object.conditions = courtConditionArr;
       object.coordinates = [Number(courtLongitude), Number(courtLatitude)];
       object.courtName = courtName;
+      object.surface = courtSurface;
     }
 
     setAddLocationDTO(object);
-    // console.log("after change object", object);
+    console.log("after change object", object);
     // console.log("after change addLocation", addLocationDTO);
   }, [
     amenitiesArr,
@@ -106,6 +111,7 @@ const AddLocationComponent = () => {
     courtLatitude,
     courtLongitude,
     courtName,
+    courtSurface
   ]);
 
   const handleAddNewLocation = async () => {
@@ -130,6 +136,7 @@ const AddLocationComponent = () => {
     if (
       obj.courtName?.trim() == "" ||
       obj.courtName == undefined ||
+      obj.surface.trim() == "" ||
       // obj.lat == "" ||
       // obj.lat == undefined ||
       // obj.lng == "" ||
@@ -147,6 +154,10 @@ const AddLocationComponent = () => {
   const handleBackToHome = () => {
     push("/");
   };
+
+  useEffect(()=>{
+    console.log(courtSurface)
+  }, [courtSurface])
 
   return (
     <div className="flex flex-col py-15 px-20 ">
@@ -194,6 +205,19 @@ const AddLocationComponent = () => {
             />
           </div>
           {/* Add court Surface Dropdown */}
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="court-surfaces" className="text-[#E1FF00] text-xl">Select a Surface</Label>
+            </div>
+            <Select id="court-surfaces" required onChange={(e)=>setCourtSurface(e.target.value)}>
+              <option value={""}>Please Select a Surface</option>
+              <option value={"Hard Surface"}>Hard Surface</option>
+              <option value={"Clay"}>Clay</option>
+              <option value={"Grass"}>Grass</option>
+              <option value={"Dirt"}>Dirt</option>
+            </Select>
+
+          </div>
         </div>
         <div className="w-100 text-[#E1FF00]">placeholder</div>
       </div>
