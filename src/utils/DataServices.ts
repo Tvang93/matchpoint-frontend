@@ -1,6 +1,6 @@
 import { IAddLocationDTO, ILoginInfo, IUserData, IUserInfo,  ICourtCard } from "./Interfaces";
 
-const url = "https://matchpointbackend-c4btg3ekhea4gqcz.westus-01.azurewebsites.net/"
+export const url = "https://matchpointbackend-c4btg3ekhea4gqcz.westus-01.azurewebsites.net/"
 
 export const mapbox = 'pk.eyJ1IjoidHZhbmciLCJhIjoiY205NzhjeDU4MDR2YjJsb2pvaGxuZnZ0eiJ9.nRf1lWYQP-I8W6cqHJjvww'
 
