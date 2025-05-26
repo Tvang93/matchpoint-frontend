@@ -17,6 +17,8 @@ interface LocationCoordinatesContext {
     setLocationCoordinates: (coordinates: Coordinates) => void,
     searchCoordinates: Coordinates | undefined,
     setSearchCoordinates: (coordinates: Coordinates) => void,
+    searchQuery: string | undefined,
+    setSearchQuery : (string: string) => void,
 }
 
 const LoggedUsernameContext = createContext<UsernameContext | undefined>(undefined);
@@ -26,9 +28,10 @@ export function UserInfoWrapper({children}: {children: React.ReactNode}){
     const [loggedUsername, setLoggedUsername] = useState('')
     const [locationCoordinates, setLocationCoordinates] = useState<Coordinates | undefined>(undefined)
     const [searchCoordinates, setSearchCoordinates] = useState<Coordinates | undefined>(undefined)
+    const [searchQuery, setSearchQuery] = useState<string>("")
 
     return (
-        <LocationCoordinatesContext.Provider value={{locationCoordinates, setLocationCoordinates, searchCoordinates, setSearchCoordinates}}>
+        <LocationCoordinatesContext.Provider value={{locationCoordinates, setLocationCoordinates, searchCoordinates, setSearchCoordinates, searchQuery, setSearchQuery}}>
         <LoggedUsernameContext.Provider value={{loggedUsername, setLoggedUsername}}>
             {children}
         </LoggedUsernameContext.Provider>

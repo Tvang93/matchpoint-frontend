@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 
 export function SearchBoxComponent() {
   const { push } = useRouter();
-  const { setSearchCoordinates } = useLocationCoordinatesContext();
+  const { setSearchCoordinates, setSearchQuery } = useLocationCoordinatesContext();
   const [inputValue, setInputValue] = useState<string>("");
   // const [searchValue, setSearchValue] = useState<string>("");
   const [isMounted, setIsMounted] = useState(false);
@@ -56,6 +56,7 @@ export function SearchBoxComponent() {
     event: KeyboardEvent<HTMLInputElement | HTMLDivElement>
   ) => {
     if (event.key === "Enter" && inputValue.trim() != "") {
+      setHasSuggestions(false)
       retrieveFunc();
     }
   };
@@ -93,6 +94,8 @@ export function SearchBoxComponent() {
         session.suggest(suggestion.toString());
       }
     }
+
+    
   };
 
   useEffect(() => {
@@ -154,14 +157,15 @@ export function SearchBoxComponent() {
         autoComplete="off"
       />
       {hasSuggestions && (
-        <div className="absolute bg-white px-2 py-1 mx-5 border-1 border-black w-[94%]">
+        <div className="absolute bg-white px-2 py-1 mx-5 border-1 border-black w-[94%] z-1000">
           {searchSuggestions.map((suggestions, idx) => {
             return (
               <div
                 key={idx}
-                className="flex flex-row gap-2 hover:bg-green-200 hover:cursoor-pointer overflow-x-auto"
+                className="flex flex-row gap-2 hover:bg-green-200 hover:cursoor-pointer overflow-x-auto z-9999"
                 onClick={() => [
                   setInputValue(suggestions.name),
+                  setSearchQuery(suggestions.name),
                   setSelectedSuggestion(true),
                   setMapboxId(suggestions.mapbox_id),
                 ]}

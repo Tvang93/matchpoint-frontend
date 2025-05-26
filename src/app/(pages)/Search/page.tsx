@@ -9,7 +9,7 @@ import MapboxSPComponent from '@/components/SearchPage/MapboxSPComponent';
 import { useLocationCoordinatesContext } from '@/context/UserInfoContext';
 
 const SearchPage = () => {
-  const [searchQuery] = useState<string>('');
+  const { searchQuery } = useLocationCoordinatesContext();
   const [locations, setLocations] = useState<IFeatures[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,9 +18,9 @@ const SearchPage = () => {
 
   useEffect(() => {
     const fetchLocations = async () => {
-      if(locationCoordinates)
-        if(locationCoordinates.latitude && locationCoordinates.longitude){
-          const data = await get5miLocationsByCoords(locationCoordinates?.latitude.toString(), locationCoordinates?.longitude.toString());
+      if(searchCoordinates)
+        if(searchCoordinates.latitude && searchCoordinates.longitude){
+          const data = await get5miLocationsByCoords(searchCoordinates?.latitude.toString(), searchCoordinates?.longitude.toString());
           if (data) {
             setLocations(data);
           } else {
@@ -33,9 +33,9 @@ const SearchPage = () => {
   }, [searchCoordinates]);
 
 
-  const filteredLocations = locations.filter(location => 
-    searchQuery ? location.properties.courtName.toLowerCase().includes(searchQuery.toLowerCase()) : true
-  );
+  // const filteredLocations = locations.filter(location => 
+  //   searchQuery ? location.properties.courtName.toLowerCase().includes(searchQuery.toLowerCase()) : true
+  // );
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -62,11 +62,11 @@ const SearchPage = () => {
 
           {error ? (
             <div className="text-red-500 text-center py-10">{error}</div>
-          ) : filteredLocations.length === 0 ? (
+          ) : locations.length === 0 ? (
             <div className="text-[#E1FF00] text-center py-10">No courts found matching your search.</div>
           ) : (
             <div className="p-4">
-              <SearchCards locations={filteredLocations} />
+              <SearchCards locations={locations} />
             </div>
           )}
         </div>

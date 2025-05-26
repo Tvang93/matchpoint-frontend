@@ -21,7 +21,7 @@ const INITIAL_CENTER = [
 const MapboxSPComponent = () => {
     const mapRef = useRef<mapboxgl.Map | null>(null)
     const mapContainerRef = useRef<HTMLDivElement | null>(null)
-    const {locationCoordinates, searchCoordinates} = useLocationCoordinatesContext();
+    const {locationCoordinates, searchCoordinates, setSearchCoordinates} = useLocationCoordinatesContext();
 
     const [latitude, setLatitude] = useState(locationCoordinates?.latitude)
     const [longitude, setLongitude] = useState(locationCoordinates?.longitude)
@@ -144,12 +144,17 @@ const MapboxSPComponent = () => {
 
     mapRef.current.on('moveend', async () => {
         if(mapRef.current){
-          const mapCenter = mapRef.current.getCenter()
+          const {lat, lng} = mapRef.current.getCenter()
+          const newSearchCoords = {
+            latitude: lat,
+            longitude: lng
+          }
           const mapZoom = mapRef.current.getZoom()
-          setLatitude(mapCenter.lat);
-          setLongitude(mapCenter.lng)
+          setLatitude(lat);
+          setLongitude(lng)
           setMapboxZoom(mapZoom)
-          await fetchLocationsByCoords(mapCenter.lat, mapCenter.lng)
+          setSearchCoordinates(newSearchCoords)
+          await fetchLocationsByCoords(lat, lng)
         }
         
     })

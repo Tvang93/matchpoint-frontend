@@ -68,6 +68,7 @@ export interface IProperties {
     safetyRating: number| null;
     conditions: string[] | null;
     amenities: string[] | null;
+    surface: string | null
     comments: string[] | null
 }
 
