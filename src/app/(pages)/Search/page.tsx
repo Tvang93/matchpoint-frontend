@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { get5miLocationsByCoords } from '@/utils/DataServices';
-import { ICourtCard, IFeatures } from '@/utils/Interfaces';
+import { IFeatures } from '@/utils/Interfaces';
 import SearchCards from '@/components/SearchPage/SearchCards';
 import NavbarComponent from "@/components/NavbarComponent";
 import MapboxSPComponent from '@/components/SearchPage/MapboxSPComponent';
@@ -13,7 +13,7 @@ const SearchPage = () => {
   const [locations, setLocations] = useState<IFeatures[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const {locationCoordinates, searchCoordinates} = useLocationCoordinatesContext()
+  const {searchCoordinates} = useLocationCoordinatesContext()
 
 
   useEffect(() => {

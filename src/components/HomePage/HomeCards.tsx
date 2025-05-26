@@ -1,6 +1,6 @@
 import { Card } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
-import { ICourtCard, IFeatures } from '@/utils/Interfaces'
+import { IFeatures } from '@/utils/Interfaces'
 import { get5miLocationsByCoords } from '@/utils/DataServices'
 import Link from 'next/link'
 
