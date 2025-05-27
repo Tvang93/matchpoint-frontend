@@ -3,18 +3,67 @@
 import React, { useEffect } from "react";
 import { IFeatures } from "@/utils/Interfaces";
 import Link from "next/link";
-import { Pagination } from "flowbite-react";
+import { Pagination, createTheme, ThemeProvider } from "flowbite-react";
 import { useState } from "react";
+import { useLocationCoordinatesContext } from "@/context/UserInfoContext";
+
+
+// ------------ Pagination Theme/CSS ------------
+const customTheme = createTheme({
+  pagination: {
+    base: "",
+    layout: {
+      table: {
+        base: "text-sm text-gray-200",
+        span: "font-semibold text-[#E1FF00]",
+      },
+    },
+    pages: {
+      base: "xs:mt-0 mt-2 inline-flex items-center -space-x-px",
+      showIcon: "inline-flex",
+      previous: {
+        base: "ml-0 rounded-l-lg border border-gray-300 bg-[#3C434E] px-3 py-2 leading-tight text-[#E1FF00] enabled:hover:bg-gray-100 enabled:hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white",
+        icon: "h-5 w-5",
+      },
+      next: {
+        base: "rounded-r-lg border border-gray-300 bg-[#3C434E] px-3 py-2 leading-tight text-[#E1FF00] enabled:hover:bg-gray-100 enabled:hover:text-gray-700 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white",
+        icon: "h-5 w-5",
+      },
+      selector: {
+        base: "w-12 border border-gray-300 bg-[#3C434E] py-2 leading-tight text-[#E1FF00] enabled:hover:bg-gray-100 enabled:hover:text-gray-700 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white",
+        active:
+          "bg-cyan-50 text-cyan-600 hover:bg-cyan-100 hover:text-cyan-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white",
+        disabled: "cursor-not-allowed opacity-50",
+      },
+    },
+  },
+});
 
 interface SearchCardsProps {
   locations: IFeatures[];
 }
 
-const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortedLocations, setSortedLocations] = useState<IFeatures[]>(locations)
+// ------------------ SearchCards Component -------------------------
 
-  const numOfEntries = 1
+const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
+  const {searchCoordinates} = useLocationCoordinatesContext();
+  const searchLatitude = searchCoordinates?.latitude;
+  const searchLongitude = searchCoordinates?.longitude;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortedLocations, setSortedLocations] =
+    useState<IFeatures[]>(locations);
+
+  //Set number of Entries seen per page
+  const numOfEntries = 3;
+
+  const euclideanDistance = (
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number
+): number => {
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+};
 
   const onPageChange = (page: number) => {
     setCurrentPage(page);
@@ -31,13 +80,22 @@ const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
     );
   };
 
-  useEffect(()=>{
-    setSortedLocations(locations.slice(currentPage*numOfEntries-numOfEntries, currentPage*numOfEntries))
-  }, [currentPage])
+  useEffect(() => {
+    if(searchCoordinates){
 
-  // const handleOnCardClick = () => {
+    const sortLocation = locations.sort((a, b) =>
+    euclideanDistance(searchLatitude as number, searchLongitude as number, a.geometry.coordinates[1], a.geometry.coordinates[0]) -
+    euclideanDistance(searchLatitude as number, searchLongitude as number, b.geometry.coordinates[1], b.geometry.coordinates[0]))
 
-  // }
+    setSortedLocations(
+      sortLocation.slice(
+        currentPage * numOfEntries - numOfEntries,
+        currentPage * numOfEntries
+      )
+    );
+    }
+  }, [currentPage, searchCoordinates]);
+
 
   return (
     <div className="flex flex-col gap-6">
@@ -99,11 +157,13 @@ const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
         </div>
       ))}
       <div className="flex overflow-x-auto sm:justify-center">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={Math.ceil(locations.length/numOfEntries)}
-          onPageChange={onPageChange}
-        />
+        <ThemeProvider theme={customTheme}>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(locations.length / numOfEntries)}
+            onPageChange={onPageChange}
+          />
+        </ThemeProvider>
       </div>
     </div>
   );

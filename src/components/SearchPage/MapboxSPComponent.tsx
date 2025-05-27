@@ -115,7 +115,7 @@ const MapboxSPComponent = () => {
     }, [courtLocationData, features]);
 
     useEffect(() => {
-      console.log("lat", latitude, "lng", longitude)
+      // console.log("lat", latitude, "lng", longitude)
       mapboxgl.accessToken = mapbox
       if(!mapContainerRef.current) return
       if(latitude && longitude){
@@ -167,7 +167,7 @@ const MapboxSPComponent = () => {
       }
     }, [latitude, longitude])
 
-    console.log("after", courtLocationData)
+    // console.log("after", courtLocationData)
 
 
     // -------------------------------------------------------------- get locations from our API ------------------------------------
