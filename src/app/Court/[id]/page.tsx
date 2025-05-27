@@ -20,7 +20,7 @@ const CourtPage = () => {
   const [token, setToken] = useState<string | null>(null);
 
 
-  const url = "https://matchpointbe-a7ahdsdjeyf4efgt.westus-01.azurewebsites.net/";
+  const url = "https://matchpointbackend-c4btg3ekhea4gqcz.westus-01.azurewebsites.net/";
 
 
   useEffect(() => {

@@ -18,6 +18,7 @@ export default function CommentsSection({ courtId, userId, token }: Props) {
         const fetchComments = async () => {
             const data = await getCommentsByLocationId(courtId);
             if (data) setComments(data);
+            console.log(data);
         };
         fetchComments();
     }, [courtId]);
