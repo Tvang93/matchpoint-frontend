@@ -42,9 +42,9 @@ export function SearchBoxComponent() {
     // setSessionToken(newUUIDToken)
   }, []);
 
-  useEffect(() => {
-    console.log(isMounted);
-  }, [isMounted]);
+  // useEffect(() => {
+  //   console.log(isMounted);
+  // }, [isMounted]);
 
   const search = useSearchBoxCore({
     accessToken: mapbox,
@@ -137,13 +137,13 @@ export function SearchBoxComponent() {
   }, [inputValue]);
 
   useEffect(() => {
-    console.log(searchSuggestions);
-    console.log("fetch works?");
+    // console.log(searchSuggestions);
+    // console.log("fetch works?");
     if (searchSuggestions.length > 0) {
-      console.log(searchSuggestions[0].name);
+      // console.log(searchSuggestions[0].name);
       setHasSuggestions(true);
     }
-  }, [searchSuggestions]);
+  }, [searchSuggestions, isMounted]);
 
   return (
     <div className="relative w-full">
