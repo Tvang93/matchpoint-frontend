@@ -22,7 +22,7 @@ const customTheme = createTheme({
       base: "xs:mt-0 mt-2 inline-flex items-center -space-x-px",
       showIcon: "inline-flex",
       previous: {
-        base: "ml-0 rounded-l-lg border border-gray-300 bg-[#3C434E] px-3 py-2 leading-tight text-[#E1FF00] enabled:hover:bg-gray-100 enabled:hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white",
+        base: "ml-0 rounded-l-lg border border-gray-300 bg-[#3C434E] px-3 py-2 leading-tight text-[#E1FF00] enabled:hover:bg-gray-100 enabled:hover:text-gray-700 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white",
         icon: "h-5 w-5",
       },
       next: {
@@ -73,7 +73,7 @@ const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
     const rng = (Date.now() - Math.random()).toString(36).substring(2);
     return (
       <div key={rng}>
-        <li className="flex gap-2 bg-transparent border-1 border-[#E1FF00] text-[#E1FF00] rounded-full me-2 px-3 my-1">
+        <li className="flex gap-2 bg-transparent border-1 border-[#E1FF00] text-[#E1FF00] text-md rounded-full me-2 px-3 my-1">
           <div className="">{condition}</div>
         </li>
       </div>
@@ -98,23 +98,24 @@ const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
 
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 h-full">
+      <div className={`flex-grow grid grid-row-3 gap-4 h-full`}>
       {sortedLocations.map((location, idx) => (
         <div
           key={idx}
-          className="bg-[#3C434E] border border-[#817C7C] overflow-hidden"
+          className={`bg-[#3C434E] border border-[#817C7C] overflow-hidden row-span-${idx+1} h-[23dvh]`}
         >
           <div className="grid grid-cols-3">
-            <div className="col-span-1">
+            <div className="col-span-1 p-1 h-full">
               <img alt="tennis court" />
             </div>
-            <div className="col-span-2 p-4">
-              <h3 className="text-xl text-[#E1FF00] mb-1">
+            <div className="col-span-2 p-1 sm:p-4 flex flex-col h-full gap-2">
+              <h3 className="text-xl text-[#E1FF00]">
                 {location.properties.courtName}
               </h3>
-              <p className="text-sm text-[#E1FF00] mb-3">{`Surface: ${location.properties.surface}`}</p>
+              <p className="text-md text-[#E1FF00]">{`Surface: ${location.properties.surface}`}</p>
 
-              <div className="flex flex-wrap mb-2">
+              <div className="hidden flex-wrap lg:flex overflow-x-hidden">
                 {location.properties.conditions
                   ?.filter(
                     (condition) =>
@@ -132,9 +133,9 @@ const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
                   )
                   .map((item) => getConditionTag(item))}
               </div>
-              <div className="grid grid-cols-2 gap-10 items-center">
+              <div className="flex gap-2 sm:gap-5 lg:gap-10 items-center">
                 <Link href={`./Court/${location.id}`}>
-                  <p className="bg-blue-500 text-white py-2 rounded-2xl text-center hover:bg-blue-600">
+                  <p className="bg-blue-500 text-white text-sm lg:text-lg py-1 px-2 rounded-lg lg:py-2 lg:rounded-2xl lg:px-4 text-center hover:bg-blue-600">
                     View Details
                   </p>
                 </Link>
@@ -146,7 +147,7 @@ const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
                         "_blank"
                       )
                     }
-                    className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-2xl text-center w-full"
+                    className="bg-green-600 hover:bg-green-700 text-sm text-white py-1 px-2 rounded-lg lg:text-lg lg:py-2 lg:px-4 lg:rounded-2xl text-center w-full"
                   >
                     Get Directions
                   </button>
@@ -156,7 +157,12 @@ const SearchCards: React.FC<SearchCardsProps> = ({ locations }) => {
           </div>
         </div>
       ))}
-      <div className="flex overflow-x-auto sm:justify-center">
+      {/* array to fill in gaps */}
+        {Array.from({ length: Math.max(0, 3 - sortedLocations.length) }).map((_, i) => (
+    <div key={`placeholder-${i}`} className="row-start-auto h-[23dvh] bg-transparent" />
+  ))}
+      </div>
+      <div className="flex sm:justify-center items-center">
         <ThemeProvider theme={customTheme}>
           <Pagination
             currentPage={currentPage}
