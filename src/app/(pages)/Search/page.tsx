@@ -56,7 +56,7 @@ const SearchPage = () => {
         <div className="w-1/2 overflow-y-auto">
           <div className="p-4 bg-gray-800 border-b border-gray-700">
             <h2 className="text-xl font-bold text-[#E1FF00]">
-              Courts nearby {searchQuery || "Stockton, CA"}
+              Courts nearby {searchQuery || "Your Location"}
             </h2>
           </div>
 
