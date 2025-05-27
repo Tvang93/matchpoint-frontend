@@ -140,10 +140,10 @@ export function SearchBoxComponent() {
     // console.log(searchSuggestions);
     // console.log("fetch works?");
     if (searchSuggestions.length > 0) {
-      console.log(searchSuggestions[0].name);
+      // console.log(searchSuggestions[0].name);
       setHasSuggestions(true);
     }
-  }, [searchSuggestions]);
+  }, [searchSuggestions, isMounted]);
 
   return (
     <div className="relative w-full">
