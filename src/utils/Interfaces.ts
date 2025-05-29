@@ -79,6 +79,7 @@ export interface IProperties {
     amenities: string[] | null;
     surface: string | null
     comments: string[] | null
+    images: string[] | null
 }
 
 export interface IGeometry {

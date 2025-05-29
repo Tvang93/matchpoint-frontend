@@ -32,7 +32,6 @@ const MapboxCPComponent = (props: Props) => {
     console.log("is this working?", courtLocationData);
     if (
       !mapRef.current ||
-      mapRef.current.getSource("courtLocations") ||
       !courtLocationData
     )
       return;
@@ -71,48 +70,48 @@ const MapboxCPComponent = (props: Props) => {
             },
           });
 
-          const popup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: false,
-          });
+          // const popup = new mapboxgl.Popup({
+          //   closeButton: false,
+          //   closeOnClick: false,
+          // });
 
-          mapRef.current.on("mouseenter", "places", (e) => {
-            if (mapRef.current) {
-              mapRef.current.getCanvas().style.cursor = "pointer";
+          // mapRef.current.on("mouseenter", "places", (e) => {
+          //   if (mapRef.current) {
+          //     mapRef.current.getCanvas().style.cursor = "pointer";
 
-              if (!e.features || e.features.length === 0) {
-                console.error("No features found in event:", e);
-                return;
-              }
+          //     if (!e.features || e.features.length === 0) {
+          //       console.error("No features found in event:", e);
+          //       return;
+          //     }
 
-              const eFeature: GeoJSONFeature | null = e.features[0];
+          //     const eFeature: GeoJSONFeature | null = e.features[0];
 
-              if (eFeature.geometry && eFeature.geometry.type === "Point") {
-                const eCoordinates = eFeature.geometry.coordinates as [
-                  number,
-                  number
-                ];
-                const eDescription: string = eFeature.properties?.courtName;
+          //     if (eFeature.geometry && eFeature.geometry.type === "Point") {
+          //       const eCoordinates = eFeature.geometry.coordinates as [
+          //         number,
+          //         number
+          //       ];
+          //       const eDescription: string = eFeature.properties?.courtName;
 
-                if (eCoordinates) {
-                  while (Math.abs(e.lngLat.lng - eCoordinates[0]) > 180) {
-                    eCoordinates[0] +=
-                      e.lngLat.lng > eCoordinates[0] ? 360 : -360;
-                  }
-                }
+          //       if (eCoordinates) {
+          //         while (Math.abs(e.lngLat.lng - eCoordinates[0]) > 180) {
+          //           eCoordinates[0] +=
+          //             e.lngLat.lng > eCoordinates[0] ? 360 : -360;
+          //         }
+          //       }
 
-                popup
-                  .setLngLat(eCoordinates)
-                  .setHTML(`<strong>${eDescription}</strong>`)
-                  .addTo(mapRef.current);
-              }
-            }
-          });
+          //       popup
+          //         .setLngLat(eCoordinates)
+          //         .setHTML(`<strong>${eDescription}</strong>`)
+          //         .addTo(mapRef.current);
+          //     }
+          //   }
+          // });
 
-          mapRef.current.on("mouseleave", "places", () => {
-            if (mapRef.current) mapRef.current.getCanvas().style.cursor = "";
-            popup.remove();
-          });
+          // mapRef.current.on("mouseleave", "places", () => {
+          //   if (mapRef.current) mapRef.current.getCanvas().style.cursor = "";
+          //   popup.remove();
+          // });
         }
       });
     }
@@ -158,10 +157,10 @@ const MapboxCPComponent = (props: Props) => {
   };
 
   return (
-    <div className="">
+    <div className="w-full">
       <div
         id="map-container"
-        className="relative h-100 w-100 max-h-[100%] max-w-[100%] z-0"
+        className="relative w-226 h-64 max-h-[100%] max-w-[100%] z-0"
         ref={mapContainerRef}
       ></div>
     </div>

@@ -90,7 +90,7 @@ const CourtPage = () => {
        
           <div className="w-full h-full bg-gray-700 relative">
             <Image 
-              src="/assets/mp-hero-1.jpeg"
+              src={locationData.properties.images ? locationData.properties.images[0] : ""}
               alt={locationData.properties.courtName || "Location Name"}
               fill
             />
