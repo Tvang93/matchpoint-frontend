@@ -77,8 +77,8 @@ export interface IProperties {
     averageSafetyRating: number| null;
     conditions: string[] | null;
     amenities: string[] | null;
-    surface: string | null
-    comments: string[] | null
+    surface: string | null;
+    comments: string[] | null;
     images: string[] | null
 }
 
