@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'matchpointblobstorage.blob.core.windows.net',
+        hostname: 'matchpoint.blob.core.windows.net',
         pathname: '/**',
       }
     ]
