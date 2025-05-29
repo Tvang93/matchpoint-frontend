@@ -13,6 +13,14 @@ export interface ICourtCard {
   lon: number
   comments: IComment[];
 }
+export interface CourtRatingsProps {
+  courtId: number;
+  userId: number | null;
+  token: string | null;
+  currentCourtRating: number;
+  currentSafetyRating: number;
+  onRatingUpdate?: () => void;
+}
 
 export interface IUserInfo{
   username: string

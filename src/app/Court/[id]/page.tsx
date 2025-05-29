@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import NavbarComponent from '@/components/NavbarComponent';
-import { ICourtCard } from '@/utils/Interfaces';
+import { IFeatures } from '@/utils/Interfaces';
 import { useParams } from 'next/navigation';
 import CommentsSection from '@/components/CourtPage/CommentSectionComponent';
 import { loggedInData } from "@/utils/DataServices"; 
 import RatingModalComponent from '@/components/CourtPage/RatingModalComponent';
+import MapboxCPComponent from '@/components/CourtPage/MapBoxCPComponent';
 
 
 
@@ -15,7 +16,7 @@ const CourtPage = () => {
 
   const params = useParams();
   const id  = params?.id;  
-  const [locationData, setLocationData] = useState<ICourtCard | null>(null);
+  const [locationData, setLocationData] = useState<IFeatures | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [userId, setUserId] = useState<number | null>(null);
   const [token, setToken] = useState<string | null>(null);
@@ -66,7 +67,7 @@ const CourtPage = () => {
 
   const handleGetDirections = () => {
     if (locationData) {
-      window.open(`https://www.google.com/maps/dir/?api=1&destination=${locationData.lat},${locationData.lon}`);
+      window.open(`https://www.google.com/maps/dir/?api=1&destination=${locationData.geometry.coordinates[1]},${locationData.geometry.coordinates[0]}`);
     }
   };
 
@@ -90,15 +91,15 @@ const CourtPage = () => {
           <div className="w-full h-full bg-gray-700 relative">
             <Image 
               src="/assets/mp-hero-1.jpeg"
-              alt={locationData.courtName || "Location Name"}
+              alt={locationData.properties.courtName || "Location Name"}
               fill
             />
           </div>
           <div className="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black/80 to-transparent w-full">
             <div className="flex items-center">
-              <h1 className="text-4xl font-bold">{locationData.courtName}</h1>
+              <h1 className="text-4xl font-bold">{locationData.properties.courtName}</h1>
             </div>
-            <p className="text-lg">Surface: Hard Surface</p>
+            <p className="text-lg">Surface: {locationData.properties.surface}</p>
           </div>
         </div>
 
@@ -109,7 +110,13 @@ const CourtPage = () => {
           <div className="w-full md:w-1/2 p-6">
 
             <div className="w-full h-64 bg-gray-700 mb-6 relative flex items-center justify-center">
-              <p>Map Goes Here :)</p>
+             { locationData != null &&
+              <MapboxCPComponent
+                locationId={locationData.id}
+                lng={locationData.geometry.coordinates[0]}
+                lat={locationData.geometry.coordinates[1]}
+              />
+              } 
             </div>
             
             <button 
@@ -123,12 +130,12 @@ const CourtPage = () => {
             <div className="mb-6">
               <h2 className="text-xl font-bold text-[#E1FF00] mb-3">Court Condition :</h2>
               <div className="flex gap-3 flex-wrap">
-                {locationData.courtCondition?.map((condition) => (
+                {locationData.properties.conditions?.map((condition, idx) => (
                   <span 
-                    key={condition.id} 
+                    key={idx} 
                     className="px-4 py-2 rounded-full border border-[#E1FF00] bg-[#3C434E]"
                   >
-                    {condition.condition}
+                    {condition}
                   </span>
                 ))}
               </div>
@@ -138,12 +145,12 @@ const CourtPage = () => {
             <div>
               <h2 className="text-xl font-bold text-[#E1FF00] mb-3">Amenities :</h2>
               <div className="flex gap-3 flex-wrap">
-                {locationData.amenities?.map((amenity) => (
+                {locationData.properties.amenities?.map((amenity, idx) => (
                   <span 
-                    key={amenity.id} 
+                    key={idx} 
                     className="px-4 py-2 rounded-full border border-[#E1FF00] bg-[#3C434E]"
                   >
-                    {amenity.amenity}
+                    {amenity}
                   </span>
                 ))}
               </div>
@@ -153,13 +160,12 @@ const CourtPage = () => {
 
           <div className="w-full md:w-1/2 p-6 bg-blue-100/10">
 
-            {/* Add the Ratings Component */}
             <RatingModalComponent
               courtId={locationData.id}
               userId={userId}
               token={token}
-              currentCourtRating={locationData.courtRating || 0}
-              currentSafetyRating={locationData.safetyRating || 0}
+              currentCourtRating={locationData.properties.averageCourtRating || 0}
+              currentSafetyRating={locationData.properties.averageSafetyRating || 0}
               onRatingUpdate={handleRatingUpdate}
             />
 

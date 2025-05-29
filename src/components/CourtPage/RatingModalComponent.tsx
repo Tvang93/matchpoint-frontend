@@ -1,63 +1,5 @@
 'use client'
 import React from 'react'
-// import { useState } from 'react';
-// import { Modal } from 'flowbite-react';
-// import { StarIcon } from 'flowbite-react';
-
-// interface RatingModalProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   onSubmit: (rating: number) => void;
-//   title: string;
-// }
-
-// const RatingModalComponent = ({isOpen, onClose, onSubmit, title}: RatingModalProps) => {
-//     const [rating, setRating] = useState(0);
-//   return (
-//     <Modal show={isOpen} onClose={onClose}>
-//       <div className="p-6">
-//         <h3 className="mb-4 text-lg font-semibold text-gray-900 text-center">{title}</h3>
-
-//         <div className="flex justify-center mb-6">
-//           {[1, 2, 3, 4, 5].map((num) => (
-//             <StarIcon
-//               key={num}
-//               onClick={() => setRating(num)}
-//               className={`w-8 h-8 cursor-pointer transition ${
-//                 rating >= num ? 'text-yellow-400' : 'text-gray-300'
-//               }`}
-//             />
-//           ))}
-//         </div>
-
-//         <div className="flex justify-end gap-2">
-//           <button
-//             onClick={onClose}
-//             className="px-4 py-2 text-gray-600 hover:text-black"
-//           >
-//             Cancel
-//           </button>
-//           <button
-//             onClick={() => {
-//               onSubmit(rating);
-//               onClose();
-//               setRating(0);
-//             }}
-//             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-//           >
-//             Submit
-//           </button>
-//         </div>
-//       </div>
-//     </Modal>
-//   )
-// }
-
-// export default RatingModalComponent
-
-
-
-
 import { useState } from 'react';
 import { StarIcon } from 'flowbite-react';
 
@@ -260,9 +202,7 @@ const RatingModalComponent = ({ courtId, userId, token, currentCourtRating, curr
               courtSubmitted,
               isLoggedIn
             )}
-            {isSubmittingCourt && (
-              <p className="text-gray-400 text-sm mt-1">Submitting...</p>
-            )}
+
           </div>
 
 
@@ -283,9 +223,7 @@ const RatingModalComponent = ({ courtId, userId, token, currentCourtRating, curr
               safetySubmitted,
               isLoggedIn
             )}
-            {isSubmittingSafety && (
-              <p className="text-gray-400 text-sm mt-1">Submitting...</p>
-            )}
+
           </div>
 
           {(courtSubmitted || safetySubmitted) && (
