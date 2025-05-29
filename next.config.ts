@@ -4,11 +4,11 @@ import withFlowbiteReact from "flowbite-react/plugin/nextjs";
 const nextConfig: NextConfig = {
   /* config options here */
     images: {
-    // domains: ["aaronsblob123.blob.core.windows.net"]
+    // domains: ["matchpointblobstorage.blob.core.windows.net"] 
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'aaronsblob123.blob.core.windows.net',
+        hostname: 'matchpointblobstorage.blob.core.windows.net',
         pathname: '/**',
       }
     ]
