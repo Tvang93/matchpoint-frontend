@@ -2,6 +2,9 @@ import { IAddLocationDTO, ILoginInfo, IUserData, IUserInfo,  ICourtCard } from "
 
 export const url = "https://matchpointbackend-c4btg3ekhea4gqcz.westus-01.azurewebsites.net/"
 
+export const blobURL = "https://matchpointblobstorage.blob.core.windows.net/matchpointstorage/"
+
+
 export const mapbox = 'pk.eyJ1IjoidHZhbmciLCJhIjoiY205NzhjeDU4MDR2YjJsb2pvaGxuZnZ0eiJ9.nRf1lWYQP-I8W6cqHJjvww'
 
 let userData: IUserData;
@@ -230,6 +233,39 @@ export const postComment = async (locationId: number, userId: number, comment: s
     const data = await res.json();
     return data;
 };
+
+
+export const blobUpload = async (params: FormData)=> {
+        const response = await fetch(url + 'Blob/Upload', {
+            method: 'POST',
+            // The browser automatically sets the correct Content-Type header to multipart/form-data
+            body: params, //becuase params is FormData we do NOT need to stringify it
+        });
+
+        if (response.ok) {
+            // Extract the filename from FormData
+            const fileName = params.get('fileName') as string;
+            
+            // Construct the Blob Storage URL
+            const uploadedFileUrl = `${blobURL}/${fileName}`;
+            
+            return uploadedFileUrl;
+        } else {
+            console.log('Failed to upload file.');
+            return null;
+        }
+};
+
+export const getLocationInfoById = async (locationId: number) => {
+    const res = await fetch(url + `Location/GetLocationInfoById/${locationId}`)
+    if (!res.ok) {
+        const data = await res.json();
+        console.error("Error getting comments:", data.message);
+        return null;
+    }
+    const data = await res.json();
+    return data;
+}
 
 export const addCourtRating = async (token: string, rating: number, locationId: number) => {
     const res = await fetch(`${url}Location/AddCourtRating`, {

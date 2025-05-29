@@ -41,7 +41,8 @@ export interface IAddLocationDTO {
   coordinates: number[];
   conditions: string[];
   amenities: string[];
-  surface: string
+  surface: string;
+  image: string
 }
 
 export interface IFeatures {
