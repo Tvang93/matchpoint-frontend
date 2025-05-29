@@ -50,7 +50,7 @@ const AddLocationComponent = () => {
     const arrToAdd = courtConditionArr;
     const idx = arrToAdd.indexOf(con);
     arrToAdd.splice(idx, 1);
-    setCourtConditionArr(arrToAdd);
+    setCourtConditionArr([...arrToAdd]);
     setConditionToAdd("");
   };
 
