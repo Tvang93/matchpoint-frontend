@@ -70,11 +70,11 @@ const CourtConditionComponent: React.FC<CourtConditionComponentProps> = ({
         {stringArr.map((conditions: string, idx: number) => (
           <li
             key={idx}
-            className="flex gap-2 bg-[#99a7bd] border-1 border-[#E1FF00] rounded-full me-2 px-3 my-1"
+            className="flex gap-2 bg-[#1e2a44] text-[#E1FF00] border-1 border-white rounded-full me-2 ps-3 my-1"
           >
             <div className="">{conditions}</div>
             <div
-              className="bg-white"
+              className="border rounded-e-full border-white p-1 text-[10px] text-white cursor-pointer hover:bg-[#99a7bd] hover:brightness-125 hover:text-gray-600"
               onClick={() => deleteFunction(conditions)}
             >
               X

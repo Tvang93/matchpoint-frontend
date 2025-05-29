@@ -8,7 +8,7 @@ import { IAddLocationDTO } from "@/utils/Interfaces";
 import { addNewLocation } from "@/utils/DataServices";
 import MapBoxALComponent from "./MapboxALComponent";
 import { Label, Select } from "flowbite-react";
-
+import UploadBlobButtonComponent from "../UploadBlobButtonComponent";
 
 const AddLocationComponent = () => {
   const { push } = useRouter();
@@ -26,6 +26,8 @@ const AddLocationComponent = () => {
   const [amenitiesToAdd, setAmenitiesToAdd] = useState<string>("");
 
   const [courtSurface, setCourtSurface] = useState<string>("");
+
+  const [imageUrl, setImageUrl] = useState<string>("");
 
   const [addLocationDTO, setAddLocationDTO] = useState<IAddLocationDTO>();
 
@@ -63,7 +65,7 @@ const AddLocationComponent = () => {
   const handleAmenitiesArr = () => {
     const arrToAdd = amenitiesArr;
     arrToAdd.push(amenities);
-    setAmenitiesArr(arrToAdd);
+    setAmenitiesArr([...arrToAdd]);
     setAmenities("");
   };
 
@@ -71,7 +73,7 @@ const AddLocationComponent = () => {
     const arrToAdd = amenitiesArr;
     const idx = arrToAdd.indexOf(amen);
     arrToAdd.splice(idx, 1);
-    setAmenitiesArr(arrToAdd);
+    setAmenitiesArr([...arrToAdd]);
     setAmenitiesToAdd("");
   };
 
@@ -87,7 +89,8 @@ const AddLocationComponent = () => {
         coordinates: [0, 0],
         conditions: [""],
         amenities: [""],
-        surface: ""
+        surface: "",
+        image: "",
       };
     }
 
@@ -100,6 +103,7 @@ const AddLocationComponent = () => {
       object.coordinates = [Number(courtLongitude), Number(courtLatitude)];
       object.courtName = courtName;
       object.surface = courtSurface;
+      object.image = imageUrl;
     }
 
     setAddLocationDTO(object);
@@ -111,24 +115,25 @@ const AddLocationComponent = () => {
     courtLatitude,
     courtLongitude,
     courtName,
-    courtSurface
+    courtSurface,
+    imageUrl,
   ]);
 
   const handleAddNewLocation = async () => {
-    const token = sessionStorage.getItem('Token');
-    if(!token) return console.log('no token');
+    const token = sessionStorage.getItem("Token");
+    if (!token) return console.log("no token");
 
     // console.log("AddLocationDTO", addLocationDTO);
 
-    if(addLocationDTO !== undefined && checkAddLocationDTO(addLocationDTO)){
-      const success = await addNewLocation(addLocationDTO, token)
+    if (addLocationDTO !== undefined && checkAddLocationDTO(addLocationDTO)) {
+      const success = await addNewLocation(addLocationDTO, token);
 
-      if(!success.success){
-      return alert(success.Message);
+      if (!success.success) {
+        return alert(success.Message);
       }
 
-      alert("Location Added!")
-      push("/")
+      alert("Location Added!");
+      push("/");
     }
   };
 
@@ -148,54 +153,59 @@ const AddLocationComponent = () => {
 
     return true;
   };
-  
+
   // -------------------- Back To Home Logic -------------------------------------
 
   const handleBackToHome = () => {
     push("/");
   };
 
-  useEffect(()=>{
-    console.log(courtSurface)
-  }, [courtSurface])
+  useEffect(() => {
+    console.log(courtSurface);
+  }, [courtSurface]);
 
   return (
-    <div className="flex flex-col py-15 px-20 ">
+    <div className="flex flex-col py-5 sm:py-15 sm:px-20 ">
       <h1 className="self-center text-[#E1FF00] text-4xl mb-3">Add Location</h1>
-      <div className="flex w-full justify-between">
-        <div className="self-start pb-20">
-          <MapBoxALComponent setLat={setCourtLatitude} setLng={setCourtLongitude}/>
+      <div className="flex flex-col items-center  lg:flex-row w-full justify-between">
+        <div className="pb-20">
+          <MapBoxALComponent
+            setLat={setCourtLatitude}
+            setLng={setCourtLongitude}
+          />
         </div>
-        <div className="self-center flex flex-col gap-3">
-          <div className="flex flex-col gap-3">
-            <h2 className="text-[#E1FF00] text-xl">Coodinates:</h2>
-            <div className="flex gap-5 ">
+        <div className="self-center flex flex-col gap-3 rounded-lg p-4 bg-[#BCD0EA] lg:bg-transparent">
+          {/* Coordinates Divs */}
+          <div className="flex flex-col gap-3 text-gray-600 lg:text-[#E1FF00]">
+            <h2 className=" text-xl">Coodinates:</h2>
+            <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-2 xl:gap-5">
               <div className="flex flex-col">
-                <p className="text-[#E1FF00]">Latitude:</p>
+                <p className="lg:text-[#E1FF00] text-gray-600">Latitude:</p>
                 <input
                   id="LatitudeField"
-                  className="border-1 bg-white ps-2"
+                  className="border-1 bg-white ps-2 text-black"
                   type="number"
                   value={courtLatitude}
                   readOnly
-                  // onChange={((e)=>setCourtLatitude(e.target.value))}
                 />
               </div>
               <div className="flex flex-col">
-                <p className="text-[#E1FF00]">Longitude:</p>
+                <p className="lg:text-[#E1FF00] text-gray-600">Longitude:</p>
                 <input
                   id="LongitudalField"
-                  className="border-1 bg-white ps-2"
+                  className="border-1 bg-white ps-2 text-black"
                   type="number"
                   value={courtLongitude}
                   readOnly
-                  // onChange={((e)=>setCourtLongitude(e.target.value))}
                 />
               </div>
             </div>
           </div>
+          {/* Name Of Location */}
           <div className="flex flex-col gap-3">
-            <h2 className="text-[#E1FF00] text-xl">Name of Location:</h2>
+            <h2 className="text-gray-600 lg:text-[#E1FF00] text-xl">
+              Name of Location:
+            </h2>
             <input
               id="LocationNameField"
               className="bg-white border-1"
@@ -204,55 +214,77 @@ const AddLocationComponent = () => {
               onChange={(e) => setCourtName(e.target.value)}
             />
           </div>
-          {/* Add court Surface Dropdown */}
+          {/* Court Surface Dropdown */}
           <div>
-            <div className="mb-2 block">
-              <Label htmlFor="court-surfaces" className="text-[#E1FF00] text-xl">Select a Surface</Label>
+            <div className="mb-2">
+              <Label
+                htmlFor="court-surfaces"
+                className="text-gray-600 lg:text-[#E1FF00] text-xl"
+              >
+                Select a Surface
+              </Label>
             </div>
-            <Select id="court-surfaces" required onChange={(e)=>setCourtSurface(e.target.value)}>
+            <Select
+              id="court-surfaces"
+              className="text-black"
+              required
+              onChange={(e) => setCourtSurface(e.target.value)}
+            >
               <option value={""}>Please Select a Surface</option>
               <option value={"Hard Surface"}>Hard Surface</option>
               <option value={"Clay"}>Clay</option>
               <option value={"Grass"}>Grass</option>
               <option value={"Dirt"}>Dirt</option>
             </Select>
-
           </div>
         </div>
-        <div className="w-100 text-[#E1FF00]">placeholder</div>
-      </div>
-      <h2 className="text-[#E1FF00] my-3 text-xl">Add Tags:</h2>
-      <div className="grid grid-cols-2">
-        <div className="h-80">
-          <h3 className="text-[#E1FF00] mb-3">Condition of Court:</h3>
-          <CourtConditionComponent
-            deleteFunction={handleDeleteCourtCondition}
-            setFunction={setCourtCondition}
-            stringArr={courtConditionArr}
-            setToAddFunction={setConditionToAdd}
-            stringToAdd={conditionToAdd}
-          />
-        </div>
-        <div className="h-80">
-          <h3 className="text-[#E1FF00] mb-3">Amenities:</h3>
-          <AmenitiesComponent
-            deleteFunction={handleDeleteAmenities}
-            setFunction={setAmenities}
-            stringArr={amenitiesArr}
-            stringToAdd={amenitiesToAdd}
-            setToAddFunction={setAmenitiesToAdd}
-          />
+        {/* Blob Upload Button */}
+        <div className="flex flex-col justify-center my-10">
+          <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+            <UploadBlobButtonComponent setImageUrl={setImageUrl} />
+          </main>
         </div>
       </div>
-      <div className="flex flex-col gap-4">
+      {/* Add Tag Section */}
+      <div className="flex flex-col items-center lg:block lg:items-start">
+        <div className="min-w-50 sm:min-w-100">
+          <h2 className="text-[#E1FF00] my-3 text-xl">Add Tags:</h2>
+        </div>
+        <div className="grid lg:grid-cols-2 min-w-50 sm:min-w-100">
+          {/* Court Conditions */}
+          <div className="lg:h-70">
+            <h3 className="text-[#E1FF00] mb-3">Condition of Court:</h3>
+            <CourtConditionComponent
+              deleteFunction={handleDeleteCourtCondition}
+              setFunction={setCourtCondition}
+              stringArr={courtConditionArr}
+              setToAddFunction={setConditionToAdd}
+              stringToAdd={conditionToAdd}
+            />
+          </div>
+          {/* Amenities */}
+          <div className="lg:h-70">
+            <h3 className="text-[#E1FF00] mb-3">Amenities:</h3>
+            <AmenitiesComponent
+              deleteFunction={handleDeleteAmenities}
+              setFunction={setAmenities}
+              stringArr={amenitiesArr}
+              stringToAdd={amenitiesToAdd}
+              setToAddFunction={setAmenitiesToAdd}
+            />
+          </div>
+        </div>
+      </div>
+      {/* Nav Buttons */}
+      <div className="flex flex-col gap-4 mt-10">
         <button
-          className="bg-[#E1FF00] border-1 text-[#243451] rounded-[20px] hover:cursor-pointer hover:bg-[rgb(225,255,0,0.8)] w-100 self-center"
+          className="bg-[#E1FF00] border-1 text-[#243451] rounded-[20px] hover:cursor-pointer hover:bg-[rgb(225,255,0,0.8)] w-50 sm:w-100 self-center"
           onClick={handleAddNewLocation}
         >
           Add Location
         </button>
         <button
-          className="bg-white border-1 text-[#243451] rounded-[20px] hover:cursor-pointer hover:bg-[rgba(255,255,255,0.80)] w-100 self-center"
+          className="bg-white border-1 text-[#243451] rounded-[20px] hover:cursor-pointer hover:bg-[rgba(255,255,255,0.80)] w-50 sm:w-100 self-center"
           onClick={handleBackToHome}
         >
           Back To Home
