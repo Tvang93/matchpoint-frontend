@@ -168,7 +168,7 @@ const AddLocationComponent = () => {
     <div className="flex flex-col py-5 sm:py-15 sm:px-20">
       <h1 className="self-center text-[#E1FF00] text-4xl mb-3">Add Location</h1>
       <div className="flex flex-col items-center  lg:flex-row w-full justify-between xl:justify-around">
-        <div className="pb-20">
+        <div className="pb-12">
           <MapBoxALComponent
             setLat={setCourtLatitude}
             setLng={setCourtLongitude}

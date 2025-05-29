@@ -65,7 +65,7 @@ const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
 
   return (
     <div>
-        <div id='map-container' className='relative h-70 w-70 sm:h-100 sm:w-100 lg:h-75 lg:w-75 xl:h-100 xl:w-100 text-white rounded-full' ref={mapContainerRef}>
+        <div id='map-container' className='relative h-70 w-70 sm:h-100 sm:w-100 lg:h-75 lg:w-75 xl:h-100 xl:w-100 text-white rounded-2xl' ref={mapContainerRef}>
           <div className='absolute top-[78px] left-[158px] sm:top-[198px] sm:left-[198px] bg-red-600 rounded-2xl w-2 h-2 z-1' />
         </div>
     </div>

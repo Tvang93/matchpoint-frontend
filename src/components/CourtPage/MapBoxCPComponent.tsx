@@ -1,56 +1,58 @@
 "use client";
 
-import { get5miLocationsByCoords, mapbox } from "@/utils/DataServices";
+import { getLocationInfoById, mapbox } from "@/utils/DataServices";
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl, { GeoJSONFeature } from "mapbox-gl";
 import { FeatureCollection, Feature } from "geojson";
 
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useLocationCoordinatesContext } from "@/context/UserInfoContext";
 
 const geoJson: FeatureCollection = {
   type: "FeatureCollection",
   features: [],
 };
 
-const INITIAL_CENTER = [-121.275604, 37.961632];
+interface Props {
+  locationId: number;
+  lat: number;
+  lng: number;
+}
 
-const MapboxSPComponent = () => {
+const MapboxCPComponent = (props: Props) => {
+  const { locationId, lat, lng } = props;
+
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const { locationCoordinates, searchCoordinates, setSearchCoordinates } =
-    useLocationCoordinatesContext();
 
-  const [latitude, setLatitude] = useState(locationCoordinates?.latitude);
-  const [longitude, setLongitude] = useState(locationCoordinates?.longitude);
   const [features, setFeatures] = useState<Feature[] | null>(null);
-  const [mapboxZoom, setMapboxZoom] = useState<number>(11.5);
-
   const [courtLocationData, setCourtLocationData] =
     useState<FeatureCollection | null>(null);
 
   useEffect(() => {
-    if (searchCoordinates && searchCoordinates !== locationCoordinates) {
-      setLatitude(searchCoordinates.latitude);
-      setLongitude(searchCoordinates.longitude);
-    }
-  }, [searchCoordinates]);
+    console.log("is this working?", courtLocationData);
+    if (
+      !mapRef.current ||
+      mapRef.current.getSource("courtLocations") ||
+      !courtLocationData
+    )
+      return;
 
-  useEffect(() => {
-    // console.log("does this work?")
-    if (!mapRef.current || !courtLocationData?.features?.length) return;
+    console.log("Adding source and layer", courtLocationData);
 
-    if (mapRef.current.getSource("courtLocations")) {
-      mapRef.current.removeLayer("places");
-      mapRef.current.removeImage("mapIcon");
-      mapRef.current.removeSource("courtLocations");
-    }
-
-    if (mapRef.current)
+    if (mapRef.current && courtLocationData != null) {
+      console.log("is this work");
       mapRef.current.loadImage("/assets/tennisIcon.png", (error, image) => {
-        if (error) throw error;
+        if (error) {
+          console.error("Error loading image:", error);
+          return;
+        }
 
-        if (mapRef.current && image) {
+        if (!image) {
+          console.error("Image is undefined");
+          return;
+        }
+
+        if (mapRef.current && courtLocationData && image) {
           mapRef.current.addImage("mapIcon", image);
 
           mapRef.current.addSource("courtLocations", {
@@ -64,9 +66,8 @@ const MapboxSPComponent = () => {
             source: "courtLocations",
             layout: {
               "icon-image": "mapIcon",
-              "icon-size": 0.08,
-              "icon-allow-overlap": true,
-              // 'icon-offset': [0, -20]
+              "icon-size": 0.12,
+              "icon-allow-overlap": false,
             },
           });
 
@@ -114,58 +115,31 @@ const MapboxSPComponent = () => {
           });
         }
       });
-  }, [courtLocationData, features]);
+    }
+  }, [courtLocationData]);
 
   useEffect(() => {
-    // console.log("lat", latitude, "lng", longitude)
     mapboxgl.accessToken = mapbox;
     if (!mapContainerRef.current) return;
-    if (latitude && longitude) {
+    if (lat && lng) {
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
-        center: [longitude, latitude],
-        zoom: mapboxZoom,
+        center: [lng, lat],
+        minZoom: 12,
+        zoom: 16,
       });
 
       mapRef.current.on("load", async () => {
-        await fetchLocationsByCoords(latitude, longitude);
-      });
-    } else {
-      mapRef.current = new mapboxgl.Map({
-        container: mapContainerRef.current,
-        center: [INITIAL_CENTER[0], INITIAL_CENTER[1]],
-        zoom: mapboxZoom,
-      });
-
-      mapRef.current.on("load", async () => {
-        await fetchLocationsByCoords(INITIAL_CENTER[0], INITIAL_CENTER[1]);
+        await fetchLocationsById(locationId);
       });
     }
-
-    mapRef.current.on("moveend", async () => {
-      if (mapRef.current) {
-        const { lat, lng } = mapRef.current.getCenter();
-        const newSearchCoords = {
-          latitude: lat,
-          longitude: lng,
-        };
-        const mapZoom = mapRef.current.getZoom();
-        setLatitude(lat);
-        setLongitude(lng);
-        setMapboxZoom(mapZoom);
-        setSearchCoordinates(newSearchCoords);
-        await fetchLocationsByCoords(lat, lng);
-      }
-    });
 
     return () => {
       if (mapRef.current) {
         mapRef.current.remove();
       }
     };
-  }, [latitude, longitude]);
-
-  // console.log("after", courtLocationData)
+  }, [props, lat, lng]);
 
   // -------------------------------------------------------------- get locations from our API ------------------------------------
 
@@ -177,22 +151,21 @@ const MapboxSPComponent = () => {
     }
   }, [features]);
 
-  const fetchLocationsByCoords = async (lat: number, lng: number) => {
-    const data = await get5miLocationsByCoords(lat.toString(), lng.toString());
-    setFeatures(data);
+  const fetchLocationsById = async (id: number) => {
+    const data = await getLocationInfoById(id);
+    console.log(data);
+    setFeatures(Array.isArray(data) ? data : [data]);
   };
 
   return (
     <div className="">
       <div
         id="map-container"
-        className="relative h-400 w-400 max-h-[100%] max-w-[100%] z-0"
+        className="relative h-100 w-100 max-h-[100%] max-w-[100%] z-0"
         ref={mapContainerRef}
-      >
-        <div className="absolute top-[50%] left-[50%] bg-red-600 rounded-2xl w-2 h-2 z-1" />
-      </div>
+      ></div>
     </div>
   );
 };
 
-export default MapboxSPComponent;
+export default MapboxCPComponent;

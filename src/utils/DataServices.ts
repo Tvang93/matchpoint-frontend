@@ -255,3 +255,14 @@ export const blobUpload = async (params: FormData)=> {
             return null;
         }
 };
+
+export const getLocationInfoById = async (locationId: number) => {
+    const res = await fetch(url + `Location/GetLocationInfoById/${locationId}`)
+    if (!res.ok) {
+        const data = await res.json();
+        console.error("Error getting comments:", data.message);
+        return null;
+    }
+    const data = await res.json();
+    return data;
+}
