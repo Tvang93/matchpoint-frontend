@@ -30,7 +30,7 @@ const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
         center: [locationCoordinates.longitude, locationCoordinates.latitude],
-        zoom: 12
+        zoom: 16
       });
 
       setLat(locationCoordinates.latitude.toString())
@@ -39,7 +39,7 @@ const MapBoxALComponent: React.FC<IMapboxALProps> = ({setLat, setLng}) => {
             mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
         center: [INITIAL_CENTER[0], INITIAL_CENTER[1]],
-        zoom: 12
+        zoom: 16
       });
 
       setLat(INITIAL_CENTER[1].toString())

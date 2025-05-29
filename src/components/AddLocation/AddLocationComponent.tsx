@@ -30,6 +30,7 @@ const AddLocationComponent = () => {
   const [imageUrl, setImageUrl] = useState<string[]>([]);
 
   const [addLocationDTO, setAddLocationDTO] = useState<IAddLocationDTO>();
+  const [readyToAdd, setReadyToAdd] = useState<boolean>(false);
 
   // -------------------- Court Conditions Logic -------------------------------------
 
@@ -87,10 +88,10 @@ const AddLocationComponent = () => {
       object = {
         courtName: "",
         coordinates: [0, 0],
-        conditions: [""],
-        amenities: [""],
+        conditions: [],
+        amenities: [],
         surface: "",
-        image: [""],
+        image: [],
       };
     }
 
@@ -105,6 +106,8 @@ const AddLocationComponent = () => {
       object.surface = courtSurface;
       object.image = imageUrl;
     }
+
+    if(checkAddLocationDTO(object)) setReadyToAdd(true)
 
     setAddLocationDTO(object);
     console.log("after change object", object);
@@ -142,14 +145,12 @@ const AddLocationComponent = () => {
       obj.courtName?.trim() == "" ||
       obj.courtName == undefined ||
       obj.surface.trim() == "" ||
-      // obj.lat == "" ||
-      // obj.lat == undefined ||
-      // obj.lng == "" ||
-      // obj.lng == undefined
       obj.coordinates[0] == undefined ||
-      obj.coordinates[1] == undefined
-    )
+      obj.coordinates[1] == undefined ||
+      obj.image.length == 0
+    ){
       return false;
+    }
 
     return true;
   };
@@ -278,8 +279,9 @@ const AddLocationComponent = () => {
       {/* Nav Buttons */}
       <div className="flex flex-col gap-4 mt-10">
         <button
-          className="bg-[#E1FF00] border-1 text-[#243451] rounded-[20px] hover:cursor-pointer hover:bg-[rgb(225,255,0,0.8)] w-50 sm:w-100 self-center"
+          className="bg-[#E1FF00] border-1 text-[#243451] rounded-[20px] hover:cursor-pointer hover:bg-[rgb(225,255,0,0.8)] w-50 sm:w-100 self-center disabled:bg-slate-500 disabled:cursor-auto"
           onClick={handleAddNewLocation}
+          disabled={!readyToAdd}
         >
           Add Location
         </button>
