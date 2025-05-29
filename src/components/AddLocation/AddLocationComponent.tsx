@@ -27,7 +27,7 @@ const AddLocationComponent = () => {
 
   const [courtSurface, setCourtSurface] = useState<string>("");
 
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string[]>([]);
 
   const [addLocationDTO, setAddLocationDTO] = useState<IAddLocationDTO>();
 
@@ -50,7 +50,7 @@ const AddLocationComponent = () => {
     const arrToAdd = courtConditionArr;
     const idx = arrToAdd.indexOf(con);
     arrToAdd.splice(idx, 1);
-    setCourtConditionArr(arrToAdd);
+    setCourtConditionArr([...arrToAdd]);
     setConditionToAdd("");
   };
 
@@ -90,7 +90,7 @@ const AddLocationComponent = () => {
         conditions: [""],
         amenities: [""],
         surface: "",
-        image: "",
+        image: [""],
       };
     }
 
