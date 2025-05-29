@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { IFeatures } from '@/utils/Interfaces'
 import { get5miLocationsByCoords } from '@/utils/DataServices'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface Props {
     lat?: number,
@@ -60,6 +61,11 @@ const HomeCards = (Props: Props) => {
         <Card key={location.properties.id} className='max-w-sm flex justify-center'>
             <div>
                 <h1 className='text-2xl font-bold'>{location.properties.courtName}</h1>
+                {location.properties.images && 
+                <div>
+                    <Image src={location.properties.images[0]} alt="court photo" width={100} height={60} priority />
+                </div>
+                }
                 <div>
                     <span className="text-sm">Court Rating: {location.properties.averageCourtRating}/5</span>
                     <span className="text-sm ml-4">Safety Rating: {location.properties.averageSafetyRating}/5</span>

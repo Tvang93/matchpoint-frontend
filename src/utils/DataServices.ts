@@ -2,7 +2,7 @@ import { IAddLocationDTO, ILoginInfo, IUserData, IUserInfo,  ICourtCard } from "
 
 export const url = "https://matchpointbackend-c4btg3ekhea4gqcz.westus-01.azurewebsites.net/"
 
-export const blobURL = "https://matchpointblobstorage.blob.core.windows.net/matchpointstorage/"
+export const blobURL = "https://matchpoint.blob.core.windows.net/matchpoint"
 
 
 export const mapbox = 'pk.eyJ1IjoidHZhbmciLCJhIjoiY205NzhjeDU4MDR2YjJsb2pvaGxuZnZ0eiJ9.nRf1lWYQP-I8W6cqHJjvww'
