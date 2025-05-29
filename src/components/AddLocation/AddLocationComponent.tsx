@@ -165,9 +165,9 @@ const AddLocationComponent = () => {
   }, [courtSurface]);
 
   return (
-    <div className="flex flex-col py-5 sm:py-15 sm:px-20 ">
+    <div className="flex flex-col py-5 sm:py-15 sm:px-20">
       <h1 className="self-center text-[#E1FF00] text-4xl mb-3">Add Location</h1>
-      <div className="flex flex-col items-center  lg:flex-row w-full justify-between">
+      <div className="flex flex-col items-center  lg:flex-row w-full justify-between xl:justify-around">
         <div className="pb-20">
           <MapBoxALComponent
             setLat={setCourtLatitude}
@@ -246,7 +246,7 @@ const AddLocationComponent = () => {
         </div>
       </div>
       {/* Add Tag Section */}
-      <div className="flex flex-col items-center lg:block lg:items-start">
+      <div className="flex flex-col items-center lg:block lg:items-start 2xl:ps-40">
         <div className="min-w-50 sm:min-w-100">
           <h2 className="text-[#E1FF00] my-3 text-xl">Add Tags:</h2>
         </div>
