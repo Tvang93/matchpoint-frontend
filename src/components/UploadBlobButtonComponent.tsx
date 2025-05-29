@@ -3,7 +3,7 @@ import { blobUpload } from '@/utils/DataServices';
 import { useState } from 'react'
 
 type Props = {
-  setImageUrl: React.Dispatch<React.SetStateAction<string>>;
+  setImageUrl: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const UploadBlobButtonComponent = (prop: Props) => {
@@ -43,7 +43,7 @@ const UploadBlobButtonComponent = (prop: Props) => {
       if (uploadedUrl) {
           console.log('File uploaded at:', uploadedUrl);
           // You can now store this URL in your component state or send it to your backend
-          setImageUrl(uploadedUrl);
+          setImageUrl(Array.isArray(uploadedUrl) ? uploadedUrl : [uploadedUrl]);
       }
     }
 

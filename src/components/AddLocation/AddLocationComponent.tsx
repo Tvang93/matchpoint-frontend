@@ -27,7 +27,7 @@ const AddLocationComponent = () => {
 
   const [courtSurface, setCourtSurface] = useState<string>("");
 
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string[]>([]);
 
   const [addLocationDTO, setAddLocationDTO] = useState<IAddLocationDTO>();
 
@@ -90,7 +90,7 @@ const AddLocationComponent = () => {
         conditions: [""],
         amenities: [""],
         surface: "",
-        image: "",
+        image: [""],
       };
     }
 
