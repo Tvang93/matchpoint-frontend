@@ -7,6 +7,7 @@ import { ICourtCard } from '@/utils/Interfaces';
 import { useParams } from 'next/navigation';
 import CommentsSection from '@/components/CourtPage/CommentSectionComponent';
 import { loggedInData } from "@/utils/DataServices"; 
+import RatingModalComponent from '@/components/CourtPage/RatingModalComponent';
 
 
 
@@ -23,46 +24,45 @@ const CourtPage = () => {
   const url = "https://matchpointbackend-c4btg3ekhea4gqcz.westus-01.azurewebsites.net/";
 
 
-  useEffect(() => {
+ const fetchLocationData = async () => {
     if (!id) return;
 
-    const fetchLocationData = async () => {
-
-        const res = await fetch(`${url}Location/GetLocationInfoById/${id}`);
-        
-        if (!res.ok) {
-          const errorData = await res.json();
-          setError(errorData.message || "Failed to load location data");
-          return;
-        }
-        
-        const data = await res.json();
-        console.log(data)
-        setLocationData(data);    
-    };
-
-    fetchLocationData();
-
-  const fetchData = async () => {
-    const res = await fetch(`${url}Location/GetLocationInfoById/${id}`);
-    if (!res.ok) {
-      const errorData = await res.json();
-      setError(errorData.message || "Failed to load location data");
-      return;
-    }
-    const data = await res.json();
-    setLocationData(data);
-
-    const user = loggedInData();
-    const sessionToken = sessionStorage.getItem("Token");
-    if (user?.id && sessionToken) {
-      setUserId(user.id);
-      setToken(sessionToken);
+    try {
+      const res = await fetch(`${url}Location/GetLocationInfoById/${id}`);
+      
+      if (!res.ok) {
+        const errorData = await res.json();
+        setError(errorData.message || "Failed to load location data");
+        return;
+      }
+      
+      const data = await res.json();
+      console.log(data);
+      setLocationData(data);    
+    } catch (error) {
+      setError("Failed to load location data");
+      console.error("Error fetching location data:", error);
     }
   };
 
-  fetchData();
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchLocationData();
+
+      const user = loggedInData();
+      const sessionToken = sessionStorage.getItem("Token");
+      if (user?.id && sessionToken) {
+        setUserId(user.id);
+        setToken(sessionToken);
+      }
+    };
+
+    fetchData();
   }, [id]);
+
+  const handleRatingUpdate = () => {
+    fetchLocationData();
+  };
 
   const handleGetDirections = () => {
     if (locationData) {
@@ -101,6 +101,7 @@ const CourtPage = () => {
             <p className="text-lg">Surface: Hard Surface</p>
           </div>
         </div>
+
 
 
         <div className="flex flex-col md:flex-row w-full">
@@ -149,7 +150,19 @@ const CourtPage = () => {
             </div>
           </div>
 
+
           <div className="w-full md:w-1/2 p-6 bg-blue-100/10">
+
+            {/* Add the Ratings Component */}
+            <RatingModalComponent
+              courtId={locationData.id}
+              userId={userId}
+              token={token}
+              currentCourtRating={locationData.courtRating || 0}
+              currentSafetyRating={locationData.safetyRating || 0}
+              onRatingUpdate={handleRatingUpdate}
+            />
+
             <div className="mb-6">
               <h2 className="text-lg font-semibold text-gray-300 mb-2">AI Summary:</h2>
               <div className="bg-white p-4 rounded-md text-gray-800">
@@ -162,14 +175,11 @@ const CourtPage = () => {
 
             <div>
               <h2 className="text-lg font-semibold text-gray-300 mb-2">Comments:</h2>
-              {userId !== null && token !== null && (
                 <CommentsSection
                   courtId={locationData.id}
                   userId={userId}
                   token={token}
                    />
-              )}
-
             </div>
           </div>
         </div>

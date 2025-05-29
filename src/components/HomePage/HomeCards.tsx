@@ -61,8 +61,8 @@ const HomeCards = (Props: Props) => {
             <div>
                 <h1 className='text-2xl font-bold'>{location.properties.courtName}</h1>
                 <div>
-                    <span className="text-sm">Court Rating: {location.properties.courtRating}/5</span>
-                    <span className="text-sm ml-4">Safety Rating: {location.properties.safetyRating}/5</span>
+                    <span className="text-sm">Court Rating: {location.properties.averageCourtRating}/5</span>
+                    <span className="text-sm ml-4">Safety Rating: {location.properties.averageSafetyRating}/5</span>
                 </div>
                 <h2 className="mt-2">Conditions:</h2>
                 <ul className="list-disc list-inside">

@@ -6,8 +6,8 @@ import { IComment } from "@/utils/Interfaces";
 
 interface Props {
     courtId: number;
-    userId: number;
-    token: string;
+    userId?: number | null;
+    token?: string | null;
 }
 
 export default function CommentsSection({ courtId, userId, token }: Props) {
@@ -24,15 +24,15 @@ export default function CommentsSection({ courtId, userId, token }: Props) {
     }, [courtId]);
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!newComment.trim()) return;
+    e.preventDefault();
+    if (!newComment.trim() || !userId || !token) return;
 
-        const result = await postComment(courtId, userId, newComment, token);
-        if (result?.success) {
-            const updated = await getCommentsByLocationId(courtId);
-            if (updated) setComments(updated);
-            setNewComment("");
-        }
+    const result = await postComment(courtId, userId, newComment, token);
+    if (result?.success) {
+        const updated = await getCommentsByLocationId(courtId);
+        if (updated) setComments(updated);
+        setNewComment("");
+    }
     };
 
     return (
@@ -50,18 +50,22 @@ export default function CommentsSection({ courtId, userId, token }: Props) {
                 )}
             </ul>
 
+            {userId && token ? (
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
                 <textarea
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    className="border rounded p-2 w-full resize-none"
-                    placeholder="Add your comment..."
-                    rows={3}
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                className="border rounded p-2 w-full resize-none"
+                placeholder="Add your comment..."
+                rows={3}
                 />
                 <button type="submit" className="self-end bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">
-                    Post
+                Post
                 </button>
             </form>
+            ) : (
+            <p className="text-sm text-gray-400 italic">Log in to post a comment.</p>
+            )}
         </div>
     );
 }

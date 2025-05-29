@@ -64,8 +64,8 @@ export interface IProperties {
     id: number;
     locationId: number;
     courtName: string;
-    courtRating: number | null;
-    safetyRating: number| null;
+    averageCourtRating: number | null;
+    averageSafetyRating: number| null;
     conditions: string[] | null;
     amenities: string[] | null;
     surface: string | null

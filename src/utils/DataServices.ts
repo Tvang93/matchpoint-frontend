@@ -230,3 +230,26 @@ export const postComment = async (locationId: number, userId: number, comment: s
     const data = await res.json();
     return data;
 };
+
+export const addCourtRating = async (token: string, rating: number, locationId: number) => {
+    const res = await fetch(`${url}Location/AddCourtRating`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({Rating: rating, LocationId: locationId}),
+    });
+    return res.ok
+}
+export const addSafetyRating = async (token: string, rating: number, locationId: number) => {
+    const res = await fetch(`${url}Location/AddSafetyRating`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({Rating: rating, LocationId: locationId}),
+    });
+    return res.ok
+}
