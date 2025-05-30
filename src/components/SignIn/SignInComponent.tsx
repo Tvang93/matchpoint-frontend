@@ -25,7 +25,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
       if(typeof window != null){
         sessionStorage.setItem("Token", token.token)
       }
-      alert('Login works.')
+      // alert('Login works.')
       setLoggedUsername(userData.username)
       push('/')
     }else{
