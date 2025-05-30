@@ -7,7 +7,8 @@ const AccountConfirmationComponent: React.FC<TSignInProp> = ({
   switchComponent,
 }) => {
   return (
-    <div className="flex flex-col items-center text-[#E1FF00] gap-9 py-12 px-28 w-full">
+    <div className="flex flex-col items-center text-[#E1FF00] gap-y-9 py-12 sm:px-28 w-full px-8
+">
       <h1 className="text-3xl">Free Sign Up</h1>
       <p>Account Created!</p>
       <button

@@ -32,7 +32,7 @@ const RenderComponent = () => {
     }
 
   return (
-        <div className='bg-[#3C434E] w-147 h-115 rounded-[20px] border-1 border-[#BABABA]'>
+        <div className='bg-[#3C434E] sm:w-147 sm:h-115 rounded-[20px] border-1 border-[#BABABA] w-96'>
             {renderComponents()}
         </div>
   )

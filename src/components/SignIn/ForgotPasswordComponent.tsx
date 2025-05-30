@@ -24,7 +24,7 @@ const ForgotPasswordComponent: React.FC<TSignInProp> = ({
   }
 
   return (
-    <div className="flex flex-col items-center text-[#E1FF00] gap-9 py-12 px-28 w-full">
+    <div className="flex flex-col items-center text-[#E1FF00] gap-y-8 py-12 sm:px-28 w-full px-8">
       <h1 className="text-3xl">Forgot Password</h1>
       <p>Please Enter in Your Email.</p>
       <input

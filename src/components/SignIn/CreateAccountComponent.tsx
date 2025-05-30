@@ -38,9 +38,9 @@ const CreateAccountComponent = ({ switchComponent }: TSignInProp) => {
 
 
   return (
-    <div className="flex flex-col items-center text-[#E1FF00] gap-4 py-12 px-28 w-full">
+    <div className="flex flex-col items-center text-[#E1FF00] gap-y-3 py-12 sm:px-28 w-full px-8">
       <h1 className="text-3xl">Free Sign Up</h1>
-      <p className="text-center">
+      <p className="text-center text-[0.85rem]">
         Please Enter Your Email, Username, and Password.
       </p>
       <input

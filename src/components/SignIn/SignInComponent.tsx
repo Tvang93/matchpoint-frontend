@@ -35,7 +35,7 @@ const SignInComponent = ({ switchComponent }: TSignInProp) => {
   }
 
   return (
-    <div className="flex flex-col items-center text-[#E1FF00] gap-8 py-12 px-28 w-full">
+    <div className="flex flex-col items-center text-[#E1FF00] gap-y-8 py-12 sm:px-28 w-full px-8">
       <h1 className="text-3xl">Sign In</h1>
       <input
         className="border-1 border-[#E1FF00] bg-transparent ps-2 w-full hover:cursor-pointer focus:cursor-text rounded-sm"
