@@ -115,17 +115,17 @@ const HomeCards = (Props: Props) => {
         </div>
 {/*--------------------- BIG CARD------------------------------ */}
         <div className="col-span-12">
-          <div className="bg-[#3C434E] rounded-2xl shadow-[-8px_8px_10px_0px_rgba(155,155,155,0.3)]">
+          <div className="bg-[#3C434E] rounded-2xl shadow-[-8px_8px_10px_0px_rgba(155,155,155,0.3)] border-black border">
             {locations[0].properties.images && (
               <div className="rounded-t-2xl min-h-40 max-h-40 sm:max-h-120 overflow-hidden">
                 <img
                   src={locations[0].properties.images[0]}
                   alt="court photo"
-                  className="rounded-t-2xl w-full min-h-80 sm:min-h-0 object-cover object-[-60px_-60px] sm:object-[0_-60px]"
+                  className="rounded-t-2xl w-full min-h-80 sm:min-h-0 object-cover object-[-60px_-60px] sm:object-[0_0]"
                 />
               </div>
             )}
-            <div className="px-5 py-2 lg:px-30">
+            <div className="px-5 py-2 lg:px-10">
               <h1 className="text-xl md:text-2xl text-[#E1FF00] font-bold truncate overflow-hidden whitespace-nowrap">
                 {locations[0].properties.courtName}
               </h1>
@@ -158,7 +158,7 @@ const HomeCards = (Props: Props) => {
         {slicedLocations.map((location) => (
           <div
             key={location.properties.id}
-            className="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center bg-[#3C434E] rounded-2xl shadow-[-8px_8px_10px_0px_rgba(155,155,155,0.3)]"
+            className="col-span-12 md:col-span-6 xl:col-span-3 flex justify-center bg-[#3C434E] rounded-2xl shadow-[-8px_8px_10px_0px_rgba(155,155,155,0.3)] border-black border"
           >
             <div className="overflow-hidden">
               {location.properties.images && (
