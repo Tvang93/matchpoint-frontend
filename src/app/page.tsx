@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <div className="flex flex-col bg-[#243451] min-h-screen">
       <NavbarComponent />
-      <div className="w-full bg-[url(/assets/mp-hero-1.jpeg)] bg-cover bg-no-repeat bg-center min-h-180 flex justify-center items-end">
+      <div className="w-full bg-[url(/assets/mp-hero-1.jpeg)] bg-cover bg-no-repeat bg-[15%_center] sm:bg-center min-h-180 flex justify-center items-end">
         <div className="relative flex justify-center items-end bottom-40 px-4 sm:px-0">
           <div className="relative max-w-xs sm:max-w-md md:max-w-none md:w-180">
             <p className="ps-5 text-white text-shadow-lg font-bold text-xl sm:text-2xl">Search a Location to Find Courts Nearby</p>

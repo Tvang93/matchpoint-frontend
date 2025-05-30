@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { IFeatures } from "@/utils/Interfaces";
 import { get5miLocationsByCoords } from "@/utils/DataServices";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useLocationCoordinatesContext } from "@/context/UserInfoContext";
 
 interface Props {
   lat?: number;
@@ -12,12 +14,14 @@ interface Props {
 
 const HomeCards = (Props: Props) => {
   const { lat, lng } = Props;
+  const {push} = useRouter()
+  const {setSearchCoordinates} = useLocationCoordinatesContext()
   // const { locationCoordinates } = useLocationCoordinatesContext();
   const [locations, setLocations] = useState<IFeatures[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [slicedLocations, setSlicedLocations] = useState<IFeatures[]>([]);
-  const [moreThanOneLocation, setMoreThanOneLocation] =
-    useState<boolean>(false);
+  // const [moreThanOneLocation, setMoreThanOneLocation] =
+  //   useState<boolean>(false);
 
   useEffect(() => {
     console.log("lat", lat);
@@ -76,15 +80,19 @@ const HomeCards = (Props: Props) => {
     }
   }, [locations]);
 
-  useEffect(() => {
-    console.log(slicedLocations);
-    if (slicedLocations.length > 0) {
-      setMoreThanOneLocation(true);
-    }
-  }, [slicedLocations]);
+  // useEffect(() => {
+  //   console.log(slicedLocations);
+  //   if (slicedLocations.length > 0) {
+  //     setMoreThanOneLocation(true);
+  //   }
+  // }, [slicedLocations]);
 
   const handleSearchNearby = () => {
-
+    setSearchCoordinates({
+      latitude: lat,
+      longitude: lng
+    });
+    push('/Search')
   }
 
   if (error) {
@@ -117,7 +125,7 @@ const HomeCards = (Props: Props) => {
                 />
               </div>
             )}
-            <div className="px-5 py-2">
+            <div className="px-5 py-2 lg:px-30">
               <h1 className="text-xl md:text-2xl text-[#E1FF00] font-bold truncate overflow-hidden whitespace-nowrap">
                 {locations[0].properties.courtName}
               </h1>
@@ -158,7 +166,7 @@ const HomeCards = (Props: Props) => {
                   <img
                     src={location.properties.images[0]}
                     alt="court photo"
-                    className="rounded-t-2xl h-80 sm:h-80 xl:h-60 object-[-60px_-60px] object-cover"
+                    className="rounded-t-2xl h-80 sm:h-80 xl:h-60 2xl:h-100 object-[-60px_-60px] object-cover"
                   />
                 </div>
               )}
