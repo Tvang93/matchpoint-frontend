@@ -2,7 +2,7 @@
 
 import { getLocationInfoById, mapbox } from "@/utils/DataServices";
 import React, { useRef, useEffect, useState } from "react";
-import mapboxgl, { GeoJSONFeature } from "mapbox-gl";
+import mapboxgl from "mapbox-gl";
 import { FeatureCollection, Feature } from "geojson";
 
 import "mapbox-gl/dist/mapbox-gl.css";

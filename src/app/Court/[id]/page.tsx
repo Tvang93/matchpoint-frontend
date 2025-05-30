@@ -7,8 +7,9 @@ import { IFeatures } from '@/utils/Interfaces';
 import { useParams } from 'next/navigation';
 import CommentsSection from '@/components/CourtPage/CommentSectionComponent';
 import { loggedInData } from "@/utils/DataServices"; 
-import RatingModalComponent from '@/components/CourtPage/RatingModalComponent';
 import MapboxCPComponent from '@/components/CourtPage/MapBoxCPComponent';
+import OverallRatingsComponent from '@/components/CourtPage/OverallRatingComponent';
+import UserRatingComponent from '@/components/CourtPage/UserRatingComponent';
 
 
 
@@ -93,6 +94,8 @@ const CourtPage = () => {
               src={locationData.properties.images ? locationData.properties.images[0] : ""}
               alt={locationData.properties.courtName || "Location Name"}
               fill
+              className="object-cover"
+              priority
             />
           </div>
           <div className="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black/80 to-transparent w-full">
@@ -129,12 +132,12 @@ const CourtPage = () => {
 
             <div className="mb-6">
               <h2 className="text-xl font-bold text-[#E1FF00] mb-3">Court Condition :</h2>
-              <div className="flex gap-3 flex-wrap">
-                {locationData.properties.conditions?.map((condition, idx) => (
-                  <span 
-                    key={idx} 
-                    className="px-4 py-2 rounded-full border border-[#E1FF00] bg-[#3C434E]"
-                  >
+              <div className="flex gap-3 flex-wrap"> 
+                {locationData.properties.conditions?.map((condition, idx) => ( 
+                  <span  
+                    key={idx}  
+                    className="px-4 py-2 rounded-full border border-[#E1FF00] bg-[#3C434E]" 
+                  > 
                     {condition}
                   </span>
                 ))}
@@ -160,27 +163,30 @@ const CourtPage = () => {
 
           <div className="w-full md:w-1/2 p-6 bg-blue-100/10">
 
-            <RatingModalComponent
+            <OverallRatingsComponent
+              currentCourtRating={locationData.properties.averageCourtRating || 0}
+              currentSafetyRating={locationData.properties.averageSafetyRating || 0}
+            />
+
+            <UserRatingComponent
               courtId={locationData.id}
               userId={userId}
               token={token}
-              currentCourtRating={locationData.properties.averageCourtRating || 0}
-              currentSafetyRating={locationData.properties.averageSafetyRating || 0}
               onRatingUpdate={handleRatingUpdate}
             />
 
-            <div className="mb-6">
+            {/* <div className="mb-6">
               <h2 className="text-lg font-semibold text-gray-300 mb-2">AI Summary:</h2>
               <div className="bg-white p-4 rounded-md text-gray-800">
                 <p>
                   AI Summary Here
                 </p>
               </div>
-            </div>
+            </div> */}
 
 
             <div>
-              <h2 className="text-lg font-semibold text-gray-300 mb-2">Comments:</h2>
+              {/* <h2 className="text-lg font-semibold text-gray-300 mb-2">Comments:</h2> */}
                 <CommentsSection
                   courtId={locationData.id}
                   userId={userId}
