@@ -149,7 +149,7 @@ export function SearchBoxComponent() {
     <div className="relative w-full">
       <input
         id="SearchBar"
-        className="bg-white py-2 px-5 text-3xl border-1 rounded-4xl w-full placeholder:text-[rgb(0,0,0,0.7)] text-black"
+        className="bg-white py-2 px-5 text-xl sm:text-3xl border-1 rounded-4xl w-full placeholder:text-[rgb(0,0,0,0.7)] text-black"
         placeholder="Search Location..."
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
